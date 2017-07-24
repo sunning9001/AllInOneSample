@@ -25,6 +25,5 @@
     </typeAliases>
     <mappers>
         <mapper resource="sample/mybatis/mapper/CityMapper.xml"/>
-        <mapper resource="sample/mybatis/mapper/HotelMapper.xml"/>
     </mappers>
 </configuration>

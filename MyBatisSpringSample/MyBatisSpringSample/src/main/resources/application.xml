@@ -1,0 +1,56 @@
+<!-- The base sample context containing commnon beans shared by all the MyBatis-Spring 
+	sample contexts. -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+     http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+	<!-- in-memory database and a datasource -->
+	<!-- 配置数据源 -->
+	<jdbc:embedded-database id="dataSource" type="H2">
+		<jdbc:script location="classpath:import.sql" />
+	</jdbc:embedded-database>
+
+	<!-- simplest possible SqlSessionFactory configuration -->
+	<!-- 配置sqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		
+		 <!-- Directly specify the location of the MyBatis mapper xml file. This
+             is NOT required when using MapperScannerConfigurer or
+             MapperFactoryBean; they will load the xml automatically if it is
+             in the same classpath location as the DAO interface. Rather than
+             directly referencing the xml files, the 'configLocation' property
+             could also be used to specify the location of a MyBatis config
+             file. This config file could, in turn, contain &ltmapper&gt
+             elements that point to the correct mapper xml files.
+         -->
+        <property name="mapperLocations" value="classpath:sample/mybatis/mapper/*.xml" />
+	</bean>
+
+	<!-- 配置Mapper -->
+	<bean id="cityMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="sample.mybatis.mapper.CityMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
+	<!-- 配置事务管理 -->
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+
+	<!-- 注入sqlSession -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+		<constructor-arg index="1" value="BATCH" />
+	</bean>
+
+	<bean id="cityDao" class="sample.mybatis.dao.CityDao">
+		<constructor-arg index="0" ref="sqlSession" />
+	</bean>
+</beans>
