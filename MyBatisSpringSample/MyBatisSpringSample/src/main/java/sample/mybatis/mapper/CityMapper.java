@@ -15,4 +15,6 @@ public interface CityMapper {
 	  void insertCity(@Param("city") City city);
 	  
 	  
+	  City selectCityById(@Param("id") String id);
+	  
 }
