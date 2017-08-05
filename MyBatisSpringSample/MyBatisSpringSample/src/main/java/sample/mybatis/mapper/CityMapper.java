@@ -14,7 +14,6 @@ public interface CityMapper {
 	  @Insert("insert into city (name, state, country) values (#{city.name}, #{city.state}, #{city.country});")
 	  void insertCity(@Param("city") City city);
 	  
-	  
-	  City selectCityById(@Param("id") String id);
+	  int insert(City city);
 	  
 }

@@ -1,3 +1,4 @@
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -11,39 +12,42 @@ import sample.mybatis.mapper.CityMapper;
 public class TransactionApplication {
 	public static void main(String[] args) throws Exception {
 
-		ApplicationContext context = new ClassPathXmlApplicationContext("application.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("transactionApplication.xml");
 
-		DataSourceTransactionManager txManager = (DataSourceTransactionManager) context.getBean("txManager");
-
-		CityMapper cityMapper = (CityMapper) context.getBean("cityMapper");
+		CityMapper cityMapper = context.getBean(CityMapper.class);
+		DataSourceTransactionManager transactionManager = context.getBean(DataSourceTransactionManager.class);
 
 		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_NESTED);
 
-		City city2 = cityMapper.getCity("2");
-		System.out.println(city2);
-
-		TransactionStatus status = txManager.getTransaction(def);
+		TransactionStatus status = transactionManager.getTransaction(def);
 		try {
-			City city = new City();
-			city.setCountry("China");
-			city.setName("China");
-			city.setState("2333");
-			cityMapper.insertCity(city);
-			if (Math.random() > 0.5) {
-				throw new Exception("23333");
-			}
-			txManager.commit(status);
+			City newCity1 = new City();
+			newCity1.setName("1");
+			newCity1.setCountry("1");
+			newCity1.setState("1");
+			cityMapper.insert(newCity1);
+			
+			transactionManager.commit(status);
+			Object savePoint = status.createSavepoint();
+			
+			City newCity2 = new City();
+			newCity2.setName("2");
+			newCity2.setCountry("2");
+			newCity2.setState("2");
+			cityMapper.insert(newCity2);
+			System.out.println(cityMapper.getCity("2"));
+			status.rollbackToSavepoint(savePoint);
+			
+			System.out.println(cityMapper.getCity("2"));
+
 		} catch (Exception ex) {
-			txManager.rollback(status);
+			transactionManager.rollback(status);
 			throw ex;
 		}
-		finally {
-			
-			City city = cityMapper.getCity("2");
-			System.out.println(city);
-		}
 
+
+		
 
 	}
 }

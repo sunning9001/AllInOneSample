@@ -13,16 +13,13 @@ import org.apache.ibatis.plugin.Signature;
 public class ExamplePlugin implements Interceptor {
 	public Object intercept(Invocation invocation) throws Throwable {
 		
-		System.out.println("====1=======");
 		return invocation.proceed();
 	}
 
 	public Object plugin(Object target) {
-		System.out.println("=====2======");
 		return Plugin.wrap(target, this);
 	}
 
 	public void setProperties(Properties properties) {
-		System.out.println("=====2======");
 	}
 }

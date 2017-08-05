@@ -13,5 +13,4 @@
 	<jdbc:embedded-database id="dataSource" type="H2">
 		<jdbc:script location="classpath:import.sql" />
 	</jdbc:embedded-database>
-
 </beans>

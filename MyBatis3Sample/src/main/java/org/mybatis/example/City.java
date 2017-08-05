@@ -33,7 +33,7 @@ public class City implements Serializable {
 	private String country;
 
 	public Long getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(Long id) {
@@ -41,7 +41,7 @@ public class City implements Serializable {
 	}
 
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	public void setName(String name) {
@@ -49,7 +49,7 @@ public class City implements Serializable {
 	}
 
 	public String getState() {
-		return this.state;
+		return state;
 	}
 
 	public void setState(String state) {
@@ -57,16 +57,20 @@ public class City implements Serializable {
 	}
 
 	public String getCountry() {
-		return this.country;
+		return country;
 	}
 
 	public void setCountry(String country) {
 		this.country = country;
 	}
 
+	
+
 	@Override
 	public String toString() {
-		return getId() + "," + getName() + "," + getState() + "," + getCountry();
+		return "City [id=" + id + ", name=" + name + ", state=" + state + ", country=" + country + "]";
 	}
+
+	
 	
 }

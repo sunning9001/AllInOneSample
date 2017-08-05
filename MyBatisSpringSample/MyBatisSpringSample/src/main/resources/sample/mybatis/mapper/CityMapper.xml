@@ -11,6 +11,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sample.mybatis.mapper.CityMapper">
 	<select id="selectCityById" resultType="sample.mybatis.domain.City">
-		select * from city where id = #{id}
+		select * from city where
+		id = #{id}
 	</select>
+
+	<insert id="insert" parameterType="sample.mybatis.domain.City">
+		insert into  city(name,state,country)
+		values
+		(
+				#{name,jdbcType=VARCHAR},
+				#{state,jdbcType=VARCHAR},
+				#{country,jdbcType=VARCHAR}
+		)
+
+
+	</insert>
 </mapper>
