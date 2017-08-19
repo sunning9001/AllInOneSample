@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--业务实现类-->
+    <bean id="loginService" class="schema.LoginServiceImpl"></bean>
+
+    <!--增强类-->
+    <bean id="logBeforeLogin" class="schema.LogBeforeLogin"></bean>
+
+    <aop:config>
+        <aop:aspect id="loginAspect" ref="logBeforeLogin">
+            <aop:pointcut expression="execution(* schema.*.*(..))" id="beforeLoginPointCut"/>
+            <aop:before method="beforeLogin" pointcut-ref="beforeLoginPointCut"/>
+        </aop:aspect>
+    </aop:config>
+
+</beans>

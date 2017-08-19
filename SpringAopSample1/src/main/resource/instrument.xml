@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <!--业务处理类，也就是被代理的类-->
+    <bean id="loginServiceImpl" class="instrument.LoginServiceImpl"/>
+
+    <!--通知类-->
+    <bean id="logAndSendEmailBeforeLogin" class="instrument.LogAndSendEmailBeforeLogin"/>
+
+    <!--代理类-->
+    <bean id="loginProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="interfaces">
+            <value>instrument.SendEmailService</value>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <value>logAndSendEmailBeforeLogin</value>
+            </list>
+        </property>
+        <property name="target">
+            <ref bean="loginServiceImpl"/>
+        </property>
+        <property name="proxyTargetClass">
+            <value>true</value>
+        </property>
+    </bean>
+</beans>

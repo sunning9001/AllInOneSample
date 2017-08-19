@@ -43,6 +43,8 @@ public class MybatisMain {
 		CityMapper cityMapper = sqlsession.getMapper(CityMapper.class);
 		System.out.println("======vvvvvvvv========");
 		City city = cityMapper.selectCityById("1");
+		
+		
 		System.out.println(city);
 	
 		City newCity1 =new City();
@@ -50,6 +52,7 @@ public class MybatisMain {
 		newCity1.setCountry("2");
 		newCity1.setState("2");
 		cityMapper.insert(newCity1 );
+		sqlsession.commit();
 		
 		System.out.println("***"+cityMapper.selectCityById("2"));
 		

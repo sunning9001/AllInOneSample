@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <!--业务处理类，也就是被代理的类-->
+    <bean id="loginServiceImpl" class="springaopsample.LoginServiceImpl"/>
+
+    <!--通知类-->
+    <bean id="logBeforeLogin" class="springaopsample.LogBeforeLogin"/>
+
+    <!--代理类-->
+    <bean id="loginProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <!--要代理的接口-->
+        <property name="proxyInterfaces">
+            <value>springaopsample.LoginService</value>
+        </property>
+        <!--拦截器名字，也就是我们定义的通知类-->
+        <property name="interceptorNames">
+            <list>
+                <value>logBeforeLogin</value>
+            </list>
+        </property>
+        <!--目标类，就是我们业务的实现类-->
+        <property name="target">
+            <ref bean="loginServiceImpl"/>
+        </property>
+    </bean>
+</beans>
