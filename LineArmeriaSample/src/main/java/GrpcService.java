@@ -9,7 +9,7 @@ public class GrpcService {
 	public static void main(String[] args) {
 
 		ServerBuilder sb = new ServerBuilder().idleTimeout( Duration.ofSeconds(50)).defaultRequestTimeout( Duration.ofSeconds(50));
-		sb.port(8080, HTTP);
+		sb.port(18080, HTTP);
 		sb.serviceUnder("/", new GrpcServiceBuilder().addService(new MyHelloService()).build());
 
 		Server server = sb.build();

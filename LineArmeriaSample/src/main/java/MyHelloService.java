@@ -13,11 +13,7 @@ public class MyHelloService  extends HelloServiceImplBase {
 		ServiceRequestContext ctx = (ServiceRequestContext) RequestContext.current();
 		ctx.blockingTaskExecutor().submit(() -> {
 			
-			try {
-				Thread.sleep(100000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+		
 			System.out.println("##########方法调用开始#########");
 			HelloReply reply = HelloReply.newBuilder().setMessage("Hello, " + req.getName() + '!').build();
 			responseObserver.onNext(reply);
