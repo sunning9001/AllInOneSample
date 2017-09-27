@@ -8,10 +8,7 @@ import okhttp3.Response;
 
 public class AccessingHeadersSample {
 
-	OkHttpClient client = new OkHttpClient.Builder()
-		      .eventListener(new PrintingEventListener(1L, System.nanoTime()))
-		      .build();
-
+	OkHttpClient client = new OkHttpClient();
 	public void run() throws Exception {
 		Request request = new Request.Builder().url("https://api.github.com/repos/square/okhttp/issues")
 				.header("User-Agent", "OkHttp Headers.java").addHeader("Accept", "application/json; q=0.5")
