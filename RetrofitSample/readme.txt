@@ -13,7 +13,7 @@ https://github.com/OpenTSDB/opentsdb
 https://github.com/jankotek/mapdb
 https://github.com/codecentric/spring-boot-admin
 https://www.jooq.org
-
+https://github.com/OpenFeign/feign
 
 
 
@@ -43,3 +43,5 @@ https://github.com/ibm
 https://github.com/Tencent
 https://github.com/javaee
 https://github.com/dCache
+https://github.com/pivotal
+https://github.com/Samsung

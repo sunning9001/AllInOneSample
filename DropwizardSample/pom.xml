@@ -2,12 +2,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>MetricsSample</groupId>
-	<artifactId>MetricsSample</artifactId>
+	<groupId>DropwizardSample</groupId>
+	<artifactId>DropwizardSample</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>MetricsSample</name>
+	<name>DropwizardSample</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -16,12 +16,9 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>io.dropwizard.metrics</groupId>
-			<artifactId>metrics-core</artifactId>
-			<version>3.2.5</version>
+			<groupId>io.dropwizard</groupId>
+			<artifactId>dropwizard-core</artifactId>
+			<version>1.1.4</version>
 		</dependency>
-
-	
-
 	</dependencies>
 </project>
