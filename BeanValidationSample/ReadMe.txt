@@ -6,3 +6,12 @@ http://beanvalidation.org/
 https://jcp.org/en/jsr/all
 
 https://github.com/neoremind/fluent-validator
+
+
+
+https://www.sitepoint.com/declutter-pojos-with-lombok-tutorial/#howlombokworks
+
+
+http://marxsoftware.blogspot.com/2016/06/lombok-autovalue-immutables.html
+
+http://immutables.github.io/
