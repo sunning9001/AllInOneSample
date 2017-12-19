@@ -10,9 +10,6 @@
 	<name>SpringBootSample</name>
 	<url>http://maven.apache.org</url>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -21,7 +18,17 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+     <!-- https://github.com/js-cookie/java-cookie -->
+		<dependency>
+			<groupId>com.github.js-cookie</groupId>
+			<artifactId>java-cookie</artifactId>
+			<version>0.0.2</version>
 		</dependency>
 	</dependencies>
+
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
 </project>

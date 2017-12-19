@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>RxNettySample</groupId>
+	<artifactId>RxNettySample</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>RxNettySample</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>io.reactivex</groupId>
+			<artifactId>rxnetty</artifactId>
+			<version>0.4.20</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.netflix.rxnetty/rx-netty-servo -->
+		<dependency>
+			<groupId>com.netflix.rxnetty</groupId>
+			<artifactId>rx-netty-servo</artifactId>
+			<version>0.3.18</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.netflix.rxjava/rxjava-string -->
+		<dependency>
+			<groupId>com.netflix.rxjava</groupId>
+			<artifactId>rxjava-string</artifactId>
+			<version>0.20.7</version>
+		</dependency>
+
+	</dependencies>
+</project>

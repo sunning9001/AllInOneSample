@@ -1,0 +1,39 @@
+<!doctype html5>
+<html>
+   <head>
+   </head>
+   
+   <button id="connect"> 连接</button>
+   
+   <body>
+      <script src="sockjs.min.js">
+      </script>
+      
+      
+       <script>
+       
+         var sock = new SockJS('/test');
+	       sock.onopen = function() {
+			     console.log('open');
+			     sock.send('test');
+			 };
+			
+			 sock.onmessage = function(e) {
+			     console.log('message', e.data);
+			     alert(e.data)
+			 };
+			
+			 sock.onclose = function() {
+			     console.log('close');
+			 };
+         document.getElementById("connect").addEventListener( "click",function(){
+          
+                sock.onopen();
+         },true );
+         
+         
+		
+      </script>
+      
+   </body>
+</html>
