@@ -1,0 +1,57 @@
+<!doctype  html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" type="image/png" href="favicon32.ico">
+    <title>我就是一个简单的网网页</title>
+    <script src="favico.js"></script>
+    <script src="jquery.js"></script>
+
+
+
+</head>
+<body>
+
+    <button id="plusOne">plusOne</button>
+    <button id="minusOne">minusOne</button>
+    <button id="reset">reset</button>
+
+
+    <video controls autoplay width="300" height="200" src="foo.mp4" id="videoId">
+            Your browser does not support the video element.
+        </video>
+     <button id="start">start</button>
+    <script>
+
+
+  
+     $(document).ready(function() {
+                var badge = 5;
+                var favicon = new Favico({
+                    animation : 'popFade'
+                });
+                $('#plusOne').bind('click',function() {
+                    badge = badge + 1;
+                    favicon.badge(badge);
+                });
+                $('#minusOne').bind('click',function() {
+                    badge = (badge-1 < 0) ? 0 : (badge - 1);
+                    favicon.badge(badge);
+                });
+                $('#reset').bind('click',function() {
+                    favicon.reset();
+                });
+                $('#start').bind('click',function() {
+                       var video=document.getElementById('videoId');
+                       favicon.video(video);
+                       favicon.video('start');
+                });
+                //intial value
+                favicon.badge(badge);
+        });
+
+     </script>
+</body>
+</html>

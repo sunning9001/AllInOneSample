@@ -16,6 +16,6 @@ public class SockJSClientStarter {
 		transports.add(new RestTemplateXhrTransport());
 
 		SockJsClient sockJsClient = new SockJsClient(transports);
-		sockJsClient.doHandshake(new ClientTextWebSocketHandler(), "ws://localhost:8080/echo");
+		sockJsClient.doHandshake(new ClientTextWebSocketHandler(), "ws://localhost:8083/echo");
 	}
 }

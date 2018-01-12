@@ -33,7 +33,7 @@ public class HandlingauthenticationSample {
 
 	  public void run() throws Exception {
 	    Request request = new Request.Builder()
-	        .url("http://publicobject.com/secrets/hellosecret.txt")
+	        .url("Cpublicobject.com/secrets/hellosecret.txt")
 	        .build();
 
 	    try (Response response = client.newCall(request).execute()) {

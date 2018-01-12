@@ -1,0 +1,29 @@
+<!doctype  html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" type="image/png" href="favicon32.ico">
+
+    <title>我就是一个小网页</title>
+    <script src="piecon.js"></script>
+
+</head>
+<body>
+
+
+    <script>
+
+        Piecon.setOptions({
+            color: '#ff0084', // Pie chart color
+            background: '#bbb', // Empty pie chart color
+            shadow: '#fff', // Outer ring color
+            fallback: false // Toggles displaying percentage in the title bar (possible values - true, false, 'force')
+        });
+
+
+        Piecon.setProgress(66);
+     </script>
+</body>
+</html>

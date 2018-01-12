@@ -1,0 +1,23 @@
+<html>
+ <head>
+   <script>
+     function functionCall(data) {   
+		console.log(data.bookName);
+		console.log(data.writer);
+		console.log('-----------');
+     }
+   </script>
+  </head>
+  <body>
+    <!-- https://www.concretepage.com/spring-4/spring-4-mvc-jsonp-example-with-rest-responsebody-responseentity -->
+    <!-- Using REST URL-->
+    <script src="http://localhost:8080/book1?callback=functionCall" type="application/javascript"> </script>
+	
+	<!--Using @ResponseBody -->
+	<script src="http://localhost:8080/book2?callback=functionCall" type="application/javascript"> </script>
+	
+	<!--Using ResponseEntity -->
+	<script src="http://localhost:8080/book3?callback=functionCall" type="application/javascript"> </script>
+	
+  </body>
+</html>

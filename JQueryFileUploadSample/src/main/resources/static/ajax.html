@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+   <button id="btn">发送</button>
+   输入：<input id="i" type="text"/>
+   <script>
+       window.onload =function(){
+
+           document.getElementById("btn").onclick =function(e){
+
+               var txt =document.getElementById("i").value;
+
+                var httpRequest =null;
+               // Old compatibility code, no longer needed.
+                if (window.XMLHttpRequest) { // Mozilla, Safari, IE7+ ...
+                    httpRequest = new XMLHttpRequest();
+                } else if (window.ActiveXObject) { // IE 6 and older
+                    httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                httpRequest.onreadystatechange=function(e){
+            
+                  console.log(e)
+                  console.log("=========status======"+httpRequest.status)
+                  console.log("=========readyState======"+httpRequest.readyState)
+                  console.log("=========responseType======"+httpRequest.responseType)
+                  console.log("=========response======"+httpRequest.response)
+                  console.log("=========responseText======"+httpRequest.responseText)
+                  console.log("=========responseXML======"+httpRequest.responseXML)
+                  console.log("=========statusText======"+httpRequest.statusText)
+                }
+                httpRequest.open('post', '/test', true);
+                httpRequest.send(txt);
+           }
+       }
+   </script>
+</body>
+</html>
