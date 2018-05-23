@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>EurekaSample</groupId>
+	<artifactId>EurekaSample</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>EurekaSample</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.7.25</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.netflix.governator/governator -->
+		<dependency>
+			<groupId>com.netflix.governator</groupId>
+			<artifactId>governator</artifactId>
+			<version>1.17.5</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.netflix.eureka/eureka-client -->
+		<dependency>
+			<groupId>com.netflix.eureka</groupId>
+			<artifactId>eureka-client</artifactId>
+			<version>1.9.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.netflix.eureka/eureka-core -->
+		<dependency>
+			<groupId>com.netflix.eureka</groupId>
+			<artifactId>eureka-core</artifactId>
+			<version>1.9.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>2.25.1</version>
+		</dependency>
+
+	</dependencies>
+</project>
