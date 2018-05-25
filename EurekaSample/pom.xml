@@ -10,41 +10,37 @@
 	<name>EurekaSample</name>
 	<url>http://maven.apache.org</url>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
-
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.0.RELEASE</version>
+		<relativePath />
+	</parent>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>Finchley.RC1</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<dependencies>
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.25</version>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.netflix.governator/governator -->
-		<dependency>
-			<groupId>com.netflix.governator</groupId>
-			<artifactId>governator</artifactId>
-			<version>1.17.5</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.netflix.eureka/eureka-client -->
-		<dependency>
-			<groupId>com.netflix.eureka</groupId>
-			<artifactId>eureka-client</artifactId>
-			<version>1.9.0</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/com.netflix.eureka/eureka-core -->
-		<dependency>
-			<groupId>com.netflix.eureka</groupId>
-			<artifactId>eureka-core</artifactId>
-			<version>1.9.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-server</artifactId>
-			<version>2.25.1</version>
-		</dependency>
-
 	</dependencies>
+	<repositories>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/libs-milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 </project>
