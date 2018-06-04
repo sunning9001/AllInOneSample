@@ -40,8 +40,8 @@ public class Sample1 {
 		Query query = new Query("SELECT * FROM cpu", dbName);
 		influxDB.query(query);
 	
-/*		influxDB.dropRetentionPolicy(rpName, dbName);
-		influxDB.deleteDatabase(dbName);*/
+    	influxDB.dropRetentionPolicy(rpName, dbName);
+		influxDB.deleteDatabase(dbName);
 		influxDB.close();
 	}
 }
