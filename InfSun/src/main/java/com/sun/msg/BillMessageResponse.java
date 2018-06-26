@@ -1,7 +1,7 @@
 package com.sun.msg;
 
 /**
- * 票据请求消息
+ * 返回消息
  * 
  * @author sunning
  *
