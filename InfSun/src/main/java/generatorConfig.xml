@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+	 
+	<context id="OracleTables" targetRuntime="MyBatis3">
+	    
+
+        <!-- toString插件 -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>
+        <!-- mapper插件 -->
+        <plugin type="org.mybatis.generator.plugins.MapperConfigPlugin">  
+            <property name="fileName" value="GeneratedMapperConfig.xml" />  
+            <property name="targetPackage" value="com.afis.jx.entity" />  
+            <property name="targetProject" value="./src/main/java" />  
+        </plugin>
+		
+	    <!-- oracle地址 -->
+		<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+			connectionURL="jdbc:oracle:thin:@192.168.1.41:1521:afis" userId="jzcgqa"
+			password="jzcgqa">
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+        <!-- java model类生成路径 -->
+		<javaModelGenerator targetPackage="com.afis.jx.entity.automodel"
+			targetProject="./src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+        <!-- java sqlmap xml映射文件地址 -->
+		<sqlMapGenerator targetPackage="autosqlmap"
+			targetProject="./src/main/resources">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</sqlMapGenerator>
+
+        <!-- java dao interface接口 -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.afis.jx.entity.autodao" targetProject="./src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaClientGenerator>
+		
+	
+		
+		
+		<table tableName="T_SN_FUND" domainObjectName="Fund">
+			<columnOverride column="MEMBER_ID" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="FUND_TOTAL" jdbcType="NUMERIC"  javaType="Long" />
+		    <columnOverride column="FREEZE_FUND_TOTAL" jdbcType="NUMERIC"  javaType="Long" />
+		    <columnOverride column="VERSION" jdbcType="NUMERIC"  javaType="Long" />
+		</table>
+       
+	</context>
+</generatorConfiguration>
