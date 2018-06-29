@@ -4,6 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sun.msg.BillSyncMessageRequest;
+import com.sun.msg.BillSyncMessageResponse;
+import com.sun.msg.request.BillSyncRequest;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -59,6 +62,35 @@ public class HttpUtil {
 		}
 		return null;
 
+	}
+	
+	public static void main(String[] args) {
+		
+		//定时任务
+		
+		
+		//select   setter   转换成需要的数据格式
+		HttpUtil util =new HttpUtil();
+		//消息对象
+		BillSyncMessageRequest  msg =new BillSyncMessageRequest();
+		msg.setZone_code("zonecode");
+		msg.setMethod("wp.bill.sync");
+		msg.setTimestamp("20180629010111");
+		msg.setVersion("1.0");
+		
+		BillSyncRequest r= new BillSyncRequest();
+		r.setChg_code("chg_code");
+		msg.setBiz_content(r);
+		
+
+		String postBody = JSONObject.toJSONString(msg);
+		 
+		 
+		String rString = util.httpExecute(postBody, "http://localhost:8181");
+		
+		BillSyncMessageResponse response =	JSONObject.parseObject(rString, BillSyncMessageResponse.class);
+		
+		//update
 	}
 
 }
