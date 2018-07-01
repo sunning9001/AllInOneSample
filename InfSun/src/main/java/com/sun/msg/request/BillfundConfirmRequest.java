@@ -10,23 +10,26 @@ import java.util.List;
  */
 public class BillfundConfirmRequest {
 
-	private Date date ; //业务日期  如20170629O
+	private String date ; //业务日期  如20170629O
 	private String accountfirm_no ; //对账流水号， 标识唯一一次对账 ，
-	private Integer succeedcount ; //成功笔款
-	private Integer failcount ; //失败笔款
+	private int succeedcount ; //成功笔款
+	private int failcount ; //失败笔款
 	
 	
 	private List<FailDetails> faillist ; //到账明细
 
 
-	public Date getDate() {
+	
+	public String getDate() {
 		return date;
 	}
 
 
-	public void setDate(Date date) {
+
+	public void setDate(String date) {
 		this.date = date;
 	}
+
 
 
 	public String getAccountfirm_no() {
@@ -34,29 +37,35 @@ public class BillfundConfirmRequest {
 	}
 
 
+
 	public void setAccountfirm_no(String accountfirm_no) {
 		this.accountfirm_no = accountfirm_no;
 	}
 
 
-	public Integer getSucceedcount() {
+
+	public int getSucceedcount() {
 		return succeedcount;
 	}
 
 
-	public void setSucceedcount(Integer succeedcount) {
+
+	public void setSucceedcount(int succeedcount) {
 		this.succeedcount = succeedcount;
 	}
 
 
-	public Integer getFailcount() {
+
+	public int getFailcount() {
 		return failcount;
 	}
 
 
-	public void setFailcount(Integer failcount) {
+
+	public void setFailcount(int failcount) {
 		this.failcount = failcount;
 	}
+
 
 
 	public List<FailDetails> getFaillist() {
@@ -64,9 +73,11 @@ public class BillfundConfirmRequest {
 	}
 
 
+
 	public void setFaillist(List<FailDetails> faillist) {
 		this.faillist = faillist;
 	}
+
 
 
 	@Override
@@ -74,7 +85,8 @@ public class BillfundConfirmRequest {
 		return "BillfundConfirmRequest [date=" + date + ", accountfirm_no=" + accountfirm_no + ", succeedcount="
 				+ succeedcount + ", failcount=" + failcount + ", faillist=" + faillist + "]";
 	}
-	
+
+
 	
 
 	

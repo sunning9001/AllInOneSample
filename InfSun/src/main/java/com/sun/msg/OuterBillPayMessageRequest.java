@@ -1,20 +1,18 @@
 package com.sun.msg;
 
-public class BillfundResultsRequest {
+import com.sun.msg.request.BillPayRequest;
 
-	private String zone_code ; //
+/**
+ * 票据缴费 
+ * @author zhuoy
+ *
+ */
+public class OuterBillPayMessageRequest {
+
 	private String method ;  //方法名称
 	private String timestamp ; //发送请求的时间 ，格式"yyyyMMddHHmmss" 如:201407224030750
 	private String bankindex ; //银行的编号， 由公共支付接口前置机编码  
-	private Object biz_content ; //
-	
-	
-	public String getZone_code() {
-		return zone_code;
-	}
-	public void setZone_code(String zone_code) {
-		this.zone_code = zone_code;
-	}
+	private BillPayRequest biz_content ; //
 	public String getMethod() {
 		return method;
 	}
@@ -33,18 +31,18 @@ public class BillfundResultsRequest {
 	public void setBankindex(String bankindex) {
 		this.bankindex = bankindex;
 	}
-	
-	public Object getBiz_content() {
+	public BillPayRequest getBiz_content() {
 		return biz_content;
 	}
-	public void setBiz_content(Object biz_content) {
+	public void setBiz_content(BillPayRequest biz_content) {
 		this.biz_content = biz_content;
 	}
 	@Override
 	public String toString() {
-		return "BillfundResultsRequest [zone_code=" + zone_code + ", method=" + method + ", timestamp=" + timestamp
-				+ ", bankindex=" + bankindex + ", biz_content=" + biz_content + "]";
+		return "OuterBillPayRequest [method=" + method + ", timestamp=" + timestamp + ", bankindex=" + bankindex
+				+ ", biz_content=" + biz_content + "]";
 	}
+	
 	
 	
 }

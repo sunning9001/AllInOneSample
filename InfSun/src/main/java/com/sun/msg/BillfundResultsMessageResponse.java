@@ -1,26 +1,20 @@
 package com.sun.msg;
 
-/**
- * 返回消息
- * 
- * @author sunning
- *
- */
-public class BillSyncMessageResponse {
+public class BillfundResultsMessageResponse {
 
 	/**
-	 * 公共相应参数
+	 * 公共参数
 	 */
 	private String code;// 必填,调用结果码
 	private String msg; // 内容描述
-	private String svr_code;// 业务码 ,见附录1
-	private String svr_msg; // 业务返回描述
-    
+	private String svr_code ;//非税系统返回业务返回码  附录1
+	private String svr_msg ;//业务返回码 描述
+	
 	/**
 	 * 响应参数
+	 * 
 	 */
-	
-	private String trade_id; //支付平台流水号
+	private String trade_id;// 标识公共支付平台处理的流水号
 
 	public String getCode() {
 		return code;
@@ -37,8 +31,6 @@ public class BillSyncMessageResponse {
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
-
-	
 
 	public String getSvr_code() {
 		return svr_code;
@@ -66,10 +58,10 @@ public class BillSyncMessageResponse {
 
 	@Override
 	public String toString() {
-		return "BillSyncMessageResponse [code=" + code + ", msg=" + msg + ", svr_code=" + svr_code + ", svr_msg="
+		return "BillfundResultsResponse [code=" + code + ", msg=" + msg + ", svr_code=" + svr_code + ", svr_msg="
 				+ svr_msg + ", trade_id=" + trade_id + "]";
 	}
-
+	
 	
 	
 }

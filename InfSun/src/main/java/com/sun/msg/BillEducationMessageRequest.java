@@ -1,6 +1,6 @@
 package com.sun.msg;
 
-public class BillEducationRequest {
+public class BillEducationMessageRequest {
 
 	private String zone_code;// 行政区域
 	private String method;// 方法名称,见InfConstants接口

@@ -1,5 +1,6 @@
 package com.sun.msg.request;
 
+import java.util.Currency;
 import java.util.List;
 
 /**
@@ -11,6 +12,7 @@ import java.util.List;
 public class BillSyncRequest {
 
 	private String billno; // 票据号,最大长度20,例如:32000098039382
+	private String crccode ="" ; // 票据校验码
 	private String billdate;// 票据日期,例如:20180626
 	private String pay_amount;// 缴费金额,单位元 例如:10.01元
 	private String total_amount;// 缴费书金额,单位元 例如:10.01元
@@ -19,10 +21,19 @@ public class BillSyncRequest {
 	private String chg_code; // 执收单位编码
 	private String chg_name; // 执收单位名称
 	private String payer_name; // 缴款书上的缴款人名称
+	private String payer_acct =""; //缴款人账号
+	private String payer_opbk =""; //缴款人开户行
 	private String rec_aacctype;// 收款人账号类型,见附录
+	private String rec_name =""  ;// 收款人全称
+	private String rec_acct ="" ; //收款人账号
+	private String rec_opbk ="" ; //收款人开户行
 	private String rec_bkcode;// 收款人联行号
+	private String rec_real_acct = "" ; //真实账号，当收款人账号为伪账号时填写
+	private String interbank ="" ; //是否跨行，0非跨行，1跨行
+	private String remark ="" ; //备注
 	private String paylistfmt = "01"; // 缴款书内容格式 固定为01
-
+	
+	
 	private List<Item> playlist; // 缴费书内容
 
 	public String getBillno() {
@@ -129,13 +140,89 @@ public class BillSyncRequest {
 		this.playlist = playlist;
 	}
 
+	public String getCrccode() {
+		return crccode;
+	}
+
+	public void setCrccode(String crccode) {
+		this.crccode = crccode;
+	}
+
+	public String getPayer_acct() {
+		return payer_acct;
+	}
+
+	public void setPayer_acct(String payer_acct) {
+		this.payer_acct = payer_acct;
+	}
+
+	public String getPayer_opbk() {
+		return payer_opbk;
+	}
+
+	public void setPayer_opbk(String payer_opbk) {
+		this.payer_opbk = payer_opbk;
+	}
+
+	public String getRec_name() {
+		return rec_name;
+	}
+
+	public void setRec_name(String rec_name) {
+		this.rec_name = rec_name;
+	}
+
+	public String getRec_acct() {
+		return rec_acct;
+	}
+
+	public void setRec_acct(String rec_acct) {
+		this.rec_acct = rec_acct;
+	}
+
+	public String getRec_opbk() {
+		return rec_opbk;
+	}
+
+	public void setRec_opbk(String rec_opbk) {
+		this.rec_opbk = rec_opbk;
+	}
+
+	public String getRec_real_acct() {
+		return rec_real_acct;
+	}
+
+	public void setRec_real_acct(String rec_real_acct) {
+		this.rec_real_acct = rec_real_acct;
+	}
+
+	public String getInterbank() {
+		return interbank;
+	}
+
+	public void setInterbank(String interbank) {
+		this.interbank = interbank;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
 	@Override
 	public String toString() {
-		return "BillSyncRequest [billno=" + billno + ", billdate=" + billdate + ", pay_amount=" + pay_amount
-				+ ", total_amount=" + total_amount + ", delay_amount=" + delay_amount + ", billstats=" + billstats
-				+ ", chg_code=" + chg_code + ", chg_name=" + chg_name + ", payer_name=" + payer_name + ", rec_aacctype="
-				+ rec_aacctype + ", rec_bkcode=" + rec_bkcode + ", paylistfmt=" + paylistfmt + ", playlist=" + playlist
-				+ "]";
+		return "BillSyncRequest [billno=" + billno + ", crccode=" + crccode + ", billdate=" + billdate + ", pay_amount="
+				+ pay_amount + ", total_amount=" + total_amount + ", delay_amount=" + delay_amount + ", billstats="
+				+ billstats + ", chg_code=" + chg_code + ", chg_name=" + chg_name + ", payer_name=" + payer_name
+				+ ", payer_acct=" + payer_acct + ", payer_opbk=" + payer_opbk + ", rec_aacctype=" + rec_aacctype
+				+ ", rec_name=" + rec_name + ", rec_acct=" + rec_acct + ", rec_opbk=" + rec_opbk + ", rec_bkcode="
+				+ rec_bkcode + ", rec_real_acct=" + rec_real_acct + ", interbank=" + interbank + ", remark=" + remark
+				+ ", paylistfmt=" + paylistfmt + ", playlist=" + playlist + "]";
 	}
+
+	
 
 }

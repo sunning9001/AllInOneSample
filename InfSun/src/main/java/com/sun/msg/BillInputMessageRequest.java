@@ -1,11 +1,18 @@
 package com.sun.msg;
 
-public class BillInputRequest {
+import com.sun.msg.request.BillNewRequest;
+
+/**
+ * 输入票据 请求
+ * @author zhuoy
+ *
+ */
+public class BillInputMessageRequest {
 
 	private String method ;  //方法名称
 	private String timestamp ; //发送请求的时间 ，格式"yyyyMMddHHmmss" 如:201407224030750
 	private String bankindex ; //银行的编号， 由公共支付接口前置机编码  
-	private Object biz_content ; //
+	private BillNewRequest biz_content ; //
 	public String getMethod() {
 		return method;
 	}
@@ -24,16 +31,16 @@ public class BillInputRequest {
 	public void setBankindex(String bankindex) {
 		this.bankindex = bankindex;
 	}
-	public Object getBiz_content() {
+	public BillNewRequest getBiz_content() {
 		return biz_content;
 	}
-	public void setBiz_content(Object biz_content) {
+	public void setBiz_content(BillNewRequest biz_content) {
 		this.biz_content = biz_content;
 	}
 	@Override
 	public String toString() {
-		return "BillInputRequest [method=" + method + ", timestamp=" + timestamp + ", bankindex=" + bankindex
-				+ ", biz_content=" + biz_content + "]";
+		return "BillInputRequest [method=" + method + ", timestamp=" + timestamp + ", bankindex=" + bankindex + "]";
 	}
+	
 	
 }

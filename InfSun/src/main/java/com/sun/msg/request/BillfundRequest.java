@@ -4,25 +4,26 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 资金对账请求参数,只发送必填数据
+ * 资金对账请求参数
  * 
  * @author zhuoyvqing
  *
  */
 public class BillfundRequest {
 
-	private Date date ;//业务日期 如：20170629 
+	private String date ;//业务日期 如：20170629 
 	private String accountfirm_no ; //对账流水号， 标识唯一一次对账 ，
 	private String rec_acctype ; // 收款人账户类型  见附录3
+	private String rec_acct = ""; // 收款人账号
 	private Integer count ; // 总笔数
 	
 	private List<AccountDetails> translist ; //到账明细
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
@@ -40,6 +41,14 @@ public class BillfundRequest {
 
 	public void setRec_acctype(String rec_acctype) {
 		this.rec_acctype = rec_acctype;
+	}
+
+	public String getRec_acct() {
+		return rec_acct;
+	}
+
+	public void setRec_acct(String rec_acct) {
+		this.rec_acct = rec_acct;
 	}
 
 	public Integer getCount() {
@@ -61,8 +70,10 @@ public class BillfundRequest {
 	@Override
 	public String toString() {
 		return "BillfundRequest [date=" + date + ", accountfirm_no=" + accountfirm_no + ", rec_acctype=" + rec_acctype
-				+ ", count=" + count + ", translist=" + translist + "]";
+				+ ", rec_acct=" + rec_acct + ", count=" + count + ", translist=" + translist + "]";
 	}
+
+	
 	
 	
 	
