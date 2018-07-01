@@ -1,6 +1,12 @@
 package com.sun.config;
 
-public interface InfConstants {
+import java.util.HashMap;
+import java.util.Map;
+
+import com.sun.msg.BillSyncMessageRequest;
+import com.sun.msg.BillSyncMessageResponse;
+
+public class InfConstants {
 
 	public static final String BillSync = "wp.bill.sync";// 票据同步接口
 	public static final String OuterBillPayQuery = "wp.outer.bill.pay.query";// 票据查询接口
@@ -10,4 +16,24 @@ public interface InfConstants {
 	public static final String OuterBillNew = "wp.outer.bill.new";// 输入票据接口
 	public static final String OuterBillEduSync = "wp.bill.edu.sync";// 教育缴费同步接口
 
+	/**
+	 * 接口名称和响应对象映射关系 例如: 票据同步接口 映射 票据同步接口响应对象
+	 */
+	public static final Map<String, Class> infRequestClazzMap = new HashMap<>();
+	static {
+
+		/**
+		 * 处理来自支付平台的请求消息
+		 */
+		infRequestClazzMap.put(OuterBillPayQuery, BillSyncMessageRequest.class);
+
+	}
+	/**
+	 * 根据接口   
+	 * @param infName
+	 * @return
+	 */
+	public static Class getInfRequestClazz(String infName) {
+		return infRequestClazzMap.get(infName);
+	}
 }
