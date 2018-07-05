@@ -14,7 +14,7 @@ public class AccountDetails {
 	private String trade_no ; //资金交易流水号
 	private String billno ; //票据号
 	private String batchno ; // 如果是跨行资金到账时填对应的批次号   选填
-	private Currency amount ; // 金额
+	private String amount ; // 金额
 	private String  addWord ; // 到账附言  选填
 	public String getPaymode() {
 		return paymode;
@@ -46,10 +46,10 @@ public class AccountDetails {
 	public void setBatchno(String batchno) {
 		this.batchno = batchno;
 	}
-	public Currency getAmount() {
+	public String getAmount() {
 		return amount;
 	}
-	public void setAmount(Currency amount) {
+	public void setAmount(String amount) {
 		this.amount = amount;
 	}
 	public String getAddWord() {
