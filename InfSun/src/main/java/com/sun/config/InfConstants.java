@@ -3,7 +3,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.sun.msg.BillSyncMessageRequest;
-import com.sun.msg.BillSyncMessageResponse;
 
 public class InfConstants {
 
@@ -18,7 +17,7 @@ public class InfConstants {
 	/**
 	 * 接口名称和响应对象映射关系 例如: 票据同步接口 映射 票据同步接口响应对象
 	 */
-	public static final Map<String, Class> infRequestClazzMap = new HashMap<>();
+	public static final Map<String, Class> infRequestClazzMap = new HashMap<String, Class>();
 	static {
 
 		/**

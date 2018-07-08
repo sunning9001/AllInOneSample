@@ -35,6 +35,7 @@ public class BillHandleCenter {
 
 	private BillHandleCenter() {
 
+		
 	}
 
 	public static BillHandleCenter getInstance() {
