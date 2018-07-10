@@ -37,11 +37,11 @@ public class QueryTest {
 			System.err.println("用自动生成的方法查询结果======="+list.get(0).toString());   //定为1
 			
 			
-			Fs_sfxm result2 = fs_sfxmMapper.selectByDm("88");
-			System.err.println("自己写的方法查询整个实体======="+result2.toString());     //定为 2
-					
-			String result3 = fs_sfxmMapper.selectByDm2("88");
-			System.err.println("自己写的方法查询单个字段======="+result3.toString());     //定为3 
+//			Fs_sfxm result2 = fs_sfxmMapper.selectByDm("88");
+//			System.err.println("自己写的方法查询整个实体======="+result2.toString());     //定为 2
+//					
+//			String result3 = fs_sfxmMapper.selectByDm2("88");
+//			System.err.println("自己写的方法查询单个字段======="+result3.toString());     //定为3 
 			
 			//结果 ，关于日期Date，money类型的  1和3的查询结果同数据库一致，2的查询结果无date 和money类型
 			

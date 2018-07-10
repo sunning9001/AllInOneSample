@@ -21,11 +21,12 @@
 		</environment>
 	</environments>
 	
-  <mappers>
+ <mappers>
     <mapper resource="autosqlmap/Fs_dwzbMapper.xml" />
     <mapper resource="autosqlmap/Fs_jsfsMapper.xml" />
     <mapper resource="autosqlmap/Fs_kp01Mapper.xml" />
     <mapper resource="autosqlmap/Fs_sfxmMapper.xml" />
     <mapper resource="autosqlmap/Fs_yhwdMapper.xml" />
+    <mapper resource="autosqlmap/Fs_kphzMapper.xml" />
   </mappers>
 </configuration>

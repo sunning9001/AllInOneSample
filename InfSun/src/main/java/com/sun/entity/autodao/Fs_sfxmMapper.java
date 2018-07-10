@@ -19,10 +19,4 @@ public interface Fs_sfxmMapper {
     int updateByExampleSelective(@Param("record") Fs_sfxm record, @Param("example") Fs_sfxmExample example);
 
     int updateByExample(@Param("record") Fs_sfxm record, @Param("example") Fs_sfxmExample example);
-    
-    public Fs_sfxm selectByDm(String dm);
-    
-    public String selectByDm2(String dm);
-    
-    
 }
