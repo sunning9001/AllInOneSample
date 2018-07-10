@@ -11,7 +11,9 @@ public class ResponseCode {
 	private static final Map<String, String> codeMap =new HashMap<String, String>();
 
 	public static final String Success ="00000";//通用成功或者收妥应答
+	public static final String Success_default_msg ="业务处理成功";//业务处理成功
 	public static final String fail ="99999";   //通用失败应答
+	public static final String fail_default_msg ="业务尚未处理";
 	
 	public static final String argsMistake = "10002" ; // 参数错误不符合报文规范
 	public static final String versionMistake = "10003" ; // 版本号错误或不支持本版本号

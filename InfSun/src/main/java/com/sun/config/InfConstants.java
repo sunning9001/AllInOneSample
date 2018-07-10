@@ -14,6 +14,8 @@ public class InfConstants {
 	public static final String OuterBillNew = "wp.outer.bill.new";// 输入票据接口
 	public static final String OuterBillEduSync = "wp.bill.edu.sync";// 教育缴费同步接口
 
+	
+
 	/**
 	 * 接口名称和响应对象映射关系 例如: 票据同步接口 映射 票据同步接口响应对象
 	 */

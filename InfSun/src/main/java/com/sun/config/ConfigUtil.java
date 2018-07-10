@@ -8,7 +8,11 @@ import com.typesafe.config.ConfigFactory;
  *
  */
 public class ConfigUtil {
+	
+	private static final String zoneCode ="zone_code";
+	private static final String url ="url";
 
+	public  static final String version="1.0";
 	private static Config conf;
 
 	static {
@@ -20,5 +24,19 @@ public class ConfigUtil {
 	}
 	public static int getIntConfigProperties(String name) {
 		return conf.getInt(name);
+	}
+	/**
+	 *  获取非税节点的行政区划分
+	 * @return
+	 */
+	public static String getZoneCode() {
+		return getStringConfigProperties(zoneCode);
+	}
+	/**
+	 * 获取支付平台URL
+	 * @return
+	 */
+	public static String getUrl() {
+		return getStringConfigProperties(url);
 	}
 }

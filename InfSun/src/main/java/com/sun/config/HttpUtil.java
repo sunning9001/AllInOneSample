@@ -26,6 +26,16 @@ public class HttpUtil {
 	private static final OkHttpClient client = new OkHttpClient();
 	private static final MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse("application/json; charset=utf-8");
 
+	private static final HttpUtil instance =new HttpUtil();
+	
+	private HttpUtil() {
+		
+	}
+	
+	public static HttpUtil getInstance() {
+		return instance;
+	}
+
 	/**
 	 * 执行http post请求
 	 * 
