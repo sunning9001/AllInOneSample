@@ -26,8 +26,7 @@ public class SqlUtil {
 		InputStream inputStream = null;
 		try {
 			
-//			inputStream = Resources.getResourceAsStream("GeneratedMapperConfig.xml");
-			inputStream = Resources.getResourceAsStream("com/sun/entity/GeneratedMapperConfig.xml");
+			inputStream = Resources.getResourceAsStream("mybatis-config.xml");
 			sqlSessionFactory = builder.build(inputStream);
 			
 		} catch (IOException e) {
