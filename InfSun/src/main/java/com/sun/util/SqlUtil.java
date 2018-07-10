@@ -18,15 +18,18 @@ public class SqlUtil {
 
 	private static final SqlUtil instance = new SqlUtil();
 
-	private static SqlSessionFactory sqlSessionFactory = null;
+	private static SqlSessionFactory sqlSessionFactory ;
 
 	private SqlUtil() {
 
 		SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
-
 		InputStream inputStream = null;
 		try {
-			inputStream = Resources.getResourceAsStream("GeneratedMapperConfig.xml");
+			
+//			inputStream = Resources.getResourceAsStream("GeneratedMapperConfig.xml");
+			inputStream = Resources.getResourceAsStream("com/sun/entity/GeneratedMapperConfig.xml");
+			sqlSessionFactory = builder.build(inputStream);
+			
 		} catch (IOException e) {
 			// TODO 加日志
 			e.printStackTrace();
@@ -40,13 +43,11 @@ public class SqlUtil {
 				}
 			}
 		}
-		sqlSessionFactory = builder.build(inputStream);
 
 	}
 
 	public static SqlUtil getInstance() {
 		return instance;
-
 	}
 
 	/**
