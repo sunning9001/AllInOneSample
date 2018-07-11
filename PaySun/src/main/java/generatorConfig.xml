@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+	 
+	<context id="OracleTables" targetRuntime="MyBatis3">
+	    
+
+        <!-- toString插件 -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>
+        <!-- mapper插件 -->
+        <plugin type="org.mybatis.generator.plugins.MapperConfigPlugin">  
+            <property name="fileName" value="GeneratedMapperConfig.xml" />  
+            <property name="targetPackage" value="com.sun.entity" />  
+            <property name="targetProject" value="./src/main/java" />  
+        </plugin>
+		
+		<commentGenerator>
+           <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator> 
+			
+			<!-- sqlserver 地址 -->
+			<jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+				connectionURL="jdbc:sqlserver://47.96.101.114:1433;databasename=测试数据" userId="sa"
+				password="Wx123456">
+			</jdbcConnection>
+
+
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+        <!-- java model类生成路径 -->
+		<javaModelGenerator targetPackage="com.sun.entity.automodel"
+			targetProject="./src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+        <!-- java sqlmap xml映射文件地址 -->
+		<sqlMapGenerator targetPackage="autosqlmap"
+			targetProject="./src/main/resources">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</sqlMapGenerator>
+
+        <!-- java dao interface接口 -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.sun.entity.autodao" targetProject="./src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaClientGenerator>
+		
+	
+		
+		<table tableName="fs_dwzb" domainObjectName="Fs_dwzb">
+			<columnOverride column="dwdm" jdbcType="VARCHAR" javaType="String"/>  <!-- 单位代码 -->
+			<columnOverride column="dwmc" jdbcType="VARCHAR" javaType="String"/>  <!--  -->
+			<columnOverride column="addr" jdbcType="VARCHAR" javaType="String"/>  <!--  -->
+			<columnOverride column="fzr" jdbcType="VARCHAR" javaType="String"/>   <!--  -->
+			<columnOverride column="ssxt" jdbcType="VARCHAR" javaType="String"/>  <!--  -->
+			<columnOverride column="zgbm" jdbcType="VARCHAR" javaType="String"/>  <!-- 字归编码 -->
+			<columnOverride column="dwxz" jdbcType="VARCHAR" javaType="String"/>  <!--  -->
+			<columnOverride column="yzbm" jdbcType="VARCHAR"  javaType="String" /> <!--  -->
+			<columnOverride column="pgy" jdbcType="VARCHAR"  javaType="String" />  <!--  -->
+			<columnOverride column="pgysfz" jdbcType="VARCHAR"  javaType="String" /> <!--  -->
+			<columnOverride column="tel" jdbcType="VARCHAR"  javaType="String" /> <!-- -->
+			
+			<columnOverride column="bzrs" jdbcType="INTEGER"  javaType="int" /> <!-- -->
+			<columnOverride column="zzrs" jdbcType="INTEGER"  javaType="int" />
+			<columnOverride column="ltxrs" jdbcType="INTEGER"  javaType="int" />
+			<columnOverride column="lsrs" jdbcType="INTEGER"  javaType="int" />
+			
+			<columnOverride column="dwjb" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="kpfs" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="dwtp" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="cwzg" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="dyzth" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="khh" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="srhzh" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="zchzh" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="zgzbh" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="sfxkzh" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="def_str1" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="def_str2" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="def_str3" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="def_str4" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="def_str5" jdbcType="VARCHAR"  javaType="String" />
+			
+			<columnOverride column="def_int1" jdbcType="INTEGER"  javaType="int" />
+			<columnOverride column="def_int2" jdbcType="INTEGER"  javaType="int" />
+			<columnOverride column="def_int3" jdbcType="INTEGER"  javaType="int" />
+			<columnOverride column="def_int4" jdbcType="INTEGER"  javaType="int" />
+			<columnOverride column="def_int5" jdbcType="INTEGER"  javaType="int" />      <!-- 收款银行账户名称 -->
+			
+				
+			<columnOverride column="def_num1" jdbcType="DECIMAL"  javaType="java.math.BigDecimal" />	 <!-- 收费标准上限  money类型 -->
+			<columnOverride column="def_num2" jdbcType="DECIMAL"  javaType="java.math.BigDecimal" />	 <!-- 收费标准    money类型-->
+			<columnOverride column="def_dt1" jdbcType="DATE"  javaType="java.util.Date" />	
+			<columnOverride column="def_dt2" jdbcType="DATE"  javaType="java.util.Date" />	
+		</table>
+		
+		
+		<table tableName="fs_jsfs" domainObjectName="Fs_jsfs">
+			<columnOverride column="dm" jdbcType="INTEGER" javaType="int"/>
+			<columnOverride column="mc" jdbcType="VARCHAR"  javaType="String" />
+		</table>
+		
+		<table tableName="fs_kp01" domainObjectName="Fs_kp01">
+			<columnOverride column="id1" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="id2" jdbcType="INTEGER" javaType="int"/>
+			<columnOverride column="dwdm" jdbcType="VARCHAR" javaType="String"/>  <!-- 单位代码 -->
+			<columnOverride column="yhdm" jdbcType="VARCHAR" javaType="String"/>  <!-- 银行代码 -->
+			<columnOverride column="wddm" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="pjrq" jdbcType="DATE" javaType="java.util.Date"/>  <!-- 票据日期 -->
+			<columnOverride column="pjlx" jdbcType="VARCHAR" javaType="String"/>   <!-- 票据类型 -->
+			<columnOverride column="zgbm" jdbcType="VARCHAR" javaType="String"/>   <!-- 字归编码 -->
+			<columnOverride column="pjh" jdbcType="VARCHAR" javaType="String"/>    <!-- 票据号 -->
+			<columnOverride column="jksh" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="jkrq" jdbcType="DATE" javaType="java.util.Date"/>
+			
+			<columnOverride column="jkr" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="xmdm" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="zy" jdbcType="VARCHAR" javaType="String"/>     <!-- 摘要 -->
+			<columnOverride column="je" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>      <!-- 金额  money类型-->
+			<columnOverride column="dw" jdbcType="VARCHAR" javaType="String"/>     <!-- 单位 -->
+			<columnOverride column="sl" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>     <!-- 数量  money类型 -->
+			<columnOverride column="sfbz" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>  <!--   money类型 -->
+			
+			<columnOverride column="kpr" jdbcType="VARCHAR" javaType="String"/>  <!-- 开票人 -->
+			<columnOverride column="jsr" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="shr" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="hxr" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="jsfs" jdbcType="INTEGER" javaType="int"/>
+			
+			<columnOverride column="jspjh" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="jsyh" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="wldwdm" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="wldwmc" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="wldwkh" jdbcType="VARCHAR" javaType="String"/> 
+			<columnOverride column="wldwzh" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="pjzt" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="tg_pzlx" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="tg_pzh" jdbcType="VARCHAR" javaType="String"/>
+			
+			<columnOverride column="tg_pzrq" jdbcType="DATE" javaType="java.util.Date"/>
+			<columnOverride column="st_pzlx" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="st_pzh" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="st_pzrq" jdbcType="DATE" javaType="java.util.Date"/>
+			<columnOverride column="bz" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="iszh" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="isprint" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="isdwkp" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="isyhkp" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="isdwjk" jdbcType="VARCHAR" javaType="String"/>
+			
+			<columnOverride column="def_str1" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="def_str2" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="def_str3" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="def_str4" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="def_str5" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="def_int1" jdbcType="INTEGER" javaType="int"/>
+			<columnOverride column="def_int2" jdbcType="INTEGER" javaType="int"/>
+			<columnOverride column="def_int3" jdbcType="INTEGER" javaType="int"/>
+			<columnOverride column="def_int4" jdbcType="INTEGER" javaType="int"/>
+			<columnOverride column="def_int5" jdbcType="INTEGER" javaType="int"/>
+			
+			<columnOverride column="def_num1" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>  <!-- money类型 -->
+			<columnOverride column="def_num2" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>
+			<columnOverride column="def_num3" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>  <!-- money类型 -->
+			<columnOverride column="def_num4" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>  <!-- money类型 -->
+			<columnOverride column="def_num5" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>  <!-- money类型 -->
+			<columnOverride column="def_dt1" jdbcType="DATE" javaType="java.util.Date"/>
+			<columnOverride column="def_dt2" jdbcType="DATE" javaType="java.util.Date"/>
+			<columnOverride column="ishz" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="cpdw" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="fyhdm" jdbcType="VARCHAR" javaType="String"/>  <!-- 交款人银行 -->
+			<columnOverride column="fyhzh" jdbcType="VARCHAR" javaType="String"/> <!-- 交款人账号 -->
+			<columnOverride column="istf" jdbcType="VARCHAR" javaType="String"/>
+			
+		</table>
+		
+		
+		<table tableName="fs_sfxm" domainObjectName="Fs_sfxm">
+			<columnOverride column="dm" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="mc" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="sfdm" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="sfyj" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="istc" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="tlbl" jdbcType="DECIMAL"  javaType="java.math.BigDecimal" /> <!-- money -->
+			<columnOverride column="zjxz" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="xmlb" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="isys" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="xmsp" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="srjc" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="sfbz" jdbcType="DECIMAL"  javaType="java.math.BigDecimal" /> <!-- money -->
+			<columnOverride column="pzjg" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="pzwh" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="isqx" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="qxrq" jdbcType="DATE"  javaType="java.util.Date" />
+			<columnOverride column="qxwh" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="bz" jdbcType="VARCHAR"  javaType="String" />
+			
+			<columnOverride column="def_str1" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="def_str2" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="def_str3" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="def_str4" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="def_str5" jdbcType="VARCHAR"  javaType="String" />
+			
+			<columnOverride column="def_int1" jdbcType="INTEGER"  javaType="int" />
+			<columnOverride column="def_int2" jdbcType="INTEGER"  javaType="int" />
+			<columnOverride column="def_int3" jdbcType="INTEGER"  javaType="int" />
+			<columnOverride column="def_int4" jdbcType="INTEGER"  javaType="int" />
+			<columnOverride column="def_int5" jdbcType="INTEGER"  javaType="int" />
+			
+			<columnOverride column="def_num1" jdbcType="DECIMAL"  javaType="java.math.BigDecimal" /> <!-- money -->
+			<columnOverride column="def_num2" jdbcType="DECIMAL"  javaType="java.math.BigDecimal" /> <!-- money -->
+			<columnOverride column="def_dt1" jdbcType="DATE"  javaType="java.util.Date" />
+			<columnOverride column="def_dt2" jdbcType="DATE"  javaType="java.util.Date" />
+			
+		</table>
+		
+		<table tableName="fs_yhwd" domainObjectName="Fs_yhwd">
+			<columnOverride column="yhdm" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="wddm" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="yhmc" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="wdmc" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="addr" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="tel" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="cz" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="lxr" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="yzbm" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="zh" jdbcType="VARCHAR"  javaType="String" />
+			
+			<columnOverride column="def_str1" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="def_str2" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="def_str3" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="def_str4" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="def_str5" jdbcType="VARCHAR"  javaType="String" />
+			
+			<columnOverride column="def_int1" jdbcType="INTEGER"  javaType="int" />
+			<columnOverride column="def_int2" jdbcType="INTEGER"  javaType="int" />
+			<columnOverride column="def_int3" jdbcType="INTEGER"  javaType="int" />
+			<columnOverride column="def_int4" jdbcType="INTEGER"  javaType="int" />
+			<columnOverride column="def_int5" jdbcType="INTEGER"  javaType="int" />
+			
+			<columnOverride column="def_num1" jdbcType="DECIMAL"  javaType="java.math.BigDecimal" /> <!-- money -->
+			<columnOverride column="def_num2" jdbcType="DECIMAL"  javaType="java.math.BigDecimal" />  <!-- money -->
+			<columnOverride column="def_dt1" jdbcType="DATE"  javaType="java.util.Date" />
+			<columnOverride column="def_dt2" jdbcType="DATE"  javaType="java.util.Date" />
+			
+		</table>
+		
+		
+		<table tableName="fs_kphz" domainObjectName="Fs_kphz">
+			<columnOverride column="id1" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="id2" jdbcType="INTEGER" javaType="int"/>
+			<columnOverride column="dwdm" jdbcType="VARCHAR" javaType="String"/>  <!-- 单位代码 -->
+			<columnOverride column="yhdm" jdbcType="VARCHAR" javaType="String"/>  <!-- 银行代码 -->
+			<columnOverride column="wddm" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="pjrq" jdbcType="DATE" javaType="java.util.Date"/>  <!-- 票据日期 -->
+			<columnOverride column="pjlx" jdbcType="VARCHAR" javaType="String"/>   <!-- 票据类型 -->
+			<columnOverride column="zgbm" jdbcType="VARCHAR" javaType="String"/>   <!-- 字归编码 -->
+			<columnOverride column="pjh" jdbcType="VARCHAR" javaType="String"/>    <!-- 票据号 -->
+			<columnOverride column="jksh" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="jkrq" jdbcType="DATE" javaType="java.util.Date"/>
+			
+			<columnOverride column="jkr" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="xmdm" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="zy" jdbcType="VARCHAR" javaType="String"/>     <!-- 摘要 -->
+			<columnOverride column="je" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>      <!-- 金额  money类型-->
+			<columnOverride column="dw" jdbcType="VARCHAR" javaType="String"/>     <!-- 单位 -->
+			<columnOverride column="sl" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>     <!-- 数量  money类型 -->
+			<columnOverride column="sfbz" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>  <!--   money类型 -->
+			
+			<columnOverride column="kpr" jdbcType="VARCHAR" javaType="String"/>  <!-- 开票人 -->
+			<columnOverride column="jsr" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="shr" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="hxr" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="jsfs" jdbcType="INTEGER" javaType="int"/>
+			
+			<columnOverride column="jspjh" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="jsyh" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="wldwdm" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="wldwmc" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="wldwkh" jdbcType="VARCHAR" javaType="String"/> 
+			<columnOverride column="wldwzh" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="pjzt" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="tg_pzlx" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="tg_pzh" jdbcType="VARCHAR" javaType="String"/>
+			
+			<columnOverride column="tg_pzrq" jdbcType="DATE" javaType="java.util.Date"/>
+			<columnOverride column="st_pzlx" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="st_pzh" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="st_pzrq" jdbcType="DATE" javaType="java.util.Date"/>
+			<columnOverride column="bz" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="iszh" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="isprint" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="isdwkp" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="isyhkp" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="isdwjk" jdbcType="VARCHAR" javaType="String"/>
+			
+			<columnOverride column="def_str1" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="def_str2" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="def_str3" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="def_str4" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="def_str5" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="def_int1" jdbcType="INTEGER" javaType="int"/>
+			<columnOverride column="def_int2" jdbcType="INTEGER" javaType="int"/>
+			<columnOverride column="def_int3" jdbcType="INTEGER" javaType="int"/>
+			<columnOverride column="def_int4" jdbcType="INTEGER" javaType="int"/>
+			<columnOverride column="def_int5" jdbcType="INTEGER" javaType="int"/>
+			
+			<columnOverride column="def_num1" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>  <!-- money类型 -->
+			<columnOverride column="def_num2" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>
+			<columnOverride column="def_num3" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>  <!-- money类型 -->
+			<columnOverride column="def_num4" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>  <!-- money类型 -->
+			<columnOverride column="def_num5" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>  <!-- money类型 -->
+			<columnOverride column="def_dt1" jdbcType="DATE" javaType="java.util.Date"/>
+			<columnOverride column="def_dt2" jdbcType="DATE" javaType="java.util.Date"/>
+			<columnOverride column="ishz" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="cpdw" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="fyhdm" jdbcType="VARCHAR" javaType="String"/>  <!-- 交款人银行 -->
+			<columnOverride column="fyhzh" jdbcType="VARCHAR" javaType="String"/> <!-- 交款人账号 -->
+			<columnOverride column="istf" jdbcType="VARCHAR" javaType="String"/>
+			
+		</table>
+		
+		
+<!-- 		<table tableName="T_SN_FUND" domainObjectName="Fund"> -->
+<!-- 			<columnOverride column="MEMBER_ID" jdbcType="VARCHAR" javaType="String"/> -->
+<!-- 			<columnOverride column="FUND_TOTAL" jdbcType="NUMERIC"  javaType="Long" /> -->
+<!-- 		    <columnOverride column="FREEZE_FUND_TOTAL" jdbcType="NUMERIC"  javaType="Long" /> -->
+<!-- 		    <columnOverride column="VERSION" jdbcType="NUMERIC"  javaType="Long" /> -->
+<!-- 		</table> -->
+       
+	</context>
+</generatorConfiguration>

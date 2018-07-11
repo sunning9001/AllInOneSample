@@ -68,8 +68,6 @@ public class HttpUtil {
 	 */
 	public Object httpExecute(String postBody, String url, Class clazz) {
 		String rString = httpExecute(postBody, url);
-		
-		System.out.println("==============="+rString);
 		if (rString != null) {
 			Object obj = JSONObject.parseObject(rString, clazz);
 			return obj;
