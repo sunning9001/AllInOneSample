@@ -3,6 +3,7 @@
  */
 package com.sun;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +16,15 @@ import com.sun.config.ConfigUtil;
 import com.sun.config.HttpUtil;
 import com.sun.config.InfConstants;
 import com.sun.config.ResponseCode;
+import com.sun.entity.autodao.Fs_dwzbMapper;
 import com.sun.entity.autodao.Fs_kphzMapper;
+import com.sun.entity.autodao.Fs_sfxmMapper;
+import com.sun.entity.automodel.Fs_dwzb;
+import com.sun.entity.automodel.Fs_dwzbExample;
 import com.sun.entity.automodel.Fs_kphz;
 import com.sun.entity.automodel.Fs_kphzExample;
+import com.sun.entity.automodel.Fs_sfxm;
+import com.sun.entity.automodel.Fs_sfxmExample;
 import com.sun.httpserver.HttpServerHandler;
 import com.sun.msg.BillQueryMessageRequest;
 import com.sun.msg.BillQueryMessageResponse;
@@ -28,6 +35,7 @@ import com.sun.msg.OuterBillPayMessageResponse;
 import com.sun.msg.request.BillPayQyeryRequest;
 import com.sun.msg.request.BillSyncRequest;
 import com.sun.msg.request.Item;
+import com.sun.util.DateUtil;
 import com.sun.util.SqlUtil;
 
 import io.netty.channel.ChannelHandlerContext;
@@ -146,6 +154,7 @@ public class BillHandleCenter {
 			if(billList!=null &&billList.size()>0) {
 				kphz =billList.get(0);
 			}
+			
 			//创建返回消息
 			BillQueryMessageResponse reponse =new BillQueryMessageResponse();
 			reponse.setCode(ResponseCode.fail);
@@ -164,21 +173,70 @@ public class BillHandleCenter {
 			//票据号
 			reponse.setBillno(kphz.getPjh());
 			//票据日期  TODO 
-			//reponse.setBilldate(kphz.getPjrq());
+			String billdate = DateUtil.dateToStirng(kphz.getPjrq());
+			reponse.setBilldate(billdate);
+			
 			//金额  TODO
-			//reponse.setPay_amount(kphz.getJe());
-		    //缴款金额
-			//reponse.setTotal_amount(kphz.getJe());
+			BigDecimal total = new BigDecimal("0") ;
+			for (Fs_kphz fs: billList) {
+				 BigDecimal je = fs.getJe().setScale(2,BigDecimal.ROUND_HALF_UP);
+				 total = total.add(je);
+			}
+			//缴款金额
+			reponse.setPay_amount(total.toString());
+			//缴款书金额
+			reponse.setTotal_amount(total.toString());
+			reponse.setDelay_amount("0");
+			reponse.setBillstats(kphz.getPjzt());
+			reponse.setChg_code(kphz.getDwdm());
+			
+			//根据单位代码查询名称
+			Fs_dwzbMapper fs_dwzbMapper = session.getMapper(Fs_dwzbMapper.class);
+			Fs_dwzbExample fs_dwzbExample = new Fs_dwzbExample();
+			fs_dwzbExample.createCriteria().andDwdmEqualTo(kphz.getDwdm());
+			List<Fs_dwzb> dwzbList = fs_dwzbMapper.selectByExample(fs_dwzbExample);
+			
+			Fs_dwzb fs_dwzb = null ;
+			if(dwzbList!=null && dwzbList.size()>0) {
+				fs_dwzb =dwzbList.get(0);
+			}
+			reponse.setChg_name(fs_dwzb.getDwmc());
+			 //交款人名称
+			reponse.setPayer_name(kphz.getWldwkh());
+			//收款人账户类型
+			reponse.setRec_acctype(kphz.getDefStr5());  //需商量
+			
+			//收款人联行号
+			reponse.setRec_bkcode(kphz.getWldwzh());
+			//固定格式 01
+			reponse.setPaylistfmt("01"); 
 			
 			//缴款书内容
 			List<Item> itemList =new ArrayList();
+			Fs_sfxmMapper fs_sfxmMapper = session.getMapper(Fs_sfxmMapper.class);
+			
+			for(Fs_kphz hz  :billList) {
+				String xmdm = hz.getXmdm();
+				Fs_sfxmExample fs_sfxmExample = new Fs_sfxmExample();
+				fs_sfxmExample.createCriteria().andDmEqualTo(xmdm);
+				List<Fs_sfxm> sfxmList = fs_sfxmMapper.selectByExample(fs_sfxmExample);
+				Fs_sfxm  sfxm =null;
+				
+				if(sfxmList!=null &&sfxmList.size()>0) {
+					sfxm =sfxmList.get(0);
+				}
+				Item item =new Item();
+				item.setItem_code(sfxm.getDm());
+				item.setItem_name(sfxm.getMc());
+				item.setItem_amount(hz.getJe().toString());
+				item.setUnit("个");                          // 个
+				item.setNum(hz.getSl().toString());
+				item.setStdtype("无限制");                    //无限制
+				item.setStandard("0.0-0.0");          //
+				itemList.add(item );
+			}
+			
 			reponse.setPlaylist(itemList);
-			Item item =new Item();
-			itemList.add(item );
-			
-			String xmdm = kphz.getXmdm();
-			item.setItem_code(xmdm);
-			
 			//查询到票据,成功响应
 			reponse.setCode(ResponseCode.Success);
 			reponse.setMsg(ResponseCode.Success_default_msg);
@@ -191,6 +249,7 @@ public class BillHandleCenter {
 				session.close();
 			}
 		}
+		
 		//创建返回消息
 		BillQueryMessageResponse reponse =new BillQueryMessageResponse();
 		reponse.setCode(ResponseCode.fail);

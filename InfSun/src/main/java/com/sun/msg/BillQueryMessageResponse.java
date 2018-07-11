@@ -30,6 +30,7 @@ public class BillQueryMessageResponse {
 	private String delay_amount ; //必填  滞纳金
 	private String billstats ; //  必填    状态   0:未缴款   1：已缴款  2：已作废
 	private String chg_code ; // 必填  接收单位编码 
+	private String chg_name ; // 必填  接收单位编码 
 	private String payer_name ; // 必填  缴款书上的缴款人名称
 	
 	private String payer_acct ="" ; //    缴款人账号
@@ -243,17 +244,28 @@ public class BillQueryMessageResponse {
 		this.playlist = playlist;
 	}
 
+	
+	public String getChg_name() {
+		return chg_name;
+	}
+
+	public void setChg_name(String chg_name) {
+		this.chg_name = chg_name;
+	}
+
 	@Override
 	public String toString() {
-		return "BillQueryResponse [code=" + code + ", msg=" + msg + ", trade_id=" + trade_id + ", zone_code="
+		return "BillQueryMessageResponse [code=" + code + ", msg=" + msg + ", trade_id=" + trade_id + ", zone_code="
 				+ zone_code + ", billno=" + billno + ", billdate=" + billdate + ", pay_amount=" + pay_amount
 				+ ", total_amount=" + total_amount + ", delay_amount=" + delay_amount + ", billstats=" + billstats
-				+ ", chg_code=" + chg_code + ", payer_name=" + payer_name + ", payer_acct=" + payer_acct
-				+ ", payer_opbk=" + payer_opbk + ", rec_acctype=" + rec_acctype + ", rec_name=" + rec_name
+				+ ", chg_code=" + chg_code + ", chg_name=" + chg_name + ", payer_name=" + payer_name + ", payer_acct="
+				+ payer_acct + ", payer_opbk=" + payer_opbk + ", rec_acctype=" + rec_acctype + ", rec_name=" + rec_name
 				+ ", rec_acct=" + rec_acct + ", rec_opbk=" + rec_opbk + ", rec_bkcode=" + rec_bkcode
 				+ ", rec_real_acct=" + rec_real_acct + ", interbank=" + interbank + ", remark=" + remark
 				+ ", paylistfmt=" + paylistfmt + ", playlist=" + playlist + "]";
 	}
+
+	
 	
 	
 	
