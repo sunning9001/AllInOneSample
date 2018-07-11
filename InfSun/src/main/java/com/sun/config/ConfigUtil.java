@@ -13,6 +13,18 @@ public class ConfigUtil {
 	private static final String url ="url";
 
 	public  static final String version="1.0";
+	public  static final String paylistfmt="01";
+	public  static final String unit="个";
+	
+	public  static final String stdtype="无限制";
+	public  static final String standard = "0.0-0.0";
+	
+	public  static final String unpaid = "1"; //未缴款
+	public  static final String paid = "2";  //已缴款
+	public  static final String abandoned = "3";  //已作废
+	
+	public  static final String delay_amount = "0";  //滞纳金
+	
 	private static Config conf;
 
 	static {

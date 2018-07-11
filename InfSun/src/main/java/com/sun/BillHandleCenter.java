@@ -155,8 +155,8 @@ public class BillHandleCenter {
 				return response;
 			}
 			
-			//修改票据状态
-			kphz.setPjzt("3");
+			//修改票据状态 已缴费
+			kphz.setPjzt(ConfigUtil.paid); 
 			kpViewMapper.updateByExampleSelective(kphz, example);
 			
 			//查询到票据,成功响应
@@ -243,7 +243,7 @@ public class BillHandleCenter {
 			reponse.setPay_amount(total.toString());
 			//缴款书金额
 			reponse.setTotal_amount(total.toString());
-			reponse.setDelay_amount("0");
+			reponse.setDelay_amount(ConfigUtil.delay_amount);
 			reponse.setBillstats(kphz.getPjzt());
 			reponse.setChg_code(kphz.getDwdm());
 			
@@ -266,7 +266,7 @@ public class BillHandleCenter {
 			//收款人联行号
 			reponse.setRec_bkcode(kphz.getWldwzh());
 			//固定格式 01
-			reponse.setPaylistfmt("01"); 
+			reponse.setPaylistfmt(ConfigUtil.paylistfmt); 
 			
 			//缴款书内容
 			List<Item> itemList =new ArrayList();
@@ -286,10 +286,10 @@ public class BillHandleCenter {
 				item.setItem_code(sfxm.getDm());
 				item.setItem_name(sfxm.getMc());
 				item.setItem_amount(hz.getJe().toString());
-				item.setUnit("个");                          // 个
+				item.setUnit(ConfigUtil.unit);                          // 个
 				item.setNum(hz.getSl().toString());
-				item.setStdtype("无限制");                    //无限制
-				item.setStandard("0.0-0.0");          //
+				item.setStdtype(ConfigUtil.stdtype);                    //无限制
+				item.setStandard(ConfigUtil.standard);          //
 				itemList.add(item );
 			}
 			
@@ -358,7 +358,7 @@ public class BillHandleCenter {
 		biz_content.setPay_amount(total.toString());
 		//缴款书金额
 		biz_content.setTotal_amount(total.toString());
-		biz_content.setDelay_amount("0");
+		biz_content.setDelay_amount(ConfigUtil.delay_amount);
 		biz_content.setBillstats(kphz.getPjzt());
 		biz_content.setChg_code(kphz.getDwdm());
 		
@@ -382,7 +382,7 @@ public class BillHandleCenter {
 		
 		//收款人联行号
 		biz_content.setRec_bkcode(kphz.getWldwzh());
-		biz_content.setPaylistfmt("01"); 
+		biz_content.setPaylistfmt(ConfigUtil.paylistfmt); 
 		
 		//缴款书内容
 		List<Item> itemList =new ArrayList();
@@ -402,10 +402,10 @@ public class BillHandleCenter {
 			item.setItem_code(sfxm.getDm());
 			item.setItem_name(sfxm.getMc());
 			item.setItem_amount(hz.getJe().toString());
-			item.setUnit("个");                          // 个
+			item.setUnit(ConfigUtil.unit);                          // 个
 			item.setNum(hz.getSl().toString());
-			item.setStdtype("无限制");                    //无限制
-			item.setStandard("0.0-0.0");          //
+			item.setStdtype(ConfigUtil.stdtype);                    //无限制
+			item.setStandard(ConfigUtil.standard);          //
 			itemList.add(item );
 		}
 		
@@ -432,8 +432,10 @@ public class BillHandleCenter {
 					 Fs_kphzExample example =new Fs_kphzExample();
 					 example.createCriteria().andPjhEqualTo(kphz.getPjh());
 					 
-					 kphz.setPjzt("3");
+					 kphz.setPjzt(ConfigUtil.paid); //已缴款
 					 Fs_kphzMapper.updateByExampleSelective(kphz, example);
+					 
+					 
 				} catch (Exception e) {
 					// TODO: handle exception
 					logger.debug("excuteBillSync  exception:{}",e);
