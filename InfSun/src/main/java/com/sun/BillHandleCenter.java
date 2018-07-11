@@ -121,7 +121,7 @@ public class BillHandleCenter {
 	 * @param request
 	 * @return
 	 */
-	private static String handleOuterBillPayMessageRequest(OuterBillPayMessageRequest request) {
+	private static Object handleOuterBillPayMessageRequest(OuterBillPayMessageRequest request) {
 		// TODO 处理业务
 		BillPayRequest biz_content = request.getBiz_content();
 		
@@ -152,8 +152,7 @@ public class BillHandleCenter {
 				response.setMsg(ResponseCode.fail_default_msg);
 				response.setMsg("票据号未查询到:"+billno);
 				
-				String postBody =JSONObject.toJSONString(response);
-				return postBody;
+				return response;
 			}
 			
 			//修改票据状态
@@ -164,8 +163,8 @@ public class BillHandleCenter {
 			response.setCode(ResponseCode.Success);
 			response.setMsg(ResponseCode.Success_default_msg);
 			
-			String postBody =JSONObject.toJSONString(response);
-			return postBody;
+//			String postBody =JSONObject.toJSONString(response);
+			return response;
 			
 		}catch (Exception e) {
 			logger.debug("handleOuterBillPayMessageRequest  exception:{}",e);
@@ -179,7 +178,7 @@ public class BillHandleCenter {
 		OuterBillPayMessageResponse response =  new OuterBillPayMessageResponse();
 		response.setCode(ResponseCode.fail);
 		response.setMsg(ResponseCode.fail_default_msg);
-		return JSONObject.toJSONString(response);
+		return response;
 	}
 
 	 
