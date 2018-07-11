@@ -5,6 +5,7 @@ package com.sun;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -264,7 +265,8 @@ public class BillHandleCenter {
 	 *  执行票据同步
 	 * @param pj  
 	 */
-	public  void  excuteBillSync(Fs_kphz pj) {
+	public  void  excuteBillSync(List<Fs_kphz> billList) {
+		
 		//创建票据同步请求
 		BillSyncMessageRequest request =new BillSyncMessageRequest();
 		//行政划分
@@ -272,27 +274,89 @@ public class BillHandleCenter {
 		//方法名称
 		request.setMethod(InfConstants.BillSync);
 		//TODO 
-		//request.setTimestamp(timestamp);
+		String timestamp = DateUtil.dateToStirngTime(new Date());
+		request.setTimestamp(timestamp);
 		request.setVersion(ConfigUtil.version);
 		
 		BillSyncRequest biz_content =new BillSyncRequest();
-		request.setBiz_content(biz_content );
 		
 		
-		//设置请求对象
+		Fs_kphz kphz = null ;
+		if (billList != null && billList.size() >0 ) {
+			kphz = billList.get(0);
+		}
+		
 		//票据号
-		biz_content.setBillno(pj.getPjh());
+		biz_content.setBillno(kphz.getPjh());
 		
 		//票据日期
-		//biz_content.setBilldate(pj.getPjrq());
+		String billdate = DateUtil.dateToStirng(kphz.getPjrq());
+		biz_content.setBilldate(billdate);
 		
+		BigDecimal total = new BigDecimal("0") ;
+		for (Fs_kphz fs: billList) {
+			 BigDecimal je = fs.getJe().setScale(2,BigDecimal.ROUND_HALF_UP);
+			 total = total.add(je);
+		}
+		//缴款金额
+		biz_content.setPay_amount(total.toString());
+		//缴款书金额
+		biz_content.setTotal_amount(total.toString());
+		biz_content.setDelay_amount("0");
+		biz_content.setBillstats(kphz.getPjzt());
+		biz_content.setChg_code(kphz.getDwdm());
 		
+		//根据单位代码查询名称
+		SqlSession session = SqlUtil.getInstance().getSqlSession();
+		Fs_dwzbMapper fs_dwzbMapper = session.getMapper(Fs_dwzbMapper.class);
+		Fs_dwzbExample fs_dwzbExample = new Fs_dwzbExample();
+		fs_dwzbExample.createCriteria().andDwdmEqualTo(kphz.getDwdm());
+		List<Fs_dwzb> dwzbList = fs_dwzbMapper.selectByExample(fs_dwzbExample);
 		
-		//票据状态 转换---》
-		//String billstats = pj.getPjzt();
-		//biz_content.setBillstats(billstats );
+		Fs_dwzb fs_dwzb = null ;
+		if(dwzbList!=null && dwzbList.size()>0) {
+			fs_dwzb =dwzbList.get(0);
+		}
+		biz_content.setChg_name(fs_dwzb.getDwmc());
 		
+		 //交款人名称
+		biz_content.setPayer_name(kphz.getWldwkh());
+		//收款人账户类型
+		biz_content.setRec_acctype(kphz.getDefStr5());  //需商量
 		
+		//收款人联行号
+		biz_content.setRec_bkcode(kphz.getWldwzh());
+		biz_content.setPaylistfmt("01"); 
+		
+		//缴款书内容
+		List<Item> itemList =new ArrayList();
+		Fs_sfxmMapper fs_sfxmMapper = session.getMapper(Fs_sfxmMapper.class);
+		
+		for(Fs_kphz hz  :billList) {
+			String xmdm = hz.getXmdm();
+			Fs_sfxmExample fs_sfxmExample = new Fs_sfxmExample();
+			fs_sfxmExample.createCriteria().andDmEqualTo(xmdm);
+			List<Fs_sfxm> sfxmList = fs_sfxmMapper.selectByExample(fs_sfxmExample);
+			Fs_sfxm  sfxm =null;
+			
+			if(sfxmList!=null &&sfxmList.size()>0) {
+				sfxm =sfxmList.get(0);
+			}
+			Item item =new Item();
+			item.setItem_code(sfxm.getDm());
+			item.setItem_name(sfxm.getMc());
+			item.setItem_amount(hz.getJe().toString());
+			item.setUnit("个");                          // 个
+			item.setNum(hz.getSl().toString());
+			item.setStdtype("无限制");                    //无限制
+			item.setStandard("0.0-0.0");          //
+			itemList.add(item );
+		}
+		
+		biz_content.setPlaylist(itemList);
+		
+		//添加请求参数集合
+		request.setBiz_content(biz_content); 
 		
 		//向公共支付平台请求消息
 		//转换成JSON String
@@ -310,12 +374,13 @@ public class BillHandleCenter {
 					 Fs_kphzMapper Fs_kphzMapper = sqlSession.getMapper(Fs_kphzMapper.class);
 					 
 					 Fs_kphzExample example =new Fs_kphzExample();
-					 example.createCriteria().andPjhEqualTo(pj.getPjh());
+					 example.createCriteria().andPjhEqualTo(kphz.getPjh());
 					 
-					 pj.setPjzt("已缴费");
-					Fs_kphzMapper.updateByExample(pj, example );
+					 kphz.setPjzt("3");
+					 Fs_kphzMapper.updateByExample(kphz, example);
 				} catch (Exception e) {
 					// TODO: handle exception
+					logger.debug("excuteBillSync  exception:{}",e);
 				}
 				finally {
 				   if(sqlSession!=null ) {
@@ -326,5 +391,7 @@ public class BillHandleCenter {
 			}
 		}
 	}
+	
+	
 	
 }

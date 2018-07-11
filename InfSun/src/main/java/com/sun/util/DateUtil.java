@@ -13,9 +13,15 @@ public class DateUtil {
 		return sdf.format(date);
 	}
 	
+	public static String dateToStirngTime(Date date) {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss") ;
+		return sdf.format(date);
+	}
+	
 	@Test
 	public void test() {
-		String string = dateToStirng(new Date());
+		String string = dateToStirngTime(new Date());
 		System.out.println(string);
 	}
 }

@@ -23,7 +23,7 @@ public class BillSyncRequest {
 	private String payer_name; // 缴款书上的缴款人名称
 	private String payer_acct =""; //缴款人账号
 	private String payer_opbk =""; //缴款人开户行
-	private String rec_aacctype;// 收款人账号类型,见附录
+	private String rec_acctype;// 收款人账号类型,见附录3
 	private String rec_name =""  ;// 收款人全称
 	private String rec_acct ="" ; //收款人账号
 	private String rec_opbk ="" ; //收款人开户行
@@ -108,12 +108,14 @@ public class BillSyncRequest {
 		this.payer_name = payer_name;
 	}
 
-	public String getRec_aacctype() {
-		return rec_aacctype;
+	
+
+	public String getRec_acctype() {
+		return rec_acctype;
 	}
 
-	public void setRec_aacctype(String rec_aacctype) {
-		this.rec_aacctype = rec_aacctype;
+	public void setRec_acctype(String rec_acctype) {
+		this.rec_acctype = rec_acctype;
 	}
 
 	public String getRec_bkcode() {
@@ -217,11 +219,13 @@ public class BillSyncRequest {
 		return "BillSyncRequest [billno=" + billno + ", crccode=" + crccode + ", billdate=" + billdate + ", pay_amount="
 				+ pay_amount + ", total_amount=" + total_amount + ", delay_amount=" + delay_amount + ", billstats="
 				+ billstats + ", chg_code=" + chg_code + ", chg_name=" + chg_name + ", payer_name=" + payer_name
-				+ ", payer_acct=" + payer_acct + ", payer_opbk=" + payer_opbk + ", rec_aacctype=" + rec_aacctype
+				+ ", payer_acct=" + payer_acct + ", payer_opbk=" + payer_opbk + ", rec_acctype=" + rec_acctype
 				+ ", rec_name=" + rec_name + ", rec_acct=" + rec_acct + ", rec_opbk=" + rec_opbk + ", rec_bkcode="
 				+ rec_bkcode + ", rec_real_acct=" + rec_real_acct + ", interbank=" + interbank + ", remark=" + remark
 				+ ", paylistfmt=" + paylistfmt + ", playlist=" + playlist + "]";
 	}
+
+	
 
 	
 
