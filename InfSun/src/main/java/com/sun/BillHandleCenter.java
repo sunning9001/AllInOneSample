@@ -34,6 +34,7 @@ import com.sun.msg.BillSyncMessageResponse;
 import com.sun.msg.OuterBillPayMessageRequest;
 import com.sun.msg.OuterBillPayMessageResponse;
 import com.sun.msg.request.BillPayQyeryRequest;
+import com.sun.msg.request.BillPayRequest;
 import com.sun.msg.request.BillSyncRequest;
 import com.sun.msg.request.Item;
 import com.sun.util.DateUtil;
@@ -112,20 +113,76 @@ public class BillHandleCenter {
 		}
 	}
 
+   
+	
+		
 	/**
 	 * 处理票据缴费接口
 	 * @param request
 	 * @return
 	 */
-	private static Object handleOuterBillPayMessageRequest(OuterBillPayMessageRequest request) {
+	private static String handleOuterBillPayMessageRequest(OuterBillPayMessageRequest request) {
 		// TODO 处理业务
+		BillPayRequest biz_content = request.getBiz_content();
 		
-		//返回对象
+		//票据号
+		String billno = biz_content.getBillno();
+		SqlSession sqlSession = SqlUtil.getInstance().getSqlSession();
+		try {
+			
+			//根据票据号查询
+			Fs_kphzMapper kpViewMapper = sqlSession.getMapper(Fs_kphzMapper.class);
+			Fs_kphzExample example =new Fs_kphzExample();
+			example.createCriteria().andPjhEqualTo(billno);
+			List<Fs_kphz> billList = kpViewMapper.selectByExample(example );
+			
+			
+			//获取到票据
+			Fs_kphz  kphz =null;
+			if(billList!=null && billList.size()>0) {
+				kphz =billList.get(0);
+			}
+			
+			//创建返回消息
+			OuterBillPayMessageResponse response = new OuterBillPayMessageResponse();
+			
+			if(kphz ==null) {
+				//票据查询不到,则告之对方
+				response.setCode(ResponseCode.fail);
+				response.setMsg(ResponseCode.fail_default_msg);
+				response.setMsg("票据号未查询到:"+billno);
+				
+				String postBody =JSONObject.toJSONString(response);
+				return postBody;
+			}
+			
+			//修改票据状态
+			kphz.setPjzt("3");
+			kpViewMapper.updateByExampleSelective(kphz, example);
+			
+			//查询到票据,成功响应
+			response.setCode(ResponseCode.Success);
+			response.setMsg(ResponseCode.Success_default_msg);
+			
+			String postBody =JSONObject.toJSONString(response);
+			return postBody;
+			
+		}catch (Exception e) {
+			logger.debug("handleOuterBillPayMessageRequest  exception:{}",e);
+		}finally {
+			if( sqlSession!=null) {
+				sqlSession.close();
+			}
+		}
+//		//返回对象
 		
-		OuterBillPayMessageResponse reponse =new OuterBillPayMessageResponse();
-		return reponse;
+		OuterBillPayMessageResponse response =  new OuterBillPayMessageResponse();
+		response.setCode(ResponseCode.fail);
+		response.setMsg(ResponseCode.fail_default_msg);
+		return JSONObject.toJSONString(response);
 	}
 
+	 
 	/**
 	 * 
 	 * 处理 票据查询接口
@@ -377,7 +434,7 @@ public class BillHandleCenter {
 					 example.createCriteria().andPjhEqualTo(kphz.getPjh());
 					 
 					 kphz.setPjzt("3");
-					 Fs_kphzMapper.updateByExample(kphz, example);
+					 Fs_kphzMapper.updateByExampleSelective(kphz, example);
 				} catch (Exception e) {
 					// TODO: handle exception
 					logger.debug("excuteBillSync  exception:{}",e);
