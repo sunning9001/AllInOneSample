@@ -832,4 +832,12 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+  <select id="selectMonth" parameterType="String" resultType="String">
+<!--   		select distinct month(pjrq) yuefen from fs_kphz where pjh=#{pjh}  -->
+  		select distinct  datename(month,pjrq) as yuefen   from fs_kphz where pjh=#{pjh} 
+  </select>
+  <update id="uodatePjztAndJkrq" parameterType="com.sun.bean.UpdateBean" >
+  		update ${table_name} set pjzt = ${pjzt} ,jkrq =${jkrq} where pjh =${pjh} 
+  </update> 
+  
 </mapper>

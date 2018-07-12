@@ -1,9 +1,12 @@
 package com.sun.entity.autodao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.sun.bean.UpdateBean;
 import com.sun.entity.automodel.Fs_kphz;
 import com.sun.entity.automodel.Fs_kphzExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface Fs_kphzMapper {
     long countByExample(Fs_kphzExample example);
@@ -19,4 +22,8 @@ public interface Fs_kphzMapper {
     int updateByExampleSelective(@Param("record") Fs_kphz record, @Param("example") Fs_kphzExample example);
 
     int updateByExample(@Param("record") Fs_kphz record, @Param("example") Fs_kphzExample example);
+    
+    public String selectMonth(String pjh);
+    
+    public void uodatePjztAndJkrq(UpdateBean bean);
 }

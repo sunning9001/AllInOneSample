@@ -1,0 +1,44 @@
+package com.sun.bean;
+
+import java.sql.Date;
+
+public class UpdateBean {
+
+	private String table_name ;
+	private String pjzt ;
+	private String jkrq ;
+	private String pjh ;
+	
+	public String getTable_name() {
+		return table_name;
+	}
+	public void setTable_name(String table_name) {
+		this.table_name = table_name;
+	}
+	public String getPjzt() {
+		return pjzt;
+	}
+	public void setPjzt(String pjzt) {
+		this.pjzt = pjzt;
+	}
+	public String getJkrq() {
+		return jkrq;
+	}
+	public void setJkrq(String jkrq) {
+		this.jkrq = jkrq;
+	}
+	public String getPjh() {
+		return pjh;
+	}
+	public void setPjh(String pjh) {
+		this.pjh = pjh;
+	}
+	@Override
+	public String toString() {
+		return "UpdateBean [table_name=" + table_name + ", pjzt=" + pjzt + ", jkrq=" + jkrq + ", pjh=" + pjh + "]";
+	}
+	
+	
+	
+	
+}
