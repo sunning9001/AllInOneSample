@@ -5,7 +5,7 @@ package com.sun.msg;
  * @author zhuoyvqing
  *
  */
-public class AccountBillfundMessageResponse {
+public class fundConfirmMessageResponse {
 
 	/**
 	 * 公共参数
@@ -30,6 +30,11 @@ public class AccountBillfundMessageResponse {
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
+	@Override
+	public String toString() {
+		return "fundConfirmMessageResponse [code=" + code + ", msg=" + msg + "]";
+	}
+	
 	
 	
 }

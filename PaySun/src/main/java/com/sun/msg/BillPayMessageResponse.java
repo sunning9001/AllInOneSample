@@ -6,7 +6,7 @@ package com.sun.msg;
  * @author zhuoyvqing
  *
  */
-public class OuterBillPayMessageResponse {
+public class BillPayMessageResponse {
 
 	/**
 	 * 公共参数

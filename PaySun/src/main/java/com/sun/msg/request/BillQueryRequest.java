@@ -6,7 +6,7 @@ package com.sun.msg.request;
  * @author zhuoyvqing
  *
  */
-public class BillPayQyeryRequest {
+public class BillQueryRequest {
 
 	private String billno ; //票据号
 	private String crccode ="" ; //票据校验码 1234

@@ -51,7 +51,8 @@ public class HttpUtil {
 				.build();
 		try {
 			Response response = client.newCall(request).execute();
-			return response.body().toString();
+			String ss = response.body().string();
+			return ss;
 		} catch (Exception e) {
 			logger.debug(" 网络调用异常httpExecute : {}", e);
 		}

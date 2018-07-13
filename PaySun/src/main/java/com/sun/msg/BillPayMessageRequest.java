@@ -7,7 +7,7 @@ import com.sun.msg.request.BillPayRequest;
  * @author zhuoy
  *
  */
-public class OuterBillPayMessageRequest {
+public class BillPayMessageRequest {
 
 	private String method ;  //方法名称
 	private String timestamp ; //发送请求的时间 ，格式"yyyyMMddHHmmss" 如:201407224030750

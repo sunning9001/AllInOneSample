@@ -7,7 +7,7 @@ import java.util.Currency;
  * @author zhuoyvqing
  *
  */
-public class AccountDetails {
+public class BillDetails {
 	
 	private String paymode ; //缴款渠道  附录2
 	private String rec_subacct ;//虚拟账号   选填

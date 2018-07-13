@@ -7,7 +7,7 @@ import com.sun.msg.request.BillfundRequest;
  * @author zhuoyvqing
  *
  */
-public class AccountBillfundMessageRequest {
+public class fundConfirmMessageRequest {
 
 	private String method ;  //方法名称
 	private String timestamp ; //发送请求的时间 ，格式"yyyyMMddHHmmss" 如:201407224030750
