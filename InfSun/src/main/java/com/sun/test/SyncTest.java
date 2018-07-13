@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSONObject;
 import com.sun.BillHandleCenter;
 import com.sun.bean.UpdateBean;
+import com.sun.bean.UtilMapper;
 import com.sun.config.ConfigUtil;
 import com.sun.config.HttpUtil;
 import com.sun.config.InfConstants;
@@ -154,40 +155,23 @@ public class SyncTest {
 						SqlSession sqlSession =null;
 						try {
 							 sqlSession = SqlUtil.getInstance().getSqlSession();
-							 Fs_kphzMapper Fs_kphzMapper = sqlSession.getMapper(Fs_kphzMapper.class);
 							 
-							 String yuefen = Fs_kphzMapper.selectMonth(kphz.getPjh());
+							 UtilMapper utilMapper = sqlSession.getMapper(UtilMapper.class);
+							 String yuefen = utilMapper.selectMonth(kphz.getPjh());
+							 
 							 logger.debug("=================================yuefen======={}",yuefen);
 							 String table_name = "fs_kp"+yuefen ;
 							 logger.debug("=================================yuefen======={}",table_name);
-							 String jkrq = DateUtil.dateToStirng(new Date());
-							 
-//							 jkrq += " 00:00:00.000" ;
-							 String jkrq2 = "20180103 00:00:00" ;
-//							 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd HH:mm:ss.SSS");
-//							 java.sql.Date date = (java.sql.Date) sdf.parse(new Date());
+							
 							 UpdateBean bean = new UpdateBean();
 							 bean.setTable_name(table_name);
-							 bean.setJkrq(jkrq2);
+							 bean.setJkrq(new Date());
 							 bean.setPjh(kphz.getPjh());
-							 bean.setPjzt(ConfigUtil.paid);
+							 bean.setPjzt(ConfigUtil.cancel);
 							 
-							 Fs_kphzMapper.uodatePjztAndJkrq(bean);
+							 utilMapper.updateJkztAndJkrq(bean);
+							 sqlSession.commit();
 							 
-//							 Fs_kphzExample example =new Fs_kphzExample();
-//							 example.createCriteria().andPjhEqualTo(kphz.getPjh());
-//							 
-//							 
-//							 Fs_kphz hz88 = new Fs_kphz() ;
-//							 hz88.setPjzt(ConfigUtil.paid); //已缴款
-//							 hz88.setShr("王微微");
-							 
-//							 Fs_kphzMapper.updateByExampleSelective(hz88, example);
-//							 Fs_kphzMapper.updateByExample(hz88, example);
-							 
-//							 kphz.setPjzt("1");
-//							 kphz.setShr("你哈");
-//							 Fs_kphzMapper.insert(kphz);
 						} catch (Exception e) {
 							// TODO: handle exception
 							logger.debug("excuteBillSync  exception:{}",e);

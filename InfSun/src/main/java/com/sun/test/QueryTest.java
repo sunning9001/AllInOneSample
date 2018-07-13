@@ -1,14 +1,20 @@
 package com.sun.test;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
-import com.sun.entity.autodao.Fs_dwzbMapper;
+import com.sun.bean.UpdateBean;
+import com.sun.bean.UtilMapper;
+import com.sun.entity.autodao.Fs_kphzMapper;
 import com.sun.entity.autodao.Fs_sfxmMapper;
+import com.sun.entity.automodel.Fs_kphz;
+import com.sun.entity.automodel.Fs_kphzExample;
 import com.sun.entity.automodel.Fs_sfxm;
 import com.sun.entity.automodel.Fs_sfxmExample;
 import com.sun.entity.automodel.Fs_sfxmExample.Criteria;
@@ -16,6 +22,40 @@ import com.sun.util.SqlUtil;
 
 public class QueryTest {
 
+	
+	@Test
+	 public void  testUtilMapper() {
+		    SqlUtil sqlutil = SqlUtil.getInstance(); 
+			SqlSession sqlsession = sqlutil.getSqlSession();
+			
+			 UtilMapper utilMapper = sqlsession.getMapper(UtilMapper.class);
+			 String ss = utilMapper.selectMonth("00707375");
+			 
+			 Fs_kphzMapper fs_kphzMapper  = sqlsession.getMapper(Fs_kphzMapper.class);
+			 
+			 Fs_kphzExample ex = new Fs_kphzExample();
+			 ex.createCriteria().andPjhEqualTo("00707375");
+			 List<Fs_kphz> list =  fs_kphzMapper.selectByExample(ex);
+//			 
+//			 UpdateBean bean = new UpdateBean();
+//			 bean.setJkrq(new Date());
+//			 bean.setPjh("00707375");
+//			 bean.setPjzt("3");
+//			 bean.setTable_name("fs_kp01");
+//			 utilMapper.updateJkztAndJkrq(bean);
+			 
+			 sqlsession.commit();
+			 sqlsession.close();
+			 
+			 for(Fs_kphz hz: list) {
+				 System.out.println("---"+hz.toString());
+			 }
+			 
+			 System.out.println(ss);
+			
+			 
+			 
+	 }
 	    //对表  fs_sfxm 操作，此表包含的类型多，方便校验数据库类型 money datetime decimal
 	    
 	    /**
@@ -104,6 +144,8 @@ public class QueryTest {
 			
 			fun4();
 		}
+		
+		
 		
 		
 		/**

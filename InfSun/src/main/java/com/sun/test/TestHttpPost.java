@@ -8,7 +8,7 @@ public class TestHttpPost {
 
 		//票据同步到公众支付平台
 		String postBody ="发送的postString";
-		String url ="http://localhost:8181/outxxxxxxxxx";
+		String url ="http://localhost:9999/outxxxxxxxxx";
 		HttpUtil.getInstance().httpExecute(postBody , url );
 	}
 }

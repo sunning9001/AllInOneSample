@@ -2,7 +2,10 @@ package com.sun.config;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.sun.msg.BillPayMessageRequest;
+import com.sun.msg.BillQueryMessageRequest;
 import com.sun.msg.BillSyncMessageRequest;
+import com.sun.msg.fundConfirmMessageRequest;
 
 public class InfConstants {
 
@@ -25,7 +28,15 @@ public class InfConstants {
 		/**
 		 * 处理来自支付平台的请求消息
 		 */
+		//
 		infRequestClazzMap.put(BillSync, BillSyncMessageRequest.class);
+		
+		infRequestClazzMap.put(OuterBillPayQuery, BillQueryMessageRequest.class);
+		
+		infRequestClazzMap.put(OuterBillPay, BillPayMessageRequest.class);
+		
+		infRequestClazzMap.put(OuterAccountBillFund, fundConfirmMessageRequest.class);
+	                                
 
 	}
 	/**

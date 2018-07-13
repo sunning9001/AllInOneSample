@@ -33,11 +33,15 @@ import com.sun.msg.BillQueryMessageRequest;
 import com.sun.msg.BillQueryMessageResponse;
 import com.sun.msg.BillSyncMessageRequest;
 import com.sun.msg.BillSyncMessageResponse;
-import com.sun.msg.OuterBillPayMessageRequest;
-import com.sun.msg.OuterBillPayMessageResponse;
+import com.sun.msg.fundConfirmMessageRequest;
+import com.sun.msg.fundConfirmMessageResponse;
+import com.sun.msg.BillPayMessageRequest;
+import com.sun.msg.BillPayMessageResponse;
+import com.sun.msg.request.BillDetails;
 import com.sun.msg.request.BillPayQyeryRequest;
 import com.sun.msg.request.BillPayRequest;
 import com.sun.msg.request.BillSyncRequest;
+import com.sun.msg.request.BillfundRequest;
 import com.sun.msg.request.Item;
 import com.sun.util.DateUtil;
 import com.sun.util.SqlUtil;
@@ -100,9 +104,18 @@ public class BillHandleCenter {
 		/**
 		 * 来自支付平台请求消息,票据缴费请求消息
 		 */
-		if (clazz.equals(OuterBillPayMessageRequest.class)) {
-			OuterBillPayMessageRequest request = (OuterBillPayMessageRequest) obj;
-			replayMessage = handleOuterBillPayMessageRequest(request);
+		if (clazz.equals(BillPayMessageRequest.class)) {
+			BillPayMessageRequest request = (BillPayMessageRequest) obj;
+			replayMessage = handleBillPayMessageRequest(request);
+			replyFlag = true;
+		}
+		
+		/**
+		 * 来自支付平台请求消息,票据对账请求消息
+		 */
+		if (clazz.equals(fundConfirmMessageRequest.class)) {
+			fundConfirmMessageRequest request = (fundConfirmMessageRequest) obj;
+			replayMessage = handlefundConfirmMessageRequest(request);
 			replyFlag = true;
 		}
 		
@@ -115,16 +128,94 @@ public class BillHandleCenter {
 		}
 	}
 
-   
+	/**
+	 *    票据对账      支付平台 --->  非税系统
+	 * @param resuest
+	 * @return
+	 */
+   public static Object handlefundConfirmMessageRequest(fundConfirmMessageRequest resuest) {
+	   
+	   BillfundRequest biz_content = resuest.getBiz_content();
+	   //获取总笔数
+	   Integer count = biz_content.getCount();
+	   //获取到账明细
+	   List<BillDetails> translist = biz_content.getTranslist();
+	   
+	   //创建返回消息
+	   fundConfirmMessageResponse response = new fundConfirmMessageResponse();
+	   //所有票据 金额 对账不准确的信息
+	   String code =ResponseCode.Success ;
+	   String msg = "" ; 
+	   SqlSession sqlSession = SqlUtil.getInstance().getSqlSession();
+	   if(translist != null && translist.size() >0 ) {
+		   for(int i=0 ;i<translist.size() ;i++) {
+			   BillDetails billDetails = translist.get(i);
+			   
+			   //请求数据中 票据金额
+			   String amount = billDetails.getAmount(); 
+			   
+			   String billno = billDetails.getBillno() ;
+			   Fs_kphzMapper fs_kphzMapper = sqlSession.getMapper(Fs_kphzMapper.class);
+			   Fs_kphzExample example = new Fs_kphzExample();
+			   example.createCriteria().andPjhEqualTo(billno);
+			   //根据票据号 查询票据
+			   List<Fs_kphz> billList = fs_kphzMapper.selectByExample(example);
+			   
+			    //获取到票据
+				Fs_kphz  kphz =null;
+				if(billList != null && billList.size()>0) {
+					kphz =billList.get(0);
+				}
+				
+				if(kphz ==null) {
+					//票据查询不到,则告之对方
+					code = ResponseCode.fail ;
+					if(msg == "") {
+						msg += "票据号"+billno+"未查询到" ;
+					}else {
+						msg += ";票据号"+billno+"未查询到" ;
+					}
+					
+				}
+				
+				//数据库中 金额总数
+				BigDecimal total = new BigDecimal("0") ;
+				for (Fs_kphz fs: billList) {
+					 BigDecimal je = fs.getJe().setScale(2,BigDecimal.ROUND_HALF_UP);
+					 total = total.add(je);
+				}
+				BigDecimal actualMoney = new BigDecimal(amount) ;
+				//请求参数中的金额 小于数据库中的金额 则不满足
+				
+				if( actualMoney.compareTo(total) < 0 ) {
+					code = ResponseCode.fail ;
+					if(msg == "") {
+						msg += "票据号"+billno +" 金额不相符";
+					}else {
+						msg += ";票据号"+billno +" 金额不相符";
+					}
+				}
+			   
+		   }
+	   }
+	   response.setCode(code);
+	   if(code == ResponseCode.fail) {
+		   response.setMsg(msg);
+	   }else {
+		   response.setMsg(ResponseCode.Success_default_msg);
+	   }
+	   return response ;
+	   
+   }
 	
 		
 	/**
-	 * 处理票据缴费接口
+	 *  处理票据缴费      支付平台 --->  非税系统
 	 * @param request
 	 * @return
 	 */
-	private static Object handleOuterBillPayMessageRequest(OuterBillPayMessageRequest request) {
-		// TODO 处理业务
+	private static Object handleBillPayMessageRequest(BillPayMessageRequest request) {
+		
 		BillPayRequest biz_content = request.getBiz_content();
 		
 		//票据号
@@ -146,7 +237,7 @@ public class BillHandleCenter {
 			}
 			
 			//创建返回消息
-			OuterBillPayMessageResponse response = new OuterBillPayMessageResponse();
+			BillPayMessageResponse response = new BillPayMessageResponse();
 			
 			if(kphz ==null) {
 				//票据查询不到,则告之对方
@@ -157,15 +248,25 @@ public class BillHandleCenter {
 				return response;
 			}
 			
-			//修改票据状态 已缴费
-			kphz.setPjzt(ConfigUtil.paid); 
-			kpViewMapper.updateByExampleSelective(kphz, example);
+			//查询票据月份
+			UtilMapper utilMapper = sqlSession.getMapper(UtilMapper.class);
+			String yuefen = utilMapper.selectMonth(kphz.getPjh());
+			UpdateBean bean = new UpdateBean();
+			String datetime = biz_content.getPay_datetime();
+			
+			bean.setJkrq(DateUtil.stringToDate(datetime)); //缴款日期
+			bean.setPjh(kphz.getPjh());
+			bean.setPjzt(ConfigUtil.paid);
+			bean.setTable_name("fs_kp"+yuefen);
+			
+			//修改票据状态 已缴费 缴费时间
+			utilMapper.updateJkztAndJkrq(bean);
+			sqlSession.commit();
 			
 			//查询到票据,成功响应
 			response.setCode(ResponseCode.Success);
 			response.setMsg(ResponseCode.Success_default_msg);
 			
-//			String postBody =JSONObject.toJSONString(response);
 			return response;
 			
 		}catch (Exception e) {
@@ -175,9 +276,9 @@ public class BillHandleCenter {
 				sqlSession.close();
 			}
 		}
-//		//返回对象
 		
-		OuterBillPayMessageResponse response =  new OuterBillPayMessageResponse();
+		//返回对象
+		BillPayMessageResponse response =  new BillPayMessageResponse();
 		response.setCode(ResponseCode.fail);
 		response.setMsg(ResponseCode.fail_default_msg);
 		return response;
@@ -186,7 +287,7 @@ public class BillHandleCenter {
 	 
 	/**
 	 * 
-	  *  处理 票据查询
+	  *  处理 票据查询     支付平台 --->  非税系统
 	 * @param request
 	 * @return
 	 */
@@ -319,7 +420,8 @@ public class BillHandleCenter {
    /****************************************以下是请求接口**********************************************/
 	
 	/**
-	 *   执行票据同步  感觉不准确???????????????????????????????????????????????????????
+	 *   执行票据同步  支付平台 --->  非税系统
+	 *         感觉不准确???????????????????????????????????????????????????????
 	 * @param pj  
 	 */
 	public  void  excuteBillSync(List<Fs_kphz> billList) {

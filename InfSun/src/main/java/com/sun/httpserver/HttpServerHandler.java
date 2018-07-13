@@ -63,16 +63,17 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
 				// 把字节序按照GBK格式 转换成字符串
 				String postBody = new String(cttBytes, Charset.forName(ConfigUtil.getEncoding()));
 				logger.debug("received postBody:{ }", postBody);
+				
 				// 接口名称和消息体分割
-				String[] infbody = StringUtils.split(postBody, separatorchars, 2);
+				String[] infbody = StringUtils.split(postBody, separatorchars, 2);  //注释
 
 				// 提取接口名称
 				// 例如：wp_outer_bill_pay_query_response ->wp.outer.bill.pay.query
-				String infName = StringUtils.replace(StringUtils.replace(infbody[0], "_", "."), ".response", "");
-
+				String infName = StringUtils.replace(StringUtils.replace(infbody[0], "_", "."), ".response", "");   //注释 这个有待商量 response
+				
 				// 根据接口名称,把postBody中消息体转换成消息对象
 				Class clazz = InfConstants.getInfRequestClazz(infName);
-
+				
 				// 转换消息对象
 				Object obj = JSONObject.parseObject(infbody[1], clazz);
 
@@ -92,6 +93,8 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
 	public static void writeAndClose(ChannelHandlerContext ctx, Object msg) {
 		// 把对象Object 转换成json字符串
 		String jsonString = JSONObject.toJSONString(msg);
+		
+		
 		// 把json字符串 转换成二进制字节码
 		byte[] content = jsonString.getBytes(Charset.forName("GBK"));
 		FullHttpResponse response = new DefaultFullHttpResponse(HTTP_1_1, OK, Unpooled.wrappedBuffer(content));

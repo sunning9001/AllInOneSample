@@ -5,7 +5,7 @@ package com.sun.msg;
  * @author zhuoyvqing
  *
  */
-public class AccountBillfundMessageResponse {
+public class fundConfirmMessageResponse {
 
 	/**
 	 * 公共参数

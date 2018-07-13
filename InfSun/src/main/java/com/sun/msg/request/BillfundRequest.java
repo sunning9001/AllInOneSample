@@ -17,7 +17,7 @@ public class BillfundRequest {
 	private String rec_acct = ""; // 收款人账号
 	private Integer count ; // 总笔数
 	
-	private List<AccountDetails> translist ; //到账明细
+	private List<BillDetails> translist ; //到账明细
 
 	public String getDate() {
 		return date;
@@ -59,11 +59,11 @@ public class BillfundRequest {
 		this.count = count;
 	}
 
-	public List<AccountDetails> getTranslist() {
+	public List<BillDetails> getTranslist() {
 		return translist;
 	}
 
-	public void setTranslist(List<AccountDetails> translist) {
+	public void setTranslist(List<BillDetails> translist) {
 		this.translist = translist;
 	}
 
