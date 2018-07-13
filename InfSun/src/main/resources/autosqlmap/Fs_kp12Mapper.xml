@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sun.entity.autodao.Fs_kp01Mapper">
-  <resultMap id="BaseResultMap" type="com.sun.entity.automodel.Fs_kp01">
+<mapper namespace="com.sun.entity.autodao.Fs_kp12Mapper">
+  <resultMap id="BaseResultMap" type="com.sun.entity.automodel.Fs_kp12">
     <result column="id1" jdbcType="VARCHAR" property="id1" />
     <result column="id2" jdbcType="INTEGER" property="id2" />
     <result column="dwdm" jdbcType="VARCHAR" property="dwdm" />
@@ -133,13 +133,13 @@
     def_int3, def_int4, def_int5, def_num1, def_num2, def_num3, def_num4, def_num5, def_dt1, 
     def_dt2, ishz, cpdw, fyhdm, fyhzh, istf
   </sql>
-  <select id="selectByExample" parameterType="com.sun.entity.automodel.Fs_kp01Example" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.sun.entity.automodel.Fs_kp12Example" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from fs_kp01
+    from fs_kp12
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -147,14 +147,14 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.sun.entity.automodel.Fs_kp01Example">
-    delete from fs_kp01
+  <delete id="deleteByExample" parameterType="com.sun.entity.automodel.Fs_kp12Example">
+    delete from fs_kp12
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.sun.entity.automodel.Fs_kp01">
-    insert into fs_kp01 (id1, id2, dwdm, 
+  <insert id="insert" parameterType="com.sun.entity.automodel.Fs_kp12">
+    insert into fs_kp12 (id1, id2, dwdm, 
       yhdm, wddm, pjrq, 
       pjlx, zgbm, pjh, jksh, 
       jkrq, jkr, xmdm, 
@@ -195,8 +195,8 @@
       #{defDt2,jdbcType=TIMESTAMP}, #{ishz,jdbcType=VARCHAR}, #{cpdw,jdbcType=VARCHAR}, 
       #{fyhdm,jdbcType=VARCHAR}, #{fyhzh,jdbcType=VARCHAR}, #{istf,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.sun.entity.automodel.Fs_kp01">
-    insert into fs_kp01
+  <insert id="insertSelective" parameterType="com.sun.entity.automodel.Fs_kp12">
+    insert into fs_kp12
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id1 != null">
         id1,
@@ -558,14 +558,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.sun.entity.automodel.Fs_kp01Example" resultType="java.lang.Long">
-    select count(*) from fs_kp01
+  <select id="countByExample" parameterType="com.sun.entity.automodel.Fs_kp12Example" resultType="java.lang.Long">
+    select count(*) from fs_kp12
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update fs_kp01
+    update fs_kp12
     <set>
       <if test="record.id1 != null">
         id1 = #{record.id1,jdbcType=VARCHAR},
@@ -765,7 +765,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update fs_kp01
+    update fs_kp12
     set id1 = #{record.id1,jdbcType=VARCHAR},
       id2 = #{record.id2,jdbcType=INTEGER},
       dwdm = #{record.dwdm,jdbcType=VARCHAR},

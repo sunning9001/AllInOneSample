@@ -13,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sun.bean.UpdateBean;
+import com.sun.bean.UtilMapper;
 import com.sun.config.ConfigUtil;
 import com.sun.config.HttpUtil;
 import com.sun.config.InfConstants;
@@ -184,12 +186,11 @@ public class BillHandleCenter {
 	 
 	/**
 	 * 
-	 * 处理 票据查询接口
+	  *  处理 票据查询
 	 * @param request
 	 * @return
 	 */
 	private static Object handleBillQueryMessageRequest(BillQueryMessageRequest request) {
-		// TODO 处理业务
 		//根据票据号,查询到票据
 		BillPayQyeryRequest billPayRequest = request.getBiz_content();
 		
@@ -318,7 +319,7 @@ public class BillHandleCenter {
    /****************************************以下是请求接口**********************************************/
 	
 	/**
-	 *  执行票据同步
+	 *   执行票据同步  感觉不准确???????????????????????????????????????????????????????
 	 * @param pj  
 	 */
 	public  void  excuteBillSync(List<Fs_kphz> billList) {
@@ -329,7 +330,7 @@ public class BillHandleCenter {
 		request.setZone_code(ConfigUtil.getZoneCode());
 		//方法名称
 		request.setMethod(InfConstants.BillSync);
-		//TODO 
+		
 		String timestamp = DateUtil.dateToStirngTime(new Date());
 		request.setTimestamp(timestamp);
 		request.setVersion(ConfigUtil.version);
@@ -427,14 +428,22 @@ public class BillHandleCenter {
 				SqlSession sqlSession =null;
 				try {
 					 sqlSession = SqlUtil.getInstance().getSqlSession();
-					 Fs_kphzMapper Fs_kphzMapper = sqlSession.getMapper(Fs_kphzMapper.class);
 					 
-					 Fs_kphzExample example =new Fs_kphzExample();
-					 example.createCriteria().andPjhEqualTo(kphz.getPjh());
+					 UtilMapper utilMapper = sqlSession.getMapper(UtilMapper.class);
+					 String yuefen = utilMapper.selectMonth(kphz.getPjh());
 					 
-					 kphz.setPjzt(ConfigUtil.paid); //已缴款
-					 Fs_kphzMapper.updateByExampleSelective(kphz, example);
+					 logger.debug("=================================yuefen======={}",yuefen);
+					 String table_name = "fs_kp"+yuefen ;
+					 logger.debug("=================================表名======={}",table_name);
+					
+					 UpdateBean bean = new UpdateBean();
+					 bean.setTable_name(table_name);
+					 bean.setJkrq(new Date());
+					 bean.setPjh(kphz.getPjh());
+					 bean.setPjzt(ConfigUtil.paid);
 					 
+					 utilMapper.updateJkztAndJkrq(bean);
+					 sqlSession.commit();
 					 
 				} catch (Exception e) {
 					// TODO: handle exception

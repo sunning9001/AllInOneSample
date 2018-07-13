@@ -14,7 +14,7 @@
 		<!-- 数据库连接池-->
 			<dataSource type="POOLED">
 				<property name="driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
-				<property name="url" value="jdbc:sqlserver://47.96.101.114:1433;databasename=测试数据" />
+				<property name="url" value="jdbc:sqlserver://47.96.101.114:1433;databasename=test" />
 				<property name="username" value="sa" />
 				<property name="password" value="Wx123456" />
 			</dataSource>
@@ -28,5 +28,8 @@
     <mapper resource="autosqlmap/Fs_sfxmMapper.xml" />
     <mapper resource="autosqlmap/Fs_yhwdMapper.xml" />
     <mapper resource="autosqlmap/Fs_kphzMapper.xml" />
+    <mapper resource="mapper/UtilMapper.xml" />
+    
+	<!-- 插入mapper 文件尽量单一使用   <mapper class="com.sun.bean.UtilMapper" /> -->
   </mappers>
 </configuration>

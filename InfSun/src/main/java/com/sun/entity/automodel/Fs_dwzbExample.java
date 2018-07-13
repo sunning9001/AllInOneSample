@@ -3,7 +3,6 @@ package com.sun.entity.automodel;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 public class Fs_dwzbExample {
@@ -105,32 +104,6 @@ public class Fs_dwzbExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
-            if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value.getTime()), property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
-            if (values == null || values.size() == 0) {
-                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
-            }
-            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
-            Iterator<Date> iter = values.iterator();
-            while (iter.hasNext()) {
-                dateList.add(new java.sql.Date(iter.next().getTime()));
-            }
-            addCriterion(condition, dateList, property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
-            if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andDwdmIsNull() {
@@ -2624,52 +2597,52 @@ public class Fs_dwzbExample {
         }
 
         public Criteria andDefDt1EqualTo(Date value) {
-            addCriterionForJDBCDate("def_dt1 =", value, "defDt1");
+            addCriterion("def_dt1 =", value, "defDt1");
             return (Criteria) this;
         }
 
         public Criteria andDefDt1NotEqualTo(Date value) {
-            addCriterionForJDBCDate("def_dt1 <>", value, "defDt1");
+            addCriterion("def_dt1 <>", value, "defDt1");
             return (Criteria) this;
         }
 
         public Criteria andDefDt1GreaterThan(Date value) {
-            addCriterionForJDBCDate("def_dt1 >", value, "defDt1");
+            addCriterion("def_dt1 >", value, "defDt1");
             return (Criteria) this;
         }
 
         public Criteria andDefDt1GreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("def_dt1 >=", value, "defDt1");
+            addCriterion("def_dt1 >=", value, "defDt1");
             return (Criteria) this;
         }
 
         public Criteria andDefDt1LessThan(Date value) {
-            addCriterionForJDBCDate("def_dt1 <", value, "defDt1");
+            addCriterion("def_dt1 <", value, "defDt1");
             return (Criteria) this;
         }
 
         public Criteria andDefDt1LessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("def_dt1 <=", value, "defDt1");
+            addCriterion("def_dt1 <=", value, "defDt1");
             return (Criteria) this;
         }
 
         public Criteria andDefDt1In(List<Date> values) {
-            addCriterionForJDBCDate("def_dt1 in", values, "defDt1");
+            addCriterion("def_dt1 in", values, "defDt1");
             return (Criteria) this;
         }
 
         public Criteria andDefDt1NotIn(List<Date> values) {
-            addCriterionForJDBCDate("def_dt1 not in", values, "defDt1");
+            addCriterion("def_dt1 not in", values, "defDt1");
             return (Criteria) this;
         }
 
         public Criteria andDefDt1Between(Date value1, Date value2) {
-            addCriterionForJDBCDate("def_dt1 between", value1, value2, "defDt1");
+            addCriterion("def_dt1 between", value1, value2, "defDt1");
             return (Criteria) this;
         }
 
         public Criteria andDefDt1NotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("def_dt1 not between", value1, value2, "defDt1");
+            addCriterion("def_dt1 not between", value1, value2, "defDt1");
             return (Criteria) this;
         }
 
@@ -2684,52 +2657,52 @@ public class Fs_dwzbExample {
         }
 
         public Criteria andDefDt2EqualTo(Date value) {
-            addCriterionForJDBCDate("def_dt2 =", value, "defDt2");
+            addCriterion("def_dt2 =", value, "defDt2");
             return (Criteria) this;
         }
 
         public Criteria andDefDt2NotEqualTo(Date value) {
-            addCriterionForJDBCDate("def_dt2 <>", value, "defDt2");
+            addCriterion("def_dt2 <>", value, "defDt2");
             return (Criteria) this;
         }
 
         public Criteria andDefDt2GreaterThan(Date value) {
-            addCriterionForJDBCDate("def_dt2 >", value, "defDt2");
+            addCriterion("def_dt2 >", value, "defDt2");
             return (Criteria) this;
         }
 
         public Criteria andDefDt2GreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("def_dt2 >=", value, "defDt2");
+            addCriterion("def_dt2 >=", value, "defDt2");
             return (Criteria) this;
         }
 
         public Criteria andDefDt2LessThan(Date value) {
-            addCriterionForJDBCDate("def_dt2 <", value, "defDt2");
+            addCriterion("def_dt2 <", value, "defDt2");
             return (Criteria) this;
         }
 
         public Criteria andDefDt2LessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("def_dt2 <=", value, "defDt2");
+            addCriterion("def_dt2 <=", value, "defDt2");
             return (Criteria) this;
         }
 
         public Criteria andDefDt2In(List<Date> values) {
-            addCriterionForJDBCDate("def_dt2 in", values, "defDt2");
+            addCriterion("def_dt2 in", values, "defDt2");
             return (Criteria) this;
         }
 
         public Criteria andDefDt2NotIn(List<Date> values) {
-            addCriterionForJDBCDate("def_dt2 not in", values, "defDt2");
+            addCriterion("def_dt2 not in", values, "defDt2");
             return (Criteria) this;
         }
 
         public Criteria andDefDt2Between(Date value1, Date value2) {
-            addCriterionForJDBCDate("def_dt2 between", value1, value2, "defDt2");
+            addCriterion("def_dt2 between", value1, value2, "defDt2");
             return (Criteria) this;
         }
 
         public Criteria andDefDt2NotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("def_dt2 not between", value1, value2, "defDt2");
+            addCriterion("def_dt2 not between", value1, value2, "defDt2");
             return (Criteria) this;
         }
     }

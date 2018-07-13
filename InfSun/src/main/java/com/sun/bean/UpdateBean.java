@@ -1,12 +1,12 @@
 package com.sun.bean;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class UpdateBean {
 
 	private String table_name ;
 	private String pjzt ;
-	private String jkrq ;
+	private Date jkrq ;
 	private String pjh ;
 	
 	public String getTable_name() {
@@ -21,10 +21,10 @@ public class UpdateBean {
 	public void setPjzt(String pjzt) {
 		this.pjzt = pjzt;
 	}
-	public String getJkrq() {
+	public Date getJkrq() {
 		return jkrq;
 	}
-	public void setJkrq(String jkrq) {
+	public void setJkrq(Date jkrq) {
 		this.jkrq = jkrq;
 	}
 	public String getPjh() {
@@ -33,12 +33,6 @@ public class UpdateBean {
 	public void setPjh(String pjh) {
 		this.pjh = pjh;
 	}
-	@Override
-	public String toString() {
-		return "UpdateBean [table_name=" + table_name + ", pjzt=" + pjzt + ", jkrq=" + jkrq + ", pjh=" + pjh + "]";
-	}
-	
-	
 	
 	
 }

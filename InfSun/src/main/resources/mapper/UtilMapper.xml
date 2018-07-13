@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sun.bean.UtilMapper">
+    
+    <!-- 根据票据号查询票据月份 -->
+ 	<select id="selectMonth" parameterType="String" resultType="String">
+  		select distinct  datename(month,pjrq) as yuefen  from fs_kphz where pjh=#{pjh} 
+   </select>
+  
+   <!-- 根据票据号修改缴费状态和缴费日期 -->
+   <update id="updateJkztAndJkrq" parameterType="com.sun.bean.UpdateBean">
+	    update ${table_name} set pjzt = #{pjzt,jdbcType=VARCHAR} , jkrq = #{jkrq,jdbcType=TIMESTAMP}  where pjh = ${pjh}
+   
+  </update>
+</mapper>

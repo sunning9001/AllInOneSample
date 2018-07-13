@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Fs_kphzExample {
+public class Fs_kp11Example {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public Fs_kphzExample() {
+    public Fs_kp11Example() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
