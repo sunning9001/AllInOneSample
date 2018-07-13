@@ -1,6 +1,6 @@
 package com.sun.msg;
 
-import com.sun.msg.request.BillPayQyeryRequest;
+import com.sun.msg.request.BillQueryRequest;
 
 /**
  * 票据查询 请求参数
@@ -16,7 +16,7 @@ public class BillQueryMessageRequest {
 	private String method ;//方法名称
 	private String timestamp ; // 发送的请求时间，格式"yyyyMMddHHmmss"  如：20140724030750
 	private String bankindex ; //银行的编号，由公共支付接口前置机编码 
-	private BillPayQyeryRequest biz_content ; // 请求对象
+	private BillQueryRequest biz_content ; // 请求对象
 
 	public String getMethod() {
 		return method;
@@ -43,11 +43,11 @@ public class BillQueryMessageRequest {
 		this.bankindex = bankindex;
 	}
 
-	public BillPayQyeryRequest getBiz_content() {
+	public BillQueryRequest getBiz_content() {
 		return biz_content;
 	}
 
-	public void setBiz_content(BillPayQyeryRequest biz_content) {
+	public void setBiz_content(BillQueryRequest biz_content) {
 		this.biz_content = biz_content;
 	}
 
