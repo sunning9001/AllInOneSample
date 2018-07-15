@@ -51,8 +51,9 @@ public class HttpUtil {
 				.build();
 		try {
 			Response response = client.newCall(request).execute();
-			String ss = response.body().string();
-			return ss;
+			byte[] bodyBytes = response.body().bytes();
+			String postBodyStr =new String(bodyBytes, Charset.forName(ConfigUtil.getEncoding()));
+			return postBodyStr ;
 		} catch (Exception e) {
 			logger.debug(" 网络调用异常httpExecute : {}", e);
 		}
