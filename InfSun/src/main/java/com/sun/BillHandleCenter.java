@@ -571,12 +571,13 @@ public class BillHandleCenter {
 	}
 	
 	/**
-	 *    资金对账结果    非税系统 --->支付平台
+	 * 	 *    资金对账结果    非税系统 --->支付平台
 	 *        
-	 * @param fundConfirmMessageRequest 资金对账请求参数
+	 * @param tradeDay  业务日期
+	 * @param tradeNo   对账请求中的流水号    
 	 */
 	
-	public  void  excuteFundConfirmResult(FundConfirmMessageRequest fundConfirmMessageRequest) {
+	public  void  excuteFundConfirmResult(String tradeDay,String tradeNo) {
 		
 		FundResultsRequest biz_content = new FundResultsRequest() ;
 		
