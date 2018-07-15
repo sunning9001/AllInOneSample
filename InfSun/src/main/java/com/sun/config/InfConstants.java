@@ -5,7 +5,7 @@ import java.util.Map;
 import com.sun.msg.BillPayMessageRequest;
 import com.sun.msg.BillQueryMessageRequest;
 import com.sun.msg.BillSyncMessageRequest;
-import com.sun.msg.fundConfirmMessageRequest;
+import com.sun.msg.FundConfirmMessageRequest;
 
 public class InfConstants {
 
@@ -35,7 +35,7 @@ public class InfConstants {
 		
 		infRequestClazzMap.put(OuterBillPay, BillPayMessageRequest.class);
 		
-		infRequestClazzMap.put(OuterAccountBillFund, fundConfirmMessageRequest.class);
+		infRequestClazzMap.put(OuterAccountBillFund, FundConfirmMessageRequest.class);
 	                                
 
 	}

@@ -51,10 +51,8 @@ public class HttpUtil {
 				.build();
 		try {
 			Response response = client.newCall(request).execute();
-			System.out.println("message=="+response.message());
-			System.out.println("message=="+response.toString());
 			String ss = response.body().string();
-			System.out.println(ss);
+			logger.debug("执行请求信息：{}",ss);
 			return ss ;
 		} catch (Exception e) {
 			logger.debug(" 网络调用异常httpExecute : {}", e);
@@ -73,7 +71,7 @@ public class HttpUtil {
 	public Object httpExecute(String postBody, String url, Class clazz) {
 		String rString = httpExecute(postBody, url);
 		
-		System.out.println("==============="+rString);
+		System.out.println("=======执行请求之后返回的参数========"+rString);
 		if (rString != null) {
 			Object obj = JSONObject.parseObject(rString, clazz);
 			return obj;

@@ -29,19 +29,23 @@ import com.sun.entity.automodel.Fs_kphzExample;
 import com.sun.entity.automodel.Fs_sfxm;
 import com.sun.entity.automodel.Fs_sfxmExample;
 import com.sun.httpserver.HttpServerHandler;
+import com.sun.msg.BillPayMessageRequest;
+import com.sun.msg.BillPayMessageResponse;
 import com.sun.msg.BillQueryMessageRequest;
 import com.sun.msg.BillQueryMessageResponse;
 import com.sun.msg.BillSyncMessageRequest;
 import com.sun.msg.BillSyncMessageResponse;
-import com.sun.msg.fundConfirmMessageRequest;
-import com.sun.msg.fundConfirmMessageResponse;
-import com.sun.msg.BillPayMessageRequest;
-import com.sun.msg.BillPayMessageResponse;
+import com.sun.msg.BillfundResultsMessageRequest;
+import com.sun.msg.BillfundResultsMessageResponse;
+import com.sun.msg.FundConfirmMessageRequest;
+import com.sun.msg.FundConfirmMessageResponse;
 import com.sun.msg.request.BillDetails;
 import com.sun.msg.request.BillPayQyeryRequest;
 import com.sun.msg.request.BillPayRequest;
 import com.sun.msg.request.BillSyncRequest;
-import com.sun.msg.request.BillfundRequest;
+import com.sun.msg.request.FailDetails;
+import com.sun.msg.request.FundConfirmRequest;
+import com.sun.msg.request.FundResultsRequest;
 import com.sun.msg.request.Item;
 import com.sun.util.DateUtil;
 import com.sun.util.SqlUtil;
@@ -113,8 +117,8 @@ public class BillHandleCenter {
 		/**
 		 * 来自支付平台请求消息,票据对账请求消息
 		 */
-		if (clazz.equals(fundConfirmMessageRequest.class)) {
-			fundConfirmMessageRequest request = (fundConfirmMessageRequest) obj;
+		if (clazz.equals(FundConfirmMessageRequest.class)) {
+			FundConfirmMessageRequest request = (FundConfirmMessageRequest) obj;
 			replayMessage = handlefundConfirmMessageRequest(request);
 			replyFlag = true;
 		}
@@ -133,16 +137,16 @@ public class BillHandleCenter {
 	 * @param resuest
 	 * @return
 	 */
-   public static Object handlefundConfirmMessageRequest(fundConfirmMessageRequest resuest) {
+   public static Object handlefundConfirmMessageRequest(FundConfirmMessageRequest resuest) {
 	   
-	   BillfundRequest biz_content = resuest.getBiz_content();
+	   FundConfirmRequest biz_content = resuest.getBiz_content();
 	   //获取总笔数
 	   Integer count = biz_content.getCount();
 	   //获取到账明细
 	   List<BillDetails> translist = biz_content.getTranslist();
 	   
 	   //创建返回消息
-	   fundConfirmMessageResponse response = new fundConfirmMessageResponse();
+	   FundConfirmMessageResponse response = new FundConfirmMessageResponse();
 	   //所有票据 金额 对账不准确的信息
 	   String code =ResponseCode.Success ;
 	   String msg = "" ; 
@@ -185,9 +189,10 @@ public class BillHandleCenter {
 					 total = total.add(je);
 				}
 				BigDecimal actualMoney = new BigDecimal(amount) ;
-				//请求参数中的金额 小于数据库中的金额 则不满足
+				String sqltotal = total.toString();
 				
-				if( actualMoney.compareTo(total) < 0 ) {
+				//请求参数中的金额 与 数据库中的金额 不相符 则不满足
+				if( ! sqltotal.equals(amount) ) {
 					code = ResponseCode.fail ;
 					if(msg == "") {
 						msg += "票据号"+billno +" 金额不相符";
@@ -420,7 +425,7 @@ public class BillHandleCenter {
    /****************************************以下是请求接口**********************************************/
 	
 	/**
-	 *   执行票据同步  支付平台 --->  非税系统
+	 *   执行票据同步    非税系统 --->支付平台
 	 *         感觉不准确???????????????????????????????????????????????????????
 	 * @param pj  
 	 */
@@ -561,6 +566,122 @@ public class BillHandleCenter {
 		}
 	}
 	
+	/**
+	 *    资金对账结果    非税系统 --->支付平台
+	 *        
+	 * @param fundConfirmMessageRequest 资金对账请求参数
+	 */
+	
+	public  void  excuteFundConfirmResult(FundConfirmMessageRequest fundConfirmMessageRequest) {
+		
+		FundResultsRequest biz_content = new FundResultsRequest() ;
+		
+		//对账请求参数
+		FundConfirmRequest fundConfirmRequest = fundConfirmMessageRequest.getBiz_content();
+	    //获取总笔数
+	    Integer count = fundConfirmRequest.getCount();
+	    
+		//获取到账明细
+		List<BillDetails> translist = fundConfirmRequest.getTranslist();
+		SqlSession sqlSession = SqlUtil.getInstance().getSqlSession();
+		   
+		
+		
+		//成功笔数
+		int succeedcount = 0;
+		int failcount = 0 ;
+		List<FailDetails> faillist = new ArrayList<FailDetails>();
+		if(translist != null && translist.size() >0 ) {
+			
+			for(int i=0 ;i<translist.size() ;i++) {
+				 BillDetails billDetails = translist.get(i);
+				   
+				   //请求数据中 票据金额
+				   String amount = billDetails.getAmount(); 
+				   
+				   String billno = billDetails.getBillno() ;
+				   Fs_kphzMapper fs_kphzMapper = sqlSession.getMapper(Fs_kphzMapper.class);
+				   Fs_kphzExample example = new Fs_kphzExample();
+				   example.createCriteria().andPjhEqualTo(billno);
+				   
+				   //根据票据号 查询票据
+				   List<Fs_kphz> billList = fs_kphzMapper.selectByExample(example);
+				   //此票据对账是否准确，默认准确
+				   Boolean isSuccess = true ;
+				   
+				   //获取到票据
+					Fs_kphz  kphz =null;
+					if(billList != null && billList.size()>0) {
+						kphz =billList.get(0);
+					}
+					
+					//交易流水号
+					String trade_no = kphz.getId1() ;
+					String code ="" ;
+					String msg = "" ; 
+					if(kphz == null) {
+						//票据查询不到,则告之对方
+						isSuccess = false ;
+						failcount ++ ;
+						//错误码  1101
+					    code = ResponseCode.transaction01; 
+						msg = ResponseCode.getCodeDesc(code);
+					}
+					
+					//数据库中 金额总数
+					BigDecimal total = new BigDecimal("0") ;
+					for (Fs_kphz fs: billList) {
+						 BigDecimal je = fs.getJe().setScale(2,BigDecimal.ROUND_HALF_UP);
+						 total = total.add(je);
+					}
+					String sqltotal = total.toString();
+					
+					//请求参数中的金额 != 金额 则不满足
+					if( ! sqltotal.equals( amount) ) {
+						isSuccess = false ;
+						failcount ++ ;
+						//收款金额 与财政金额不一致 
+						code = ResponseCode.transaction10;
+						msg = ResponseCode.getCodeDesc(code);
+					}
+					
+					if( isSuccess) {
+						succeedcount ++ ;
+					}else {
+						FailDetails failDetails = new FailDetails();
+						failDetails.setTrade_no(trade_no);
+						failDetails.setCode(code);
+						failDetails.setMsg(msg);
+						faillist.add(failDetails);
+					}
+				   
+			   }
+		   }
+		
+		//业务日期
+		biz_content.setDate(DateUtil.dateToStirng(new Date()));          //如 20170629
+		//对账流水号
+	    biz_content.setAccountfirm_no(fundConfirmRequest.getAccountfirm_no());
+		biz_content.setSucceedcount(succeedcount);
+		biz_content.setFailcount(failcount);
+		biz_content.setFaillist(faillist);
+		
+		//创建对账结果  请求对象
+		BillfundResultsMessageRequest request = new BillfundResultsMessageRequest();
+		
+		request.setZone_code(ConfigUtil.getZoneCode());
+		request.setMethod(InfConstants.AccountBillFundConfirm);
+		request.setTimestamp(DateUtil.dateToStirngTime(new Date()));
+		String bankindex = fundConfirmMessageRequest.getBankindex() ; 
+		request.setBankindex(bankindex);
+		request.setBiz_content(biz_content);
+				
+		//向公共支付平台请求消息
+		//转换成JSON String
+		String postBody =JSONObject.toJSONString(request);
+		BillfundResultsMessageResponse response = (BillfundResultsMessageResponse) HttpUtil.getInstance().httpExecute(postBody , ConfigUtil.getUrl(), BillfundResultsMessageResponse.class);
+				
+	}
 	
 	
 }

@@ -22,6 +22,23 @@ import com.sun.util.SqlUtil;
 
 public class QueryTest {
 
+	@Test
+	public void testBigDecimal() {
+		
+		BigDecimal b1 = new BigDecimal("100.00");
+		System.out.println(b1.toString());
+		if(! b1.toString().equals("100.00")) {
+			System.out.println("100.00 == 100.00");
+		}else {
+			System.out.println("nonono");
+		}
+		
+//		BigDecimal b2 = new BigDecimal("100.00");
+//		if(b2.toString() == "100.00") {
+//			System.out.println("100.00 == 100.00");
+//		}
+
+	}
 	
 	@Test
 	 public void  testUtilMapper() {

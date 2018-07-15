@@ -1,18 +1,18 @@
 package com.sun.msg;
 
-import com.sun.msg.request.BillfundRequest;
+import com.sun.msg.request.FundConfirmRequest;
 
 /**
  * 资金对账请求
  * @author zhuoyvqing
  *
  */
-public class fundConfirmMessageRequest {
+public class FundConfirmMessageRequest {
 
 	private String method ;  //方法名称
 	private String timestamp ; //发送请求的时间 ，格式"yyyyMMddHHmmss" 如:201407224030750
 	private String bankindex ; //银行的编号， 由公共支付接口前置机编码  
-	private BillfundRequest biz_content ; //
+	private FundConfirmRequest biz_content ; //
 	public String getMethod() {
 		return method;
 	}
@@ -31,10 +31,10 @@ public class fundConfirmMessageRequest {
 	public void setBankindex(String bankindex) {
 		this.bankindex = bankindex;
 	}
-	public BillfundRequest getBiz_content() {
+	public FundConfirmRequest getBiz_content() {
 		return biz_content;
 	}
-	public void setBiz_content(BillfundRequest biz_content) {
+	public void setBiz_content(FundConfirmRequest biz_content) {
 		this.biz_content = biz_content;
 	}
 	@Override
