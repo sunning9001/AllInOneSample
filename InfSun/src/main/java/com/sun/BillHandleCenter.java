@@ -252,7 +252,7 @@ public class BillHandleCenter {
 				
 				return response;
 			}
-			
+			//判断金额是否足够, 金额之和 大于非税系统金额  TODO 
 			//查询票据月份
 			UtilMapper utilMapper = sqlSession.getMapper(UtilMapper.class);
 			String yuefen = utilMapper.selectMonth(kphz.getPjh());
@@ -266,6 +266,9 @@ public class BillHandleCenter {
 			
 			//修改票据状态 已缴费 缴费时间
 			utilMapper.updateJkztAndJkrq(bean);
+			
+			//更新状态之后,记录该条记录，，报错一个日志  。。。。。
+			//TOOD  commit   rollback ????????
 			sqlSession.commit();
 			
 			//查询到票据,成功响应
