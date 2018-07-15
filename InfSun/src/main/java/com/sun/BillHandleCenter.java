@@ -203,6 +203,7 @@ public class BillHandleCenter {
 			   
 		   }
 	   }
+	   //TOOD  资金对账请求接口
 	   response.setCode(code);
 	   if(code == ResponseCode.fail) {
 		   response.setMsg(msg);
@@ -279,7 +280,7 @@ public class BillHandleCenter {
 			
 		}catch (Exception e) {
 			logger.debug("handleOuterBillPayMessageRequest  exception:{}",e);
-		}finally {
+		}finally { 
 			if( sqlSession!=null) {
 				sqlSession.close();
 			}
