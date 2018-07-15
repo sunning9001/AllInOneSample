@@ -7,6 +7,10 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.sun.httpserver.HttpServer;
 
 /**
  * mybait sql 工具类
@@ -16,6 +20,8 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
  */
 public class SqlUtil {
 
+	 private static final Logger logger =LoggerFactory.getLogger(HttpServer.class);
+		
 	private static final SqlUtil instance = new SqlUtil();
 
 	private static SqlSessionFactory sqlSessionFactory ;
@@ -30,14 +36,14 @@ public class SqlUtil {
 			sqlSessionFactory = builder.build(inputStream);
 			
 		} catch (IOException e) {
-			// TODO 加日志
+			logger.debug("SqlUtil sqlSession---     {}",e);
 			e.printStackTrace();
 		} finally {
 			if (inputStream != null) {
 				try {
 					inputStream.close();
 				} catch (IOException e) {
-					// TODO  加日志
+					logger.debug("inputStream close()---     {}",e);
 					e.printStackTrace();
 				}
 			}
