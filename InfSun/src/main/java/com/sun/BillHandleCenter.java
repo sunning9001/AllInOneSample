@@ -336,11 +336,11 @@ public class BillHandleCenter {
 			reponse.setZone_code(zone_code);
 			//票据号
 			reponse.setBillno(kphz.getPjh());
-			//票据日期  TODO 
+			//票据日期
 			String billdate = DateUtil.dateToStirng(kphz.getPjrq());
 			reponse.setBilldate(billdate);
 			
-			//金额  TODO
+			//金额
 			BigDecimal total = new BigDecimal("0") ;
 			for (Fs_kphz fs: billList) {
 				 BigDecimal je = fs.getJe().setScale(2,BigDecimal.ROUND_HALF_UP);
