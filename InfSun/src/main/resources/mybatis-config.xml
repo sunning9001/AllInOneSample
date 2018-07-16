@@ -28,6 +28,8 @@
     <mapper resource="autosqlmap/Fs_sfxmMapper.xml" />
     <mapper resource="autosqlmap/Fs_yhwdMapper.xml" />
     <mapper resource="autosqlmap/Fs_kphzMapper.xml" />
+    <mapper resource="autosqlmap/Fs_pjjfMapper.xml" />
+     <mapper resource="autosqlmap/Fs_pjdzMapper.xml" />
     <mapper resource="mapper/UtilMapper.xml" />
     
 	<!-- 插入mapper 文件尽量单一使用   <mapper class="com.sun.bean.UtilMapper" /> -->
