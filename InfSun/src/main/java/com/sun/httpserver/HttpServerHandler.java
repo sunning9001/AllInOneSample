@@ -48,6 +48,8 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
 
 	/**
 	 * 接口名称和消息体的风格符号: 例如： "wp_outer_bill_pay_query_response": {"code":"000000"}
+	 * 
+	 ****************************支付平台-->非税系统：  request:{"method":"wp.outer.bill.pay.query"}
 	 */
 	private static final String separatorchars = ":";
 
@@ -69,10 +71,14 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
 
 				// 提取接口名称
 				// 例如：wp_outer_bill_pay_query_response ->wp.outer.bill.pay.query
-				String infName = StringUtils.replace(StringUtils.replace(infbody[0], "_", "."), ".response", "");   //注释 这个有待商量 response
+//				String infName = StringUtils.replace(StringUtils.replace(infbody[0], "_", "."), ".response", "");   //注释 这个有待商量 response
 				
 				// 根据接口名称,把postBody中消息体转换成消息对象
-				Class clazz = InfConstants.getInfRequestClazz(infName);
+//				Class clazz = InfConstants.getInfRequestClazz(infName);
+				
+				//修改内容
+				String method = (String)JSONObject.parseObject(infbody[1]).get("method");
+				Class clazz = InfConstants.getInfRequestClazz(method);
 				
 				// 转换消息对象
 				Object obj = JSONObject.parseObject(infbody[1], clazz);

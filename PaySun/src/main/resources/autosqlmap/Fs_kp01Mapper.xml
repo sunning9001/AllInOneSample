@@ -7,12 +7,12 @@
     <result column="dwdm" jdbcType="VARCHAR" property="dwdm" />
     <result column="yhdm" jdbcType="VARCHAR" property="yhdm" />
     <result column="wddm" jdbcType="VARCHAR" property="wddm" />
-    <result column="pjrq" jdbcType="DATE" property="pjrq" />
+    <result column="pjrq" jdbcType="TIMESTAMP" property="pjrq" />
     <result column="pjlx" jdbcType="VARCHAR" property="pjlx" />
     <result column="zgbm" jdbcType="VARCHAR" property="zgbm" />
     <result column="pjh" jdbcType="VARCHAR" property="pjh" />
     <result column="jksh" jdbcType="VARCHAR" property="jksh" />
-    <result column="jkrq" jdbcType="DATE" property="jkrq" />
+    <result column="jkrq" jdbcType="TIMESTAMP" property="jkrq" />
     <result column="jkr" jdbcType="VARCHAR" property="jkr" />
     <result column="xmdm" jdbcType="VARCHAR" property="xmdm" />
     <result column="zy" jdbcType="VARCHAR" property="zy" />
@@ -34,10 +34,10 @@
     <result column="pjzt" jdbcType="VARCHAR" property="pjzt" />
     <result column="tg_pzlx" jdbcType="VARCHAR" property="tgPzlx" />
     <result column="tg_pzh" jdbcType="VARCHAR" property="tgPzh" />
-    <result column="tg_pzrq" jdbcType="DATE" property="tgPzrq" />
+    <result column="tg_pzrq" jdbcType="TIMESTAMP" property="tgPzrq" />
     <result column="st_pzlx" jdbcType="VARCHAR" property="stPzlx" />
     <result column="st_pzh" jdbcType="VARCHAR" property="stPzh" />
-    <result column="st_pzrq" jdbcType="DATE" property="stPzrq" />
+    <result column="st_pzrq" jdbcType="TIMESTAMP" property="stPzrq" />
     <result column="bz" jdbcType="VARCHAR" property="bz" />
     <result column="iszh" jdbcType="VARCHAR" property="iszh" />
     <result column="isprint" jdbcType="VARCHAR" property="isprint" />
@@ -59,8 +59,8 @@
     <result column="def_num3" jdbcType="DECIMAL" property="defNum3" />
     <result column="def_num4" jdbcType="DECIMAL" property="defNum4" />
     <result column="def_num5" jdbcType="DECIMAL" property="defNum5" />
-    <result column="def_dt1" jdbcType="DATE" property="defDt1" />
-    <result column="def_dt2" jdbcType="DATE" property="defDt2" />
+    <result column="def_dt1" jdbcType="TIMESTAMP" property="defDt1" />
+    <result column="def_dt2" jdbcType="TIMESTAMP" property="defDt2" />
     <result column="ishz" jdbcType="VARCHAR" property="ishz" />
     <result column="cpdw" jdbcType="VARCHAR" property="cpdw" />
     <result column="fyhdm" jdbcType="VARCHAR" property="fyhdm" />
@@ -155,42 +155,44 @@
   </delete>
   <insert id="insert" parameterType="com.sun.entity.automodel.Fs_kp01">
     insert into fs_kp01 (id1, id2, dwdm, 
-      yhdm, wddm, pjrq, pjlx, 
-      zgbm, pjh, jksh, jkrq, 
-      jkr, xmdm, zy, je, 
-      dw, sl, sfbz, kpr, 
-      jsr, shr, hxr, jsfs, 
-      jspjh, jsyh, wldwdm, 
-      wldwmc, wldwkh, wldwzh, 
-      pjzt, tg_pzlx, tg_pzh, 
-      tg_pzrq, st_pzlx, st_pzh, 
-      st_pzrq, bz, iszh, isprint, 
-      isdwkp, isyhkp, isdwjk, 
-      def_str1, def_str2, def_str3, 
-      def_str4, def_str5, def_int1, 
-      def_int2, def_int3, def_int4, 
-      def_int5, def_num1, def_num2, 
-      def_num3, def_num4, def_num5, 
-      def_dt1, def_dt2, ishz, cpdw, 
+      yhdm, wddm, pjrq, 
+      pjlx, zgbm, pjh, jksh, 
+      jkrq, jkr, xmdm, 
+      zy, je, dw, sl, 
+      sfbz, kpr, jsr, shr, 
+      hxr, jsfs, jspjh, jsyh, 
+      wldwdm, wldwmc, wldwkh, 
+      wldwzh, pjzt, tg_pzlx, 
+      tg_pzh, tg_pzrq, st_pzlx, 
+      st_pzh, st_pzrq, bz, 
+      iszh, isprint, isdwkp, 
+      isyhkp, isdwjk, def_str1, 
+      def_str2, def_str3, def_str4, 
+      def_str5, def_int1, def_int2, 
+      def_int3, def_int4, def_int5, 
+      def_num1, def_num2, def_num3, 
+      def_num4, def_num5, def_dt1, 
+      def_dt2, ishz, cpdw, 
       fyhdm, fyhzh, istf)
     values (#{id1,jdbcType=VARCHAR}, #{id2,jdbcType=INTEGER}, #{dwdm,jdbcType=VARCHAR}, 
-      #{yhdm,jdbcType=VARCHAR}, #{wddm,jdbcType=VARCHAR}, #{pjrq,jdbcType=DATE}, #{pjlx,jdbcType=VARCHAR}, 
-      #{zgbm,jdbcType=VARCHAR}, #{pjh,jdbcType=VARCHAR}, #{jksh,jdbcType=VARCHAR}, #{jkrq,jdbcType=DATE}, 
-      #{jkr,jdbcType=VARCHAR}, #{xmdm,jdbcType=VARCHAR}, #{zy,jdbcType=VARCHAR}, #{je,jdbcType=DECIMAL}, 
-      #{dw,jdbcType=VARCHAR}, #{sl,jdbcType=DECIMAL}, #{sfbz,jdbcType=DECIMAL}, #{kpr,jdbcType=VARCHAR}, 
-      #{jsr,jdbcType=VARCHAR}, #{shr,jdbcType=VARCHAR}, #{hxr,jdbcType=VARCHAR}, #{jsfs,jdbcType=INTEGER}, 
-      #{jspjh,jdbcType=VARCHAR}, #{jsyh,jdbcType=VARCHAR}, #{wldwdm,jdbcType=VARCHAR}, 
-      #{wldwmc,jdbcType=VARCHAR}, #{wldwkh,jdbcType=VARCHAR}, #{wldwzh,jdbcType=VARCHAR}, 
-      #{pjzt,jdbcType=VARCHAR}, #{tgPzlx,jdbcType=VARCHAR}, #{tgPzh,jdbcType=VARCHAR}, 
-      #{tgPzrq,jdbcType=DATE}, #{stPzlx,jdbcType=VARCHAR}, #{stPzh,jdbcType=VARCHAR}, 
-      #{stPzrq,jdbcType=DATE}, #{bz,jdbcType=VARCHAR}, #{iszh,jdbcType=VARCHAR}, #{isprint,jdbcType=VARCHAR}, 
-      #{isdwkp,jdbcType=VARCHAR}, #{isyhkp,jdbcType=VARCHAR}, #{isdwjk,jdbcType=VARCHAR}, 
-      #{defStr1,jdbcType=VARCHAR}, #{defStr2,jdbcType=VARCHAR}, #{defStr3,jdbcType=VARCHAR}, 
-      #{defStr4,jdbcType=VARCHAR}, #{defStr5,jdbcType=VARCHAR}, #{defInt1,jdbcType=INTEGER}, 
-      #{defInt2,jdbcType=INTEGER}, #{defInt3,jdbcType=INTEGER}, #{defInt4,jdbcType=INTEGER}, 
-      #{defInt5,jdbcType=INTEGER}, #{defNum1,jdbcType=DECIMAL}, #{defNum2,jdbcType=DECIMAL}, 
-      #{defNum3,jdbcType=DECIMAL}, #{defNum4,jdbcType=DECIMAL}, #{defNum5,jdbcType=DECIMAL}, 
-      #{defDt1,jdbcType=DATE}, #{defDt2,jdbcType=DATE}, #{ishz,jdbcType=VARCHAR}, #{cpdw,jdbcType=VARCHAR}, 
+      #{yhdm,jdbcType=VARCHAR}, #{wddm,jdbcType=VARCHAR}, #{pjrq,jdbcType=TIMESTAMP}, 
+      #{pjlx,jdbcType=VARCHAR}, #{zgbm,jdbcType=VARCHAR}, #{pjh,jdbcType=VARCHAR}, #{jksh,jdbcType=VARCHAR}, 
+      #{jkrq,jdbcType=TIMESTAMP}, #{jkr,jdbcType=VARCHAR}, #{xmdm,jdbcType=VARCHAR}, 
+      #{zy,jdbcType=VARCHAR}, #{je,jdbcType=DECIMAL}, #{dw,jdbcType=VARCHAR}, #{sl,jdbcType=DECIMAL}, 
+      #{sfbz,jdbcType=DECIMAL}, #{kpr,jdbcType=VARCHAR}, #{jsr,jdbcType=VARCHAR}, #{shr,jdbcType=VARCHAR}, 
+      #{hxr,jdbcType=VARCHAR}, #{jsfs,jdbcType=INTEGER}, #{jspjh,jdbcType=VARCHAR}, #{jsyh,jdbcType=VARCHAR}, 
+      #{wldwdm,jdbcType=VARCHAR}, #{wldwmc,jdbcType=VARCHAR}, #{wldwkh,jdbcType=VARCHAR}, 
+      #{wldwzh,jdbcType=VARCHAR}, #{pjzt,jdbcType=VARCHAR}, #{tgPzlx,jdbcType=VARCHAR}, 
+      #{tgPzh,jdbcType=VARCHAR}, #{tgPzrq,jdbcType=TIMESTAMP}, #{stPzlx,jdbcType=VARCHAR}, 
+      #{stPzh,jdbcType=VARCHAR}, #{stPzrq,jdbcType=TIMESTAMP}, #{bz,jdbcType=VARCHAR}, 
+      #{iszh,jdbcType=VARCHAR}, #{isprint,jdbcType=VARCHAR}, #{isdwkp,jdbcType=VARCHAR}, 
+      #{isyhkp,jdbcType=VARCHAR}, #{isdwjk,jdbcType=VARCHAR}, #{defStr1,jdbcType=VARCHAR}, 
+      #{defStr2,jdbcType=VARCHAR}, #{defStr3,jdbcType=VARCHAR}, #{defStr4,jdbcType=VARCHAR}, 
+      #{defStr5,jdbcType=VARCHAR}, #{defInt1,jdbcType=INTEGER}, #{defInt2,jdbcType=INTEGER}, 
+      #{defInt3,jdbcType=INTEGER}, #{defInt4,jdbcType=INTEGER}, #{defInt5,jdbcType=INTEGER}, 
+      #{defNum1,jdbcType=DECIMAL}, #{defNum2,jdbcType=DECIMAL}, #{defNum3,jdbcType=DECIMAL}, 
+      #{defNum4,jdbcType=DECIMAL}, #{defNum5,jdbcType=DECIMAL}, #{defDt1,jdbcType=TIMESTAMP}, 
+      #{defDt2,jdbcType=TIMESTAMP}, #{ishz,jdbcType=VARCHAR}, #{cpdw,jdbcType=VARCHAR}, 
       #{fyhdm,jdbcType=VARCHAR}, #{fyhzh,jdbcType=VARCHAR}, #{istf,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.sun.entity.automodel.Fs_kp01">
@@ -390,7 +392,7 @@
         #{wddm,jdbcType=VARCHAR},
       </if>
       <if test="pjrq != null">
-        #{pjrq,jdbcType=DATE},
+        #{pjrq,jdbcType=TIMESTAMP},
       </if>
       <if test="pjlx != null">
         #{pjlx,jdbcType=VARCHAR},
@@ -405,7 +407,7 @@
         #{jksh,jdbcType=VARCHAR},
       </if>
       <if test="jkrq != null">
-        #{jkrq,jdbcType=DATE},
+        #{jkrq,jdbcType=TIMESTAMP},
       </if>
       <if test="jkr != null">
         #{jkr,jdbcType=VARCHAR},
@@ -469,7 +471,7 @@
         #{tgPzh,jdbcType=VARCHAR},
       </if>
       <if test="tgPzrq != null">
-        #{tgPzrq,jdbcType=DATE},
+        #{tgPzrq,jdbcType=TIMESTAMP},
       </if>
       <if test="stPzlx != null">
         #{stPzlx,jdbcType=VARCHAR},
@@ -478,7 +480,7 @@
         #{stPzh,jdbcType=VARCHAR},
       </if>
       <if test="stPzrq != null">
-        #{stPzrq,jdbcType=DATE},
+        #{stPzrq,jdbcType=TIMESTAMP},
       </if>
       <if test="bz != null">
         #{bz,jdbcType=VARCHAR},
@@ -534,10 +536,10 @@
         #{defNum5,jdbcType=DECIMAL},
       </if>
       <if test="defDt1 != null">
-        #{defDt1,jdbcType=DATE},
+        #{defDt1,jdbcType=TIMESTAMP},
       </if>
       <if test="defDt2 != null">
-        #{defDt2,jdbcType=DATE},
+        #{defDt2,jdbcType=TIMESTAMP},
       </if>
       <if test="ishz != null">
         #{ishz,jdbcType=VARCHAR},
@@ -581,7 +583,7 @@
         wddm = #{record.wddm,jdbcType=VARCHAR},
       </if>
       <if test="record.pjrq != null">
-        pjrq = #{record.pjrq,jdbcType=DATE},
+        pjrq = #{record.pjrq,jdbcType=TIMESTAMP},
       </if>
       <if test="record.pjlx != null">
         pjlx = #{record.pjlx,jdbcType=VARCHAR},
@@ -596,7 +598,7 @@
         jksh = #{record.jksh,jdbcType=VARCHAR},
       </if>
       <if test="record.jkrq != null">
-        jkrq = #{record.jkrq,jdbcType=DATE},
+        jkrq = #{record.jkrq,jdbcType=TIMESTAMP},
       </if>
       <if test="record.jkr != null">
         jkr = #{record.jkr,jdbcType=VARCHAR},
@@ -662,7 +664,7 @@
         tg_pzh = #{record.tgPzh,jdbcType=VARCHAR},
       </if>
       <if test="record.tgPzrq != null">
-        tg_pzrq = #{record.tgPzrq,jdbcType=DATE},
+        tg_pzrq = #{record.tgPzrq,jdbcType=TIMESTAMP},
       </if>
       <if test="record.stPzlx != null">
         st_pzlx = #{record.stPzlx,jdbcType=VARCHAR},
@@ -671,7 +673,7 @@
         st_pzh = #{record.stPzh,jdbcType=VARCHAR},
       </if>
       <if test="record.stPzrq != null">
-        st_pzrq = #{record.stPzrq,jdbcType=DATE},
+        st_pzrq = #{record.stPzrq,jdbcType=TIMESTAMP},
       </if>
       <if test="record.bz != null">
         bz = #{record.bz,jdbcType=VARCHAR},
@@ -737,10 +739,10 @@
         def_num5 = #{record.defNum5,jdbcType=DECIMAL},
       </if>
       <if test="record.defDt1 != null">
-        def_dt1 = #{record.defDt1,jdbcType=DATE},
+        def_dt1 = #{record.defDt1,jdbcType=TIMESTAMP},
       </if>
       <if test="record.defDt2 != null">
-        def_dt2 = #{record.defDt2,jdbcType=DATE},
+        def_dt2 = #{record.defDt2,jdbcType=TIMESTAMP},
       </if>
       <if test="record.ishz != null">
         ishz = #{record.ishz,jdbcType=VARCHAR},
@@ -769,12 +771,12 @@
       dwdm = #{record.dwdm,jdbcType=VARCHAR},
       yhdm = #{record.yhdm,jdbcType=VARCHAR},
       wddm = #{record.wddm,jdbcType=VARCHAR},
-      pjrq = #{record.pjrq,jdbcType=DATE},
+      pjrq = #{record.pjrq,jdbcType=TIMESTAMP},
       pjlx = #{record.pjlx,jdbcType=VARCHAR},
       zgbm = #{record.zgbm,jdbcType=VARCHAR},
       pjh = #{record.pjh,jdbcType=VARCHAR},
       jksh = #{record.jksh,jdbcType=VARCHAR},
-      jkrq = #{record.jkrq,jdbcType=DATE},
+      jkrq = #{record.jkrq,jdbcType=TIMESTAMP},
       jkr = #{record.jkr,jdbcType=VARCHAR},
       xmdm = #{record.xmdm,jdbcType=VARCHAR},
       zy = #{record.zy,jdbcType=VARCHAR},
@@ -796,10 +798,10 @@
       pjzt = #{record.pjzt,jdbcType=VARCHAR},
       tg_pzlx = #{record.tgPzlx,jdbcType=VARCHAR},
       tg_pzh = #{record.tgPzh,jdbcType=VARCHAR},
-      tg_pzrq = #{record.tgPzrq,jdbcType=DATE},
+      tg_pzrq = #{record.tgPzrq,jdbcType=TIMESTAMP},
       st_pzlx = #{record.stPzlx,jdbcType=VARCHAR},
       st_pzh = #{record.stPzh,jdbcType=VARCHAR},
-      st_pzrq = #{record.stPzrq,jdbcType=DATE},
+      st_pzrq = #{record.stPzrq,jdbcType=TIMESTAMP},
       bz = #{record.bz,jdbcType=VARCHAR},
       iszh = #{record.iszh,jdbcType=VARCHAR},
       isprint = #{record.isprint,jdbcType=VARCHAR},
@@ -821,8 +823,8 @@
       def_num3 = #{record.defNum3,jdbcType=DECIMAL},
       def_num4 = #{record.defNum4,jdbcType=DECIMAL},
       def_num5 = #{record.defNum5,jdbcType=DECIMAL},
-      def_dt1 = #{record.defDt1,jdbcType=DATE},
-      def_dt2 = #{record.defDt2,jdbcType=DATE},
+      def_dt1 = #{record.defDt1,jdbcType=TIMESTAMP},
+      def_dt2 = #{record.defDt2,jdbcType=TIMESTAMP},
       ishz = #{record.ishz,jdbcType=VARCHAR},
       cpdw = #{record.cpdw,jdbcType=VARCHAR},
       fyhdm = #{record.fyhdm,jdbcType=VARCHAR},

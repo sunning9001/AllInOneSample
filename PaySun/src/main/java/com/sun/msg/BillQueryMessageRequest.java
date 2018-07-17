@@ -3,7 +3,7 @@ package com.sun.msg;
 import com.sun.msg.request.BillQueryRequest;
 
 /**
- * 票据查询 请求参数
+ *  票据查询 请求参数
  * 
  * @author zhuoyvqing
  *

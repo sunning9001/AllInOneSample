@@ -3,7 +3,6 @@ package com.sun.entity.automodel;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 public class Fs_kphzExample {
@@ -105,32 +104,6 @@ public class Fs_kphzExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
-            if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value.getTime()), property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
-            if (values == null || values.size() == 0) {
-                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
-            }
-            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
-            Iterator<Date> iter = values.iterator();
-            while (iter.hasNext()) {
-                dateList.add(new java.sql.Date(iter.next().getTime()));
-            }
-            addCriterion(condition, dateList, property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
-            if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andId1IsNull() {
@@ -484,52 +457,52 @@ public class Fs_kphzExample {
         }
 
         public Criteria andPjrqEqualTo(Date value) {
-            addCriterionForJDBCDate("pjrq =", value, "pjrq");
+            addCriterion("pjrq =", value, "pjrq");
             return (Criteria) this;
         }
 
         public Criteria andPjrqNotEqualTo(Date value) {
-            addCriterionForJDBCDate("pjrq <>", value, "pjrq");
+            addCriterion("pjrq <>", value, "pjrq");
             return (Criteria) this;
         }
 
         public Criteria andPjrqGreaterThan(Date value) {
-            addCriterionForJDBCDate("pjrq >", value, "pjrq");
+            addCriterion("pjrq >", value, "pjrq");
             return (Criteria) this;
         }
 
         public Criteria andPjrqGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("pjrq >=", value, "pjrq");
+            addCriterion("pjrq >=", value, "pjrq");
             return (Criteria) this;
         }
 
         public Criteria andPjrqLessThan(Date value) {
-            addCriterionForJDBCDate("pjrq <", value, "pjrq");
+            addCriterion("pjrq <", value, "pjrq");
             return (Criteria) this;
         }
 
         public Criteria andPjrqLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("pjrq <=", value, "pjrq");
+            addCriterion("pjrq <=", value, "pjrq");
             return (Criteria) this;
         }
 
         public Criteria andPjrqIn(List<Date> values) {
-            addCriterionForJDBCDate("pjrq in", values, "pjrq");
+            addCriterion("pjrq in", values, "pjrq");
             return (Criteria) this;
         }
 
         public Criteria andPjrqNotIn(List<Date> values) {
-            addCriterionForJDBCDate("pjrq not in", values, "pjrq");
+            addCriterion("pjrq not in", values, "pjrq");
             return (Criteria) this;
         }
 
         public Criteria andPjrqBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("pjrq between", value1, value2, "pjrq");
+            addCriterion("pjrq between", value1, value2, "pjrq");
             return (Criteria) this;
         }
 
         public Criteria andPjrqNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("pjrq not between", value1, value2, "pjrq");
+            addCriterion("pjrq not between", value1, value2, "pjrq");
             return (Criteria) this;
         }
 
@@ -824,52 +797,52 @@ public class Fs_kphzExample {
         }
 
         public Criteria andJkrqEqualTo(Date value) {
-            addCriterionForJDBCDate("jkrq =", value, "jkrq");
+            addCriterion("jkrq =", value, "jkrq");
             return (Criteria) this;
         }
 
         public Criteria andJkrqNotEqualTo(Date value) {
-            addCriterionForJDBCDate("jkrq <>", value, "jkrq");
+            addCriterion("jkrq <>", value, "jkrq");
             return (Criteria) this;
         }
 
         public Criteria andJkrqGreaterThan(Date value) {
-            addCriterionForJDBCDate("jkrq >", value, "jkrq");
+            addCriterion("jkrq >", value, "jkrq");
             return (Criteria) this;
         }
 
         public Criteria andJkrqGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("jkrq >=", value, "jkrq");
+            addCriterion("jkrq >=", value, "jkrq");
             return (Criteria) this;
         }
 
         public Criteria andJkrqLessThan(Date value) {
-            addCriterionForJDBCDate("jkrq <", value, "jkrq");
+            addCriterion("jkrq <", value, "jkrq");
             return (Criteria) this;
         }
 
         public Criteria andJkrqLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("jkrq <=", value, "jkrq");
+            addCriterion("jkrq <=", value, "jkrq");
             return (Criteria) this;
         }
 
         public Criteria andJkrqIn(List<Date> values) {
-            addCriterionForJDBCDate("jkrq in", values, "jkrq");
+            addCriterion("jkrq in", values, "jkrq");
             return (Criteria) this;
         }
 
         public Criteria andJkrqNotIn(List<Date> values) {
-            addCriterionForJDBCDate("jkrq not in", values, "jkrq");
+            addCriterion("jkrq not in", values, "jkrq");
             return (Criteria) this;
         }
 
         public Criteria andJkrqBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("jkrq between", value1, value2, "jkrq");
+            addCriterion("jkrq between", value1, value2, "jkrq");
             return (Criteria) this;
         }
 
         public Criteria andJkrqNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("jkrq not between", value1, value2, "jkrq");
+            addCriterion("jkrq not between", value1, value2, "jkrq");
             return (Criteria) this;
         }
 
@@ -2314,52 +2287,52 @@ public class Fs_kphzExample {
         }
 
         public Criteria andTgPzrqEqualTo(Date value) {
-            addCriterionForJDBCDate("tg_pzrq =", value, "tgPzrq");
+            addCriterion("tg_pzrq =", value, "tgPzrq");
             return (Criteria) this;
         }
 
         public Criteria andTgPzrqNotEqualTo(Date value) {
-            addCriterionForJDBCDate("tg_pzrq <>", value, "tgPzrq");
+            addCriterion("tg_pzrq <>", value, "tgPzrq");
             return (Criteria) this;
         }
 
         public Criteria andTgPzrqGreaterThan(Date value) {
-            addCriterionForJDBCDate("tg_pzrq >", value, "tgPzrq");
+            addCriterion("tg_pzrq >", value, "tgPzrq");
             return (Criteria) this;
         }
 
         public Criteria andTgPzrqGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("tg_pzrq >=", value, "tgPzrq");
+            addCriterion("tg_pzrq >=", value, "tgPzrq");
             return (Criteria) this;
         }
 
         public Criteria andTgPzrqLessThan(Date value) {
-            addCriterionForJDBCDate("tg_pzrq <", value, "tgPzrq");
+            addCriterion("tg_pzrq <", value, "tgPzrq");
             return (Criteria) this;
         }
 
         public Criteria andTgPzrqLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("tg_pzrq <=", value, "tgPzrq");
+            addCriterion("tg_pzrq <=", value, "tgPzrq");
             return (Criteria) this;
         }
 
         public Criteria andTgPzrqIn(List<Date> values) {
-            addCriterionForJDBCDate("tg_pzrq in", values, "tgPzrq");
+            addCriterion("tg_pzrq in", values, "tgPzrq");
             return (Criteria) this;
         }
 
         public Criteria andTgPzrqNotIn(List<Date> values) {
-            addCriterionForJDBCDate("tg_pzrq not in", values, "tgPzrq");
+            addCriterion("tg_pzrq not in", values, "tgPzrq");
             return (Criteria) this;
         }
 
         public Criteria andTgPzrqBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("tg_pzrq between", value1, value2, "tgPzrq");
+            addCriterion("tg_pzrq between", value1, value2, "tgPzrq");
             return (Criteria) this;
         }
 
         public Criteria andTgPzrqNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("tg_pzrq not between", value1, value2, "tgPzrq");
+            addCriterion("tg_pzrq not between", value1, value2, "tgPzrq");
             return (Criteria) this;
         }
 
@@ -2514,52 +2487,52 @@ public class Fs_kphzExample {
         }
 
         public Criteria andStPzrqEqualTo(Date value) {
-            addCriterionForJDBCDate("st_pzrq =", value, "stPzrq");
+            addCriterion("st_pzrq =", value, "stPzrq");
             return (Criteria) this;
         }
 
         public Criteria andStPzrqNotEqualTo(Date value) {
-            addCriterionForJDBCDate("st_pzrq <>", value, "stPzrq");
+            addCriterion("st_pzrq <>", value, "stPzrq");
             return (Criteria) this;
         }
 
         public Criteria andStPzrqGreaterThan(Date value) {
-            addCriterionForJDBCDate("st_pzrq >", value, "stPzrq");
+            addCriterion("st_pzrq >", value, "stPzrq");
             return (Criteria) this;
         }
 
         public Criteria andStPzrqGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("st_pzrq >=", value, "stPzrq");
+            addCriterion("st_pzrq >=", value, "stPzrq");
             return (Criteria) this;
         }
 
         public Criteria andStPzrqLessThan(Date value) {
-            addCriterionForJDBCDate("st_pzrq <", value, "stPzrq");
+            addCriterion("st_pzrq <", value, "stPzrq");
             return (Criteria) this;
         }
 
         public Criteria andStPzrqLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("st_pzrq <=", value, "stPzrq");
+            addCriterion("st_pzrq <=", value, "stPzrq");
             return (Criteria) this;
         }
 
         public Criteria andStPzrqIn(List<Date> values) {
-            addCriterionForJDBCDate("st_pzrq in", values, "stPzrq");
+            addCriterion("st_pzrq in", values, "stPzrq");
             return (Criteria) this;
         }
 
         public Criteria andStPzrqNotIn(List<Date> values) {
-            addCriterionForJDBCDate("st_pzrq not in", values, "stPzrq");
+            addCriterion("st_pzrq not in", values, "stPzrq");
             return (Criteria) this;
         }
 
         public Criteria andStPzrqBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("st_pzrq between", value1, value2, "stPzrq");
+            addCriterion("st_pzrq between", value1, value2, "stPzrq");
             return (Criteria) this;
         }
 
         public Criteria andStPzrqNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("st_pzrq not between", value1, value2, "stPzrq");
+            addCriterion("st_pzrq not between", value1, value2, "stPzrq");
             return (Criteria) this;
         }
 
@@ -3944,52 +3917,52 @@ public class Fs_kphzExample {
         }
 
         public Criteria andDefDt1EqualTo(Date value) {
-            addCriterionForJDBCDate("def_dt1 =", value, "defDt1");
+            addCriterion("def_dt1 =", value, "defDt1");
             return (Criteria) this;
         }
 
         public Criteria andDefDt1NotEqualTo(Date value) {
-            addCriterionForJDBCDate("def_dt1 <>", value, "defDt1");
+            addCriterion("def_dt1 <>", value, "defDt1");
             return (Criteria) this;
         }
 
         public Criteria andDefDt1GreaterThan(Date value) {
-            addCriterionForJDBCDate("def_dt1 >", value, "defDt1");
+            addCriterion("def_dt1 >", value, "defDt1");
             return (Criteria) this;
         }
 
         public Criteria andDefDt1GreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("def_dt1 >=", value, "defDt1");
+            addCriterion("def_dt1 >=", value, "defDt1");
             return (Criteria) this;
         }
 
         public Criteria andDefDt1LessThan(Date value) {
-            addCriterionForJDBCDate("def_dt1 <", value, "defDt1");
+            addCriterion("def_dt1 <", value, "defDt1");
             return (Criteria) this;
         }
 
         public Criteria andDefDt1LessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("def_dt1 <=", value, "defDt1");
+            addCriterion("def_dt1 <=", value, "defDt1");
             return (Criteria) this;
         }
 
         public Criteria andDefDt1In(List<Date> values) {
-            addCriterionForJDBCDate("def_dt1 in", values, "defDt1");
+            addCriterion("def_dt1 in", values, "defDt1");
             return (Criteria) this;
         }
 
         public Criteria andDefDt1NotIn(List<Date> values) {
-            addCriterionForJDBCDate("def_dt1 not in", values, "defDt1");
+            addCriterion("def_dt1 not in", values, "defDt1");
             return (Criteria) this;
         }
 
         public Criteria andDefDt1Between(Date value1, Date value2) {
-            addCriterionForJDBCDate("def_dt1 between", value1, value2, "defDt1");
+            addCriterion("def_dt1 between", value1, value2, "defDt1");
             return (Criteria) this;
         }
 
         public Criteria andDefDt1NotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("def_dt1 not between", value1, value2, "defDt1");
+            addCriterion("def_dt1 not between", value1, value2, "defDt1");
             return (Criteria) this;
         }
 
@@ -4004,52 +3977,52 @@ public class Fs_kphzExample {
         }
 
         public Criteria andDefDt2EqualTo(Date value) {
-            addCriterionForJDBCDate("def_dt2 =", value, "defDt2");
+            addCriterion("def_dt2 =", value, "defDt2");
             return (Criteria) this;
         }
 
         public Criteria andDefDt2NotEqualTo(Date value) {
-            addCriterionForJDBCDate("def_dt2 <>", value, "defDt2");
+            addCriterion("def_dt2 <>", value, "defDt2");
             return (Criteria) this;
         }
 
         public Criteria andDefDt2GreaterThan(Date value) {
-            addCriterionForJDBCDate("def_dt2 >", value, "defDt2");
+            addCriterion("def_dt2 >", value, "defDt2");
             return (Criteria) this;
         }
 
         public Criteria andDefDt2GreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("def_dt2 >=", value, "defDt2");
+            addCriterion("def_dt2 >=", value, "defDt2");
             return (Criteria) this;
         }
 
         public Criteria andDefDt2LessThan(Date value) {
-            addCriterionForJDBCDate("def_dt2 <", value, "defDt2");
+            addCriterion("def_dt2 <", value, "defDt2");
             return (Criteria) this;
         }
 
         public Criteria andDefDt2LessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("def_dt2 <=", value, "defDt2");
+            addCriterion("def_dt2 <=", value, "defDt2");
             return (Criteria) this;
         }
 
         public Criteria andDefDt2In(List<Date> values) {
-            addCriterionForJDBCDate("def_dt2 in", values, "defDt2");
+            addCriterion("def_dt2 in", values, "defDt2");
             return (Criteria) this;
         }
 
         public Criteria andDefDt2NotIn(List<Date> values) {
-            addCriterionForJDBCDate("def_dt2 not in", values, "defDt2");
+            addCriterion("def_dt2 not in", values, "defDt2");
             return (Criteria) this;
         }
 
         public Criteria andDefDt2Between(Date value1, Date value2) {
-            addCriterionForJDBCDate("def_dt2 between", value1, value2, "defDt2");
+            addCriterion("def_dt2 between", value1, value2, "defDt2");
             return (Criteria) this;
         }
 
         public Criteria andDefDt2NotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("def_dt2 not between", value1, value2, "defDt2");
+            addCriterion("def_dt2 not between", value1, value2, "defDt2");
             return (Criteria) this;
         }
 

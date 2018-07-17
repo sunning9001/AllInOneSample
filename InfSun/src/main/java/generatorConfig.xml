@@ -1143,6 +1143,40 @@
 		</table>
 		
 		
+		<table tableName="fs_pjjf" domainObjectName="Fs_pjjf">
+			<columnOverride column="billno" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="pay_datetime" jdbcType="DATE"  javaType="java.util.Date" />
+			<columnOverride column="pay_amount" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="bk_outlet" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="operator" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="paymode" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="trade_no" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="payer_name" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="rec_acctype" jdbcType="VARCHAR"  javaType="String" />
+			
+			<columnOverride column="payer_acct" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="payer_opbk" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="payer_opbkno" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="rec_acct" jdbcType="VARCHAR"  javaType="String" />
+		</table>
+		
+		
+		<table tableName="fs_pjdz" domainObjectName="Fs_pjdz">
+			<columnOverride column="date" jdbcType="VARCHAR" javaType="String"/>
+			<columnOverride column="accconfirm_no" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="rec_acct" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="count" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="paymode" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="rec_subacct" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="trade_no" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="billno" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="batchno" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="amount" jdbcType="VARCHAR"  javaType="String" />
+			<columnOverride column="addWord" jdbcType="VARCHAR"  javaType="String" />
+			
+		</table>
+		
+		
        
 	</context>
 </generatorConfiguration>

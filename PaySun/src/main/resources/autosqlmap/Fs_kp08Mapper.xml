@@ -1,0 +1,837 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sun.entity.autodao.Fs_kp08Mapper">
+  <resultMap id="BaseResultMap" type="com.sun.entity.automodel.Fs_kp08">
+    <result column="id1" jdbcType="VARCHAR" property="id1" />
+    <result column="id2" jdbcType="INTEGER" property="id2" />
+    <result column="dwdm" jdbcType="VARCHAR" property="dwdm" />
+    <result column="yhdm" jdbcType="VARCHAR" property="yhdm" />
+    <result column="wddm" jdbcType="VARCHAR" property="wddm" />
+    <result column="pjrq" jdbcType="TIMESTAMP" property="pjrq" />
+    <result column="pjlx" jdbcType="VARCHAR" property="pjlx" />
+    <result column="zgbm" jdbcType="VARCHAR" property="zgbm" />
+    <result column="pjh" jdbcType="VARCHAR" property="pjh" />
+    <result column="jksh" jdbcType="VARCHAR" property="jksh" />
+    <result column="jkrq" jdbcType="TIMESTAMP" property="jkrq" />
+    <result column="jkr" jdbcType="VARCHAR" property="jkr" />
+    <result column="xmdm" jdbcType="VARCHAR" property="xmdm" />
+    <result column="zy" jdbcType="VARCHAR" property="zy" />
+    <result column="je" jdbcType="DECIMAL" property="je" />
+    <result column="dw" jdbcType="VARCHAR" property="dw" />
+    <result column="sl" jdbcType="DECIMAL" property="sl" />
+    <result column="sfbz" jdbcType="DECIMAL" property="sfbz" />
+    <result column="kpr" jdbcType="VARCHAR" property="kpr" />
+    <result column="jsr" jdbcType="VARCHAR" property="jsr" />
+    <result column="shr" jdbcType="VARCHAR" property="shr" />
+    <result column="hxr" jdbcType="VARCHAR" property="hxr" />
+    <result column="jsfs" jdbcType="INTEGER" property="jsfs" />
+    <result column="jspjh" jdbcType="VARCHAR" property="jspjh" />
+    <result column="jsyh" jdbcType="VARCHAR" property="jsyh" />
+    <result column="wldwdm" jdbcType="VARCHAR" property="wldwdm" />
+    <result column="wldwmc" jdbcType="VARCHAR" property="wldwmc" />
+    <result column="wldwkh" jdbcType="VARCHAR" property="wldwkh" />
+    <result column="wldwzh" jdbcType="VARCHAR" property="wldwzh" />
+    <result column="pjzt" jdbcType="VARCHAR" property="pjzt" />
+    <result column="tg_pzlx" jdbcType="VARCHAR" property="tgPzlx" />
+    <result column="tg_pzh" jdbcType="VARCHAR" property="tgPzh" />
+    <result column="tg_pzrq" jdbcType="TIMESTAMP" property="tgPzrq" />
+    <result column="st_pzlx" jdbcType="VARCHAR" property="stPzlx" />
+    <result column="st_pzh" jdbcType="VARCHAR" property="stPzh" />
+    <result column="st_pzrq" jdbcType="TIMESTAMP" property="stPzrq" />
+    <result column="bz" jdbcType="VARCHAR" property="bz" />
+    <result column="iszh" jdbcType="VARCHAR" property="iszh" />
+    <result column="isprint" jdbcType="VARCHAR" property="isprint" />
+    <result column="isdwkp" jdbcType="VARCHAR" property="isdwkp" />
+    <result column="isyhkp" jdbcType="VARCHAR" property="isyhkp" />
+    <result column="isdwjk" jdbcType="VARCHAR" property="isdwjk" />
+    <result column="def_str1" jdbcType="VARCHAR" property="defStr1" />
+    <result column="def_str2" jdbcType="VARCHAR" property="defStr2" />
+    <result column="def_str3" jdbcType="VARCHAR" property="defStr3" />
+    <result column="def_str4" jdbcType="VARCHAR" property="defStr4" />
+    <result column="def_str5" jdbcType="VARCHAR" property="defStr5" />
+    <result column="def_int1" jdbcType="INTEGER" property="defInt1" />
+    <result column="def_int2" jdbcType="INTEGER" property="defInt2" />
+    <result column="def_int3" jdbcType="INTEGER" property="defInt3" />
+    <result column="def_int4" jdbcType="INTEGER" property="defInt4" />
+    <result column="def_int5" jdbcType="INTEGER" property="defInt5" />
+    <result column="def_num1" jdbcType="DECIMAL" property="defNum1" />
+    <result column="def_num2" jdbcType="DECIMAL" property="defNum2" />
+    <result column="def_num3" jdbcType="DECIMAL" property="defNum3" />
+    <result column="def_num4" jdbcType="DECIMAL" property="defNum4" />
+    <result column="def_num5" jdbcType="DECIMAL" property="defNum5" />
+    <result column="def_dt1" jdbcType="TIMESTAMP" property="defDt1" />
+    <result column="def_dt2" jdbcType="TIMESTAMP" property="defDt2" />
+    <result column="ishz" jdbcType="VARCHAR" property="ishz" />
+    <result column="cpdw" jdbcType="VARCHAR" property="cpdw" />
+    <result column="fyhdm" jdbcType="VARCHAR" property="fyhdm" />
+    <result column="fyhzh" jdbcType="VARCHAR" property="fyhzh" />
+    <result column="istf" jdbcType="VARCHAR" property="istf" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id1, id2, dwdm, yhdm, wddm, pjrq, pjlx, zgbm, pjh, jksh, jkrq, jkr, xmdm, zy, je, 
+    dw, sl, sfbz, kpr, jsr, shr, hxr, jsfs, jspjh, jsyh, wldwdm, wldwmc, wldwkh, wldwzh, 
+    pjzt, tg_pzlx, tg_pzh, tg_pzrq, st_pzlx, st_pzh, st_pzrq, bz, iszh, isprint, isdwkp, 
+    isyhkp, isdwjk, def_str1, def_str2, def_str3, def_str4, def_str5, def_int1, def_int2, 
+    def_int3, def_int4, def_int5, def_num1, def_num2, def_num3, def_num4, def_num5, def_dt1, 
+    def_dt2, ishz, cpdw, fyhdm, fyhzh, istf
+  </sql>
+  <select id="selectByExample" parameterType="com.sun.entity.automodel.Fs_kp08Example" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fs_kp08
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.sun.entity.automodel.Fs_kp08Example">
+    delete from fs_kp08
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sun.entity.automodel.Fs_kp08">
+    insert into fs_kp08 (id1, id2, dwdm, 
+      yhdm, wddm, pjrq, 
+      pjlx, zgbm, pjh, jksh, 
+      jkrq, jkr, xmdm, 
+      zy, je, dw, sl, 
+      sfbz, kpr, jsr, shr, 
+      hxr, jsfs, jspjh, jsyh, 
+      wldwdm, wldwmc, wldwkh, 
+      wldwzh, pjzt, tg_pzlx, 
+      tg_pzh, tg_pzrq, st_pzlx, 
+      st_pzh, st_pzrq, bz, 
+      iszh, isprint, isdwkp, 
+      isyhkp, isdwjk, def_str1, 
+      def_str2, def_str3, def_str4, 
+      def_str5, def_int1, def_int2, 
+      def_int3, def_int4, def_int5, 
+      def_num1, def_num2, def_num3, 
+      def_num4, def_num5, def_dt1, 
+      def_dt2, ishz, cpdw, 
+      fyhdm, fyhzh, istf)
+    values (#{id1,jdbcType=VARCHAR}, #{id2,jdbcType=INTEGER}, #{dwdm,jdbcType=VARCHAR}, 
+      #{yhdm,jdbcType=VARCHAR}, #{wddm,jdbcType=VARCHAR}, #{pjrq,jdbcType=TIMESTAMP}, 
+      #{pjlx,jdbcType=VARCHAR}, #{zgbm,jdbcType=VARCHAR}, #{pjh,jdbcType=VARCHAR}, #{jksh,jdbcType=VARCHAR}, 
+      #{jkrq,jdbcType=TIMESTAMP}, #{jkr,jdbcType=VARCHAR}, #{xmdm,jdbcType=VARCHAR}, 
+      #{zy,jdbcType=VARCHAR}, #{je,jdbcType=DECIMAL}, #{dw,jdbcType=VARCHAR}, #{sl,jdbcType=DECIMAL}, 
+      #{sfbz,jdbcType=DECIMAL}, #{kpr,jdbcType=VARCHAR}, #{jsr,jdbcType=VARCHAR}, #{shr,jdbcType=VARCHAR}, 
+      #{hxr,jdbcType=VARCHAR}, #{jsfs,jdbcType=INTEGER}, #{jspjh,jdbcType=VARCHAR}, #{jsyh,jdbcType=VARCHAR}, 
+      #{wldwdm,jdbcType=VARCHAR}, #{wldwmc,jdbcType=VARCHAR}, #{wldwkh,jdbcType=VARCHAR}, 
+      #{wldwzh,jdbcType=VARCHAR}, #{pjzt,jdbcType=VARCHAR}, #{tgPzlx,jdbcType=VARCHAR}, 
+      #{tgPzh,jdbcType=VARCHAR}, #{tgPzrq,jdbcType=TIMESTAMP}, #{stPzlx,jdbcType=VARCHAR}, 
+      #{stPzh,jdbcType=VARCHAR}, #{stPzrq,jdbcType=TIMESTAMP}, #{bz,jdbcType=VARCHAR}, 
+      #{iszh,jdbcType=VARCHAR}, #{isprint,jdbcType=VARCHAR}, #{isdwkp,jdbcType=VARCHAR}, 
+      #{isyhkp,jdbcType=VARCHAR}, #{isdwjk,jdbcType=VARCHAR}, #{defStr1,jdbcType=VARCHAR}, 
+      #{defStr2,jdbcType=VARCHAR}, #{defStr3,jdbcType=VARCHAR}, #{defStr4,jdbcType=VARCHAR}, 
+      #{defStr5,jdbcType=VARCHAR}, #{defInt1,jdbcType=INTEGER}, #{defInt2,jdbcType=INTEGER}, 
+      #{defInt3,jdbcType=INTEGER}, #{defInt4,jdbcType=INTEGER}, #{defInt5,jdbcType=INTEGER}, 
+      #{defNum1,jdbcType=DECIMAL}, #{defNum2,jdbcType=DECIMAL}, #{defNum3,jdbcType=DECIMAL}, 
+      #{defNum4,jdbcType=DECIMAL}, #{defNum5,jdbcType=DECIMAL}, #{defDt1,jdbcType=TIMESTAMP}, 
+      #{defDt2,jdbcType=TIMESTAMP}, #{ishz,jdbcType=VARCHAR}, #{cpdw,jdbcType=VARCHAR}, 
+      #{fyhdm,jdbcType=VARCHAR}, #{fyhzh,jdbcType=VARCHAR}, #{istf,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sun.entity.automodel.Fs_kp08">
+    insert into fs_kp08
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id1 != null">
+        id1,
+      </if>
+      id2,
+      <if test="dwdm != null">
+        dwdm,
+      </if>
+      <if test="yhdm != null">
+        yhdm,
+      </if>
+      <if test="wddm != null">
+        wddm,
+      </if>
+      <if test="pjrq != null">
+        pjrq,
+      </if>
+      <if test="pjlx != null">
+        pjlx,
+      </if>
+      <if test="zgbm != null">
+        zgbm,
+      </if>
+      <if test="pjh != null">
+        pjh,
+      </if>
+      <if test="jksh != null">
+        jksh,
+      </if>
+      <if test="jkrq != null">
+        jkrq,
+      </if>
+      <if test="jkr != null">
+        jkr,
+      </if>
+      <if test="xmdm != null">
+        xmdm,
+      </if>
+      <if test="zy != null">
+        zy,
+      </if>
+      <if test="je != null">
+        je,
+      </if>
+      <if test="dw != null">
+        dw,
+      </if>
+      <if test="sl != null">
+        sl,
+      </if>
+      <if test="sfbz != null">
+        sfbz,
+      </if>
+      <if test="kpr != null">
+        kpr,
+      </if>
+      <if test="jsr != null">
+        jsr,
+      </if>
+      <if test="shr != null">
+        shr,
+      </if>
+      <if test="hxr != null">
+        hxr,
+      </if>
+      jsfs,
+      <if test="jspjh != null">
+        jspjh,
+      </if>
+      <if test="jsyh != null">
+        jsyh,
+      </if>
+      <if test="wldwdm != null">
+        wldwdm,
+      </if>
+      <if test="wldwmc != null">
+        wldwmc,
+      </if>
+      <if test="wldwkh != null">
+        wldwkh,
+      </if>
+      <if test="wldwzh != null">
+        wldwzh,
+      </if>
+      <if test="pjzt != null">
+        pjzt,
+      </if>
+      <if test="tgPzlx != null">
+        tg_pzlx,
+      </if>
+      <if test="tgPzh != null">
+        tg_pzh,
+      </if>
+      <if test="tgPzrq != null">
+        tg_pzrq,
+      </if>
+      <if test="stPzlx != null">
+        st_pzlx,
+      </if>
+      <if test="stPzh != null">
+        st_pzh,
+      </if>
+      <if test="stPzrq != null">
+        st_pzrq,
+      </if>
+      <if test="bz != null">
+        bz,
+      </if>
+      <if test="iszh != null">
+        iszh,
+      </if>
+      <if test="isprint != null">
+        isprint,
+      </if>
+      <if test="isdwkp != null">
+        isdwkp,
+      </if>
+      <if test="isyhkp != null">
+        isyhkp,
+      </if>
+      <if test="isdwjk != null">
+        isdwjk,
+      </if>
+      <if test="defStr1 != null">
+        def_str1,
+      </if>
+      <if test="defStr2 != null">
+        def_str2,
+      </if>
+      <if test="defStr3 != null">
+        def_str3,
+      </if>
+      <if test="defStr4 != null">
+        def_str4,
+      </if>
+      <if test="defStr5 != null">
+        def_str5,
+      </if>
+      def_int1,
+      def_int2,
+      def_int3,
+      def_int4,
+      def_int5,
+      <if test="defNum1 != null">
+        def_num1,
+      </if>
+      <if test="defNum2 != null">
+        def_num2,
+      </if>
+      <if test="defNum3 != null">
+        def_num3,
+      </if>
+      <if test="defNum4 != null">
+        def_num4,
+      </if>
+      <if test="defNum5 != null">
+        def_num5,
+      </if>
+      <if test="defDt1 != null">
+        def_dt1,
+      </if>
+      <if test="defDt2 != null">
+        def_dt2,
+      </if>
+      <if test="ishz != null">
+        ishz,
+      </if>
+      <if test="cpdw != null">
+        cpdw,
+      </if>
+      <if test="fyhdm != null">
+        fyhdm,
+      </if>
+      <if test="fyhzh != null">
+        fyhzh,
+      </if>
+      <if test="istf != null">
+        istf,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id1 != null">
+        #{id1,jdbcType=VARCHAR},
+      </if>
+      #{id2,jdbcType=INTEGER},
+      <if test="dwdm != null">
+        #{dwdm,jdbcType=VARCHAR},
+      </if>
+      <if test="yhdm != null">
+        #{yhdm,jdbcType=VARCHAR},
+      </if>
+      <if test="wddm != null">
+        #{wddm,jdbcType=VARCHAR},
+      </if>
+      <if test="pjrq != null">
+        #{pjrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pjlx != null">
+        #{pjlx,jdbcType=VARCHAR},
+      </if>
+      <if test="zgbm != null">
+        #{zgbm,jdbcType=VARCHAR},
+      </if>
+      <if test="pjh != null">
+        #{pjh,jdbcType=VARCHAR},
+      </if>
+      <if test="jksh != null">
+        #{jksh,jdbcType=VARCHAR},
+      </if>
+      <if test="jkrq != null">
+        #{jkrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jkr != null">
+        #{jkr,jdbcType=VARCHAR},
+      </if>
+      <if test="xmdm != null">
+        #{xmdm,jdbcType=VARCHAR},
+      </if>
+      <if test="zy != null">
+        #{zy,jdbcType=VARCHAR},
+      </if>
+      <if test="je != null">
+        #{je,jdbcType=DECIMAL},
+      </if>
+      <if test="dw != null">
+        #{dw,jdbcType=VARCHAR},
+      </if>
+      <if test="sl != null">
+        #{sl,jdbcType=DECIMAL},
+      </if>
+      <if test="sfbz != null">
+        #{sfbz,jdbcType=DECIMAL},
+      </if>
+      <if test="kpr != null">
+        #{kpr,jdbcType=VARCHAR},
+      </if>
+      <if test="jsr != null">
+        #{jsr,jdbcType=VARCHAR},
+      </if>
+      <if test="shr != null">
+        #{shr,jdbcType=VARCHAR},
+      </if>
+      <if test="hxr != null">
+        #{hxr,jdbcType=VARCHAR},
+      </if>
+      #{jsfs,jdbcType=INTEGER},
+      <if test="jspjh != null">
+        #{jspjh,jdbcType=VARCHAR},
+      </if>
+      <if test="jsyh != null">
+        #{jsyh,jdbcType=VARCHAR},
+      </if>
+      <if test="wldwdm != null">
+        #{wldwdm,jdbcType=VARCHAR},
+      </if>
+      <if test="wldwmc != null">
+        #{wldwmc,jdbcType=VARCHAR},
+      </if>
+      <if test="wldwkh != null">
+        #{wldwkh,jdbcType=VARCHAR},
+      </if>
+      <if test="wldwzh != null">
+        #{wldwzh,jdbcType=VARCHAR},
+      </if>
+      <if test="pjzt != null">
+        #{pjzt,jdbcType=VARCHAR},
+      </if>
+      <if test="tgPzlx != null">
+        #{tgPzlx,jdbcType=VARCHAR},
+      </if>
+      <if test="tgPzh != null">
+        #{tgPzh,jdbcType=VARCHAR},
+      </if>
+      <if test="tgPzrq != null">
+        #{tgPzrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stPzlx != null">
+        #{stPzlx,jdbcType=VARCHAR},
+      </if>
+      <if test="stPzh != null">
+        #{stPzh,jdbcType=VARCHAR},
+      </if>
+      <if test="stPzrq != null">
+        #{stPzrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bz != null">
+        #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="iszh != null">
+        #{iszh,jdbcType=VARCHAR},
+      </if>
+      <if test="isprint != null">
+        #{isprint,jdbcType=VARCHAR},
+      </if>
+      <if test="isdwkp != null">
+        #{isdwkp,jdbcType=VARCHAR},
+      </if>
+      <if test="isyhkp != null">
+        #{isyhkp,jdbcType=VARCHAR},
+      </if>
+      <if test="isdwjk != null">
+        #{isdwjk,jdbcType=VARCHAR},
+      </if>
+      <if test="defStr1 != null">
+        #{defStr1,jdbcType=VARCHAR},
+      </if>
+      <if test="defStr2 != null">
+        #{defStr2,jdbcType=VARCHAR},
+      </if>
+      <if test="defStr3 != null">
+        #{defStr3,jdbcType=VARCHAR},
+      </if>
+      <if test="defStr4 != null">
+        #{defStr4,jdbcType=VARCHAR},
+      </if>
+      <if test="defStr5 != null">
+        #{defStr5,jdbcType=VARCHAR},
+      </if>
+      #{defInt1,jdbcType=INTEGER},
+      #{defInt2,jdbcType=INTEGER},
+      #{defInt3,jdbcType=INTEGER},
+      #{defInt4,jdbcType=INTEGER},
+      #{defInt5,jdbcType=INTEGER},
+      <if test="defNum1 != null">
+        #{defNum1,jdbcType=DECIMAL},
+      </if>
+      <if test="defNum2 != null">
+        #{defNum2,jdbcType=DECIMAL},
+      </if>
+      <if test="defNum3 != null">
+        #{defNum3,jdbcType=DECIMAL},
+      </if>
+      <if test="defNum4 != null">
+        #{defNum4,jdbcType=DECIMAL},
+      </if>
+      <if test="defNum5 != null">
+        #{defNum5,jdbcType=DECIMAL},
+      </if>
+      <if test="defDt1 != null">
+        #{defDt1,jdbcType=TIMESTAMP},
+      </if>
+      <if test="defDt2 != null">
+        #{defDt2,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ishz != null">
+        #{ishz,jdbcType=VARCHAR},
+      </if>
+      <if test="cpdw != null">
+        #{cpdw,jdbcType=VARCHAR},
+      </if>
+      <if test="fyhdm != null">
+        #{fyhdm,jdbcType=VARCHAR},
+      </if>
+      <if test="fyhzh != null">
+        #{fyhzh,jdbcType=VARCHAR},
+      </if>
+      <if test="istf != null">
+        #{istf,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sun.entity.automodel.Fs_kp08Example" resultType="java.lang.Long">
+    select count(*) from fs_kp08
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update fs_kp08
+    <set>
+      <if test="record.id1 != null">
+        id1 = #{record.id1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.id2 != null">
+        id2 = #{record.id2,jdbcType=INTEGER},
+      </if>
+      <if test="record.dwdm != null">
+        dwdm = #{record.dwdm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yhdm != null">
+        yhdm = #{record.yhdm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wddm != null">
+        wddm = #{record.wddm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pjrq != null">
+        pjrq = #{record.pjrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.pjlx != null">
+        pjlx = #{record.pjlx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zgbm != null">
+        zgbm = #{record.zgbm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pjh != null">
+        pjh = #{record.pjh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jksh != null">
+        jksh = #{record.jksh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jkrq != null">
+        jkrq = #{record.jkrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.jkr != null">
+        jkr = #{record.jkr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xmdm != null">
+        xmdm = #{record.xmdm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zy != null">
+        zy = #{record.zy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.je != null">
+        je = #{record.je,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dw != null">
+        dw = #{record.dw,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sl != null">
+        sl = #{record.sl,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sfbz != null">
+        sfbz = #{record.sfbz,jdbcType=DECIMAL},
+      </if>
+      <if test="record.kpr != null">
+        kpr = #{record.kpr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jsr != null">
+        jsr = #{record.jsr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shr != null">
+        shr = #{record.shr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hxr != null">
+        hxr = #{record.hxr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jsfs != null">
+        jsfs = #{record.jsfs,jdbcType=INTEGER},
+      </if>
+      <if test="record.jspjh != null">
+        jspjh = #{record.jspjh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jsyh != null">
+        jsyh = #{record.jsyh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wldwdm != null">
+        wldwdm = #{record.wldwdm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wldwmc != null">
+        wldwmc = #{record.wldwmc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wldwkh != null">
+        wldwkh = #{record.wldwkh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wldwzh != null">
+        wldwzh = #{record.wldwzh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pjzt != null">
+        pjzt = #{record.pjzt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tgPzlx != null">
+        tg_pzlx = #{record.tgPzlx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tgPzh != null">
+        tg_pzh = #{record.tgPzh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tgPzrq != null">
+        tg_pzrq = #{record.tgPzrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.stPzlx != null">
+        st_pzlx = #{record.stPzlx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stPzh != null">
+        st_pzh = #{record.stPzh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stPzrq != null">
+        st_pzrq = #{record.stPzrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.bz != null">
+        bz = #{record.bz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iszh != null">
+        iszh = #{record.iszh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isprint != null">
+        isprint = #{record.isprint,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isdwkp != null">
+        isdwkp = #{record.isdwkp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isyhkp != null">
+        isyhkp = #{record.isyhkp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isdwjk != null">
+        isdwjk = #{record.isdwjk,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defStr1 != null">
+        def_str1 = #{record.defStr1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defStr2 != null">
+        def_str2 = #{record.defStr2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defStr3 != null">
+        def_str3 = #{record.defStr3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defStr4 != null">
+        def_str4 = #{record.defStr4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defStr5 != null">
+        def_str5 = #{record.defStr5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defInt1 != null">
+        def_int1 = #{record.defInt1,jdbcType=INTEGER},
+      </if>
+      <if test="record.defInt2 != null">
+        def_int2 = #{record.defInt2,jdbcType=INTEGER},
+      </if>
+      <if test="record.defInt3 != null">
+        def_int3 = #{record.defInt3,jdbcType=INTEGER},
+      </if>
+      <if test="record.defInt4 != null">
+        def_int4 = #{record.defInt4,jdbcType=INTEGER},
+      </if>
+      <if test="record.defInt5 != null">
+        def_int5 = #{record.defInt5,jdbcType=INTEGER},
+      </if>
+      <if test="record.defNum1 != null">
+        def_num1 = #{record.defNum1,jdbcType=DECIMAL},
+      </if>
+      <if test="record.defNum2 != null">
+        def_num2 = #{record.defNum2,jdbcType=DECIMAL},
+      </if>
+      <if test="record.defNum3 != null">
+        def_num3 = #{record.defNum3,jdbcType=DECIMAL},
+      </if>
+      <if test="record.defNum4 != null">
+        def_num4 = #{record.defNum4,jdbcType=DECIMAL},
+      </if>
+      <if test="record.defNum5 != null">
+        def_num5 = #{record.defNum5,jdbcType=DECIMAL},
+      </if>
+      <if test="record.defDt1 != null">
+        def_dt1 = #{record.defDt1,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.defDt2 != null">
+        def_dt2 = #{record.defDt2,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ishz != null">
+        ishz = #{record.ishz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpdw != null">
+        cpdw = #{record.cpdw,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fyhdm != null">
+        fyhdm = #{record.fyhdm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fyhzh != null">
+        fyhzh = #{record.fyhzh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.istf != null">
+        istf = #{record.istf,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update fs_kp08
+    set id1 = #{record.id1,jdbcType=VARCHAR},
+      id2 = #{record.id2,jdbcType=INTEGER},
+      dwdm = #{record.dwdm,jdbcType=VARCHAR},
+      yhdm = #{record.yhdm,jdbcType=VARCHAR},
+      wddm = #{record.wddm,jdbcType=VARCHAR},
+      pjrq = #{record.pjrq,jdbcType=TIMESTAMP},
+      pjlx = #{record.pjlx,jdbcType=VARCHAR},
+      zgbm = #{record.zgbm,jdbcType=VARCHAR},
+      pjh = #{record.pjh,jdbcType=VARCHAR},
+      jksh = #{record.jksh,jdbcType=VARCHAR},
+      jkrq = #{record.jkrq,jdbcType=TIMESTAMP},
+      jkr = #{record.jkr,jdbcType=VARCHAR},
+      xmdm = #{record.xmdm,jdbcType=VARCHAR},
+      zy = #{record.zy,jdbcType=VARCHAR},
+      je = #{record.je,jdbcType=DECIMAL},
+      dw = #{record.dw,jdbcType=VARCHAR},
+      sl = #{record.sl,jdbcType=DECIMAL},
+      sfbz = #{record.sfbz,jdbcType=DECIMAL},
+      kpr = #{record.kpr,jdbcType=VARCHAR},
+      jsr = #{record.jsr,jdbcType=VARCHAR},
+      shr = #{record.shr,jdbcType=VARCHAR},
+      hxr = #{record.hxr,jdbcType=VARCHAR},
+      jsfs = #{record.jsfs,jdbcType=INTEGER},
+      jspjh = #{record.jspjh,jdbcType=VARCHAR},
+      jsyh = #{record.jsyh,jdbcType=VARCHAR},
+      wldwdm = #{record.wldwdm,jdbcType=VARCHAR},
+      wldwmc = #{record.wldwmc,jdbcType=VARCHAR},
+      wldwkh = #{record.wldwkh,jdbcType=VARCHAR},
+      wldwzh = #{record.wldwzh,jdbcType=VARCHAR},
+      pjzt = #{record.pjzt,jdbcType=VARCHAR},
+      tg_pzlx = #{record.tgPzlx,jdbcType=VARCHAR},
+      tg_pzh = #{record.tgPzh,jdbcType=VARCHAR},
+      tg_pzrq = #{record.tgPzrq,jdbcType=TIMESTAMP},
+      st_pzlx = #{record.stPzlx,jdbcType=VARCHAR},
+      st_pzh = #{record.stPzh,jdbcType=VARCHAR},
+      st_pzrq = #{record.stPzrq,jdbcType=TIMESTAMP},
+      bz = #{record.bz,jdbcType=VARCHAR},
+      iszh = #{record.iszh,jdbcType=VARCHAR},
+      isprint = #{record.isprint,jdbcType=VARCHAR},
+      isdwkp = #{record.isdwkp,jdbcType=VARCHAR},
+      isyhkp = #{record.isyhkp,jdbcType=VARCHAR},
+      isdwjk = #{record.isdwjk,jdbcType=VARCHAR},
+      def_str1 = #{record.defStr1,jdbcType=VARCHAR},
+      def_str2 = #{record.defStr2,jdbcType=VARCHAR},
+      def_str3 = #{record.defStr3,jdbcType=VARCHAR},
+      def_str4 = #{record.defStr4,jdbcType=VARCHAR},
+      def_str5 = #{record.defStr5,jdbcType=VARCHAR},
+      def_int1 = #{record.defInt1,jdbcType=INTEGER},
+      def_int2 = #{record.defInt2,jdbcType=INTEGER},
+      def_int3 = #{record.defInt3,jdbcType=INTEGER},
+      def_int4 = #{record.defInt4,jdbcType=INTEGER},
+      def_int5 = #{record.defInt5,jdbcType=INTEGER},
+      def_num1 = #{record.defNum1,jdbcType=DECIMAL},
+      def_num2 = #{record.defNum2,jdbcType=DECIMAL},
+      def_num3 = #{record.defNum3,jdbcType=DECIMAL},
+      def_num4 = #{record.defNum4,jdbcType=DECIMAL},
+      def_num5 = #{record.defNum5,jdbcType=DECIMAL},
+      def_dt1 = #{record.defDt1,jdbcType=TIMESTAMP},
+      def_dt2 = #{record.defDt2,jdbcType=TIMESTAMP},
+      ishz = #{record.ishz,jdbcType=VARCHAR},
+      cpdw = #{record.cpdw,jdbcType=VARCHAR},
+      fyhdm = #{record.fyhdm,jdbcType=VARCHAR},
+      fyhzh = #{record.fyhzh,jdbcType=VARCHAR},
+      istf = #{record.istf,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

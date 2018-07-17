@@ -5,7 +5,7 @@ package com.sun.msg;
  * @author zhuoyvqing
  *
  */
-public class fundConfirmMessageResponse {
+public class FundConfirmMessageResponse {
 
 	/**
 	 * 公共参数
@@ -32,7 +32,7 @@ public class fundConfirmMessageResponse {
 	}
 	@Override
 	public String toString() {
-		return "fundConfirmMessageResponse [code=" + code + ", msg=" + msg + "]";
+		return "FundConfirmMessageResponse [code=" + code + ", msg=" + msg + "]";
 	}
 	
 	

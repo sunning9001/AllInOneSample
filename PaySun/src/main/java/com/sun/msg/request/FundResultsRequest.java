@@ -8,7 +8,7 @@ import java.util.List;
  * @author zhuoyvqing
  *
  */
-public class BillfundConfirmRequest {
+public class FundResultsRequest {
 
 	private String date ; //业务日期  如20170629O
 	private String accountfirm_no ; //对账流水号， 标识唯一一次对账 ，

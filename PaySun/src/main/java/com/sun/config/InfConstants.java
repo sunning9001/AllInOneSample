@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.sun.msg.BillSyncMessageRequest;
+import com.sun.msg.BillfundResultsMessageRequest;
 
 public class InfConstants {
 
@@ -23,9 +24,11 @@ public class InfConstants {
 	static {
 
 		/**
-		 * 处理来自支付平台的请求消息
+		 * 处理来废水系统的请求消息
 		 */
 		infRequestClazzMap.put(BillSync, BillSyncMessageRequest.class);
+		
+		infRequestClazzMap.put(AccountBillFundConfirm, BillfundResultsMessageRequest.class);
 
 	}
 	/**

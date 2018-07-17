@@ -17,7 +17,7 @@
     <result column="pzjg" jdbcType="VARCHAR" property="pzjg" />
     <result column="pzwh" jdbcType="VARCHAR" property="pzwh" />
     <result column="isqx" jdbcType="VARCHAR" property="isqx" />
-    <result column="qxrq" jdbcType="DATE" property="qxrq" />
+    <result column="qxrq" jdbcType="TIMESTAMP" property="qxrq" />
     <result column="qxwh" jdbcType="VARCHAR" property="qxwh" />
     <result column="bz" jdbcType="VARCHAR" property="bz" />
     <result column="def_str1" jdbcType="VARCHAR" property="defStr1" />
@@ -32,8 +32,8 @@
     <result column="def_int5" jdbcType="INTEGER" property="defInt5" />
     <result column="def_num1" jdbcType="DECIMAL" property="defNum1" />
     <result column="def_num2" jdbcType="DECIMAL" property="defNum2" />
-    <result column="def_dt1" jdbcType="DATE" property="defDt1" />
-    <result column="def_dt2" jdbcType="DATE" property="defDt2" />
+    <result column="def_dt1" jdbcType="TIMESTAMP" property="defDt1" />
+    <result column="def_dt2" jdbcType="TIMESTAMP" property="defDt2" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -133,12 +133,12 @@
       #{sfyj,jdbcType=VARCHAR}, #{istc,jdbcType=VARCHAR}, #{tlbl,jdbcType=DECIMAL}, #{zjxz,jdbcType=VARCHAR}, 
       #{xmlb,jdbcType=VARCHAR}, #{isys,jdbcType=VARCHAR}, #{xmsp,jdbcType=VARCHAR}, #{srjc,jdbcType=VARCHAR}, 
       #{sfbz,jdbcType=DECIMAL}, #{pzjg,jdbcType=VARCHAR}, #{pzwh,jdbcType=VARCHAR}, #{isqx,jdbcType=VARCHAR}, 
-      #{qxrq,jdbcType=DATE}, #{qxwh,jdbcType=VARCHAR}, #{bz,jdbcType=VARCHAR}, #{defStr1,jdbcType=VARCHAR}, 
+      #{qxrq,jdbcType=TIMESTAMP}, #{qxwh,jdbcType=VARCHAR}, #{bz,jdbcType=VARCHAR}, #{defStr1,jdbcType=VARCHAR}, 
       #{defStr2,jdbcType=VARCHAR}, #{defStr3,jdbcType=VARCHAR}, #{defStr4,jdbcType=VARCHAR}, 
       #{defStr5,jdbcType=VARCHAR}, #{defInt1,jdbcType=INTEGER}, #{defInt2,jdbcType=INTEGER}, 
       #{defInt3,jdbcType=INTEGER}, #{defInt4,jdbcType=INTEGER}, #{defInt5,jdbcType=INTEGER}, 
-      #{defNum1,jdbcType=DECIMAL}, #{defNum2,jdbcType=DECIMAL}, #{defDt1,jdbcType=DATE}, 
-      #{defDt2,jdbcType=DATE})
+      #{defNum1,jdbcType=DECIMAL}, #{defNum2,jdbcType=DECIMAL}, #{defDt1,jdbcType=TIMESTAMP}, 
+      #{defDt2,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.sun.entity.automodel.Fs_sfxm">
     insert into fs_sfxm
@@ -277,7 +277,7 @@
         #{isqx,jdbcType=VARCHAR},
       </if>
       <if test="qxrq != null">
-        #{qxrq,jdbcType=DATE},
+        #{qxrq,jdbcType=TIMESTAMP},
       </if>
       <if test="qxwh != null">
         #{qxwh,jdbcType=VARCHAR},
@@ -312,10 +312,10 @@
         #{defNum2,jdbcType=DECIMAL},
       </if>
       <if test="defDt1 != null">
-        #{defDt1,jdbcType=DATE},
+        #{defDt1,jdbcType=TIMESTAMP},
       </if>
       <if test="defDt2 != null">
-        #{defDt2,jdbcType=DATE},
+        #{defDt2,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -374,7 +374,7 @@
         isqx = #{record.isqx,jdbcType=VARCHAR},
       </if>
       <if test="record.qxrq != null">
-        qxrq = #{record.qxrq,jdbcType=DATE},
+        qxrq = #{record.qxrq,jdbcType=TIMESTAMP},
       </if>
       <if test="record.qxwh != null">
         qxwh = #{record.qxwh,jdbcType=VARCHAR},
@@ -419,10 +419,10 @@
         def_num2 = #{record.defNum2,jdbcType=DECIMAL},
       </if>
       <if test="record.defDt1 != null">
-        def_dt1 = #{record.defDt1,jdbcType=DATE},
+        def_dt1 = #{record.defDt1,jdbcType=TIMESTAMP},
       </if>
       <if test="record.defDt2 != null">
-        def_dt2 = #{record.defDt2,jdbcType=DATE},
+        def_dt2 = #{record.defDt2,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -446,7 +446,7 @@
       pzjg = #{record.pzjg,jdbcType=VARCHAR},
       pzwh = #{record.pzwh,jdbcType=VARCHAR},
       isqx = #{record.isqx,jdbcType=VARCHAR},
-      qxrq = #{record.qxrq,jdbcType=DATE},
+      qxrq = #{record.qxrq,jdbcType=TIMESTAMP},
       qxwh = #{record.qxwh,jdbcType=VARCHAR},
       bz = #{record.bz,jdbcType=VARCHAR},
       def_str1 = #{record.defStr1,jdbcType=VARCHAR},
@@ -461,8 +461,8 @@
       def_int5 = #{record.defInt5,jdbcType=INTEGER},
       def_num1 = #{record.defNum1,jdbcType=DECIMAL},
       def_num2 = #{record.defNum2,jdbcType=DECIMAL},
-      def_dt1 = #{record.defDt1,jdbcType=DATE},
-      def_dt2 = #{record.defDt2,jdbcType=DATE}
+      def_dt1 = #{record.defDt1,jdbcType=TIMESTAMP},
+      def_dt2 = #{record.defDt2,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

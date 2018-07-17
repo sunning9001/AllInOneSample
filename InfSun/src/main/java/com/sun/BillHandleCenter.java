@@ -46,7 +46,7 @@ import com.sun.msg.BillfundResultsMessageResponse;
 import com.sun.msg.FundConfirmMessageRequest;
 import com.sun.msg.FundConfirmMessageResponse;
 import com.sun.msg.request.BillDetails;
-import com.sun.msg.request.BillPayQyeryRequest;
+import com.sun.msg.request.BillQueryRequest;
 import com.sun.msg.request.BillPayRequest;
 import com.sun.msg.request.BillSyncRequest;
 import com.sun.msg.request.FailDetails;
@@ -178,7 +178,9 @@ public class BillHandleCenter {
 			   pjdz.setAccconfirmNo(accountfirm_no);
 			   pjdz.setRecAcctype(rec_acctype);
 			   pjdz.setRecAcct(rec_acct);
-			   pjdz.setCount(count.toString());
+			   if(count != null) {
+				   pjdz.setCount(count.toString());
+			   }
 			   pjdz.setPaymode(billDetails.getPaymode());
 			   pjdz.setRecSubacct(billDetails.getRec_subacct());
 			   pjdz.setTradeNo(billDetails.getTrade_no());
@@ -271,7 +273,7 @@ public class BillHandleCenter {
 //					pjjf9.setPayerName(biz_content.getPayer_name());   实际缴款人名称
 					pjjf9.setRecAcctype(biz_content.getRec_acctype());
 					
-					jfmapper.insert(pjjf);
+					jfmapper.insert(pjjf9);
 					sqlSession.commit();
 					
 					
@@ -309,9 +311,9 @@ public class BillHandleCenter {
 			Fs_pjjfMapper jfmapper = sqlSession.getMapper(Fs_pjjfMapper.class);
 			Fs_pjjfExample pjjfExample = new Fs_pjjfExample() ;
 			pjjfExample.createCriteria().andBillnoEqualTo(billno);
-			pjjfExample.createCriteria().andPayAmountEqualTo(biz_content.getPay_amount());
-			pjjfExample.createCriteria().andPaymodeEqualTo(biz_content.getPaymode());
-			pjjfExample.createCriteria().andTradeNoEqualTo(biz_content.getTrade_no());
+//			pjjfExample.createCriteria().andPayAmountEqualTo(biz_content.getPay_amount());
+//			pjjfExample.createCriteria().andPaymodeEqualTo(biz_content.getPaymode());
+//			pjjfExample.createCriteria().andTradeNoEqualTo(biz_content.getTrade_no());
 			List<Fs_pjjf> pjjfList = jfmapper.selectByExample(pjjfExample);
 			
 			//如果查到记录，直接返回成功
@@ -345,7 +347,15 @@ public class BillHandleCenter {
 					 BigDecimal je = fs.getJe().setScale(2,BigDecimal.ROUND_HALF_UP);
 					 total = total.add(je);
 				}
+				
+				if(biz_content.getPay_amount() == null) {
+					//票据查询不到,则告之对方
+					response.setCode(ResponseCode.fail);
+					response.setMsg(ResponseCode.fail_default_msg);
+					return response;
+				}
 				BigDecimal actualAmount = new BigDecimal(biz_content.getPay_amount()) ;
+//				BigDecimal actualAmount = new BigDecimal("100") ;
 				if(actualAmount.compareTo(total) < 0) {
 					response.setCode(ResponseCode.fail);
 					response.setMsg(ResponseCode.fail_default_msg);
@@ -415,7 +425,7 @@ public class BillHandleCenter {
 	 */
 	private static Object handleBillQueryMessageRequest(BillQueryMessageRequest request) {
 		//根据票据号,查询到票据
-		BillPayQyeryRequest billPayRequest = request.getBiz_content();
+		BillQueryRequest billPayRequest = request.getBiz_content();
 		
 	    //票据号
 		String billno = billPayRequest.getBillno();
@@ -791,6 +801,7 @@ public class BillHandleCenter {
 		//向公共支付平台请求消息
 		//转换成JSON String
 		String postBody =JSONObject.toJSONString(request);
+		logger.debug("=====================资金对账 结果请求============postbody======={}",postBody);
 		BillfundResultsMessageResponse response = (BillfundResultsMessageResponse) HttpUtil.getInstance().httpExecute(postBody , ConfigUtil.getUrl(), BillfundResultsMessageResponse.class);
 		
 		System.out.println(response.toString());

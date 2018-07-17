@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sun.config.InfConstants;
+import com.sun.config.ResponseCode;
 import com.sun.httpserver.HttpServerHandler;
 import com.sun.msg.BillSyncMessageRequest;
 import com.sun.msg.BillSyncMessageResponse;
@@ -53,11 +55,11 @@ public class BillHandleCenter {
 	public static void handle(Object obj, Class clazz, ChannelHandlerContext ctx) {
 
 		/**
-		 * 是否回复支付平台消息,默认不回复
+		 * 是否回复非税系统消息,默认不回复
 		 */
 		boolean replyFlag = false;
 		/**
-		 * 回复给支付平台的消息对象
+		 * 回复给非税系统的消息对象
 		 */
 		Object replayMessage = null;
 		if (clazz.equals(BillSyncMessageRequest.class)) {
@@ -90,13 +92,15 @@ public class BillHandleCenter {
 	 */
 	private static Object handleBillSyncMessageRequest(BillSyncMessageRequest request) {
 	
-		JSONObject kvObject =new JSONObject();
+//		JSONObject kvObject =new JSONObject();
 		
 		
 		BillSyncMessageResponse reponse =new BillSyncMessageResponse();
-		
-		reponse.setCode("code");
-		kvObject.put("wp_out_bill_pay_query_reponse_xxxxxxxxxxxxxxxxxxxxxxxxxx", reponse);
+		reponse.setCode("00000");
+//		kvObject.put("wp_out_bill_pay_query_reponse_xxxxxxxxxxxxxxxxxxxxxxxxxx", reponse);
+//		
+//		String s = "\"wp_out_bill_pay_query_reponse\":";
+//		s += JSONObject.toJSONString(reponse);
 		
 		return reponse;
 	}
@@ -110,7 +114,8 @@ public class BillHandleCenter {
 	 */
 	private static Object handleBillfundResultsMessageRequest(BillfundResultsMessageRequest request) {
 		BillfundResultsMessageResponse response =new BillfundResultsMessageResponse();
-		
+		response.setCode(ResponseCode.Success);
+		response.setMsg(ResponseCode.getCodeDesc(ResponseCode.Success));
 		return response;
 	}
 
