@@ -801,6 +801,8 @@ public class BillHandleCenter {
 		//向公共支付平台请求消息
 		//转换成JSON String
 		String postBody =JSONObject.toJSONString(request);
+		//要不要添加 request :
+//		String postBody = "request:"+JSONObject.toJSONString(request);
 		logger.debug("=====================资金对账 结果请求============postbody======={}",postBody);
 		BillfundResultsMessageResponse response = (BillfundResultsMessageResponse) HttpUtil.getInstance().httpExecute(postBody , ConfigUtil.getUrl(), BillfundResultsMessageResponse.class);
 		

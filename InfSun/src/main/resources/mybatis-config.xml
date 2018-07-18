@@ -42,6 +42,7 @@
     <mapper resource="autosqlmap/Fs_kphzMapper.xml" />
     <mapper resource="autosqlmap/Fs_pjjfMapper.xml" />
     <mapper resource="autosqlmap/Fs_pjdzMapper.xml" />
+    <mapper resource="autosqlmap/Fs_syncMapper.xml" />
   
     <mapper resource="mapper/UtilMapper.xml" />
     

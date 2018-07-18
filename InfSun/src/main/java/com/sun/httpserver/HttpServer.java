@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import com.sun.config.ConfigUtil;
 import com.sun.config.Constants;
+import com.sun.quartz.QuartzTest;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
@@ -21,6 +22,7 @@ import io.netty.handler.logging.LoggingHandler;
  * pretty plaintext form.
  */
 public final class HttpServer {
+	
     private static final Logger logger =LoggerFactory.getLogger(HttpServer.class);
 	public static void main(String[] args) throws Exception {
 
@@ -38,6 +40,8 @@ public final class HttpServer {
 
 			logger.debug("HttpServer start success ,bind port:<{}>",port);
 			ch.closeFuture().sync();
+//			QuartzTest quart = new QuartzTest();
+//			quart.
 		} finally {
 			bossGroup.shutdownGracefully();
 			workerGroup.shutdownGracefully();
