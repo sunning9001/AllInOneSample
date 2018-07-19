@@ -40,8 +40,9 @@ public final class HttpServer {
 
 			logger.debug("HttpServer start success ,bind port:<{}>",port);
 			ch.closeFuture().sync();
-//			QuartzTest quart = new QuartzTest();
-//			quart.
+			
+			QuartzTest quart = new QuartzTest();
+			quart.excuteSync();
 		} finally {
 			bossGroup.shutdownGracefully();
 			workerGroup.shutdownGracefully();

@@ -15,8 +15,8 @@ import org.quartz.impl.StdSchedulerFactory;
 //https://blog.csdn.net/u010648555/article/details/54863394
 public class QuartzTest {
 	
-	public static void main(String[] args) throws SchedulerException, InterruptedException {
-//	public static void excuteSync() throws SchedulerException, InterruptedException {
+//	public static void main(String[] args) throws SchedulerException, InterruptedException {
+	public static void excuteSync() throws SchedulerException, InterruptedException {
 
 		// 1.创建Scheduler的工厂
 		SchedulerFactory sf = new StdSchedulerFactory();
