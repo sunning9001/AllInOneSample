@@ -284,6 +284,7 @@ public class BillHandleCenter {
 		   }
 	   }catch(Exception e) {
 		   logger.debug("票据对账------{}",e);
+		   sqlSession.rollback();
 	   }finally {
 		   if(sqlSession != null) {
 			   sqlSession.close();
@@ -503,8 +504,9 @@ public class BillHandleCenter {
 			reponse.setChg_name(fs_dwzb.getDwmc());
 			 //交款人名称
 			reponse.setPayer_name(kphz.getWldwkh());
+			
 			//收款人账户类型
-			reponse.setRec_acctype(kphz.getDefStr5());  //需商量
+			reponse.setRec_acctype(kphz.getDefStr5());  //需商量--------------------------------------------?????
 			
 			//收款人联行号
 			reponse.setRec_bkcode(kphz.getWldwzh());
@@ -544,6 +546,7 @@ public class BillHandleCenter {
 			
 		} catch (Exception e) {
 			logger.debug("handleBillQueryMessageRequest  exception:{}",e);
+			session.rollback();
 		}finally {
 			if(session!=null) {
 				session.close();
@@ -691,6 +694,7 @@ public class BillHandleCenter {
 				} catch (Exception e) {
 					// TODO: handle exception
 					logger.debug("excuteBillSync  exception:{}",e);
+					sqlSession.rollback();
 				}
 				finally {
 				   if(sqlSession!=null ) {
@@ -729,8 +733,10 @@ public class BillHandleCenter {
 				fs_pjdz = pjdzList.get(0);
 			}
 			if(fs_pjdz == null) {
+				//直接返回为空
+				String postBody =JSONObject.toJSONString(request);
 				//根据业务日期和流水号未查询到 票据对账记录 
-				//todo---------------------------------------------------------------------------如果当天没有接收到对账请求 ，会出现这种情况   商量修改
+				BillfundResultsMessageResponse response = (BillfundResultsMessageResponse) HttpUtil.getInstance().httpExecute(postBody , ConfigUtil.getUrl(), BillfundResultsMessageResponse.class);
 			}
 			
 			request.setZone_code(ConfigUtil.getZoneCode());
@@ -774,6 +780,19 @@ public class BillHandleCenter {
 					example.createCriteria().andPjhEqualTo(billno);
 					List<Fs_kphz> billList = kpViewMapper.selectByExample(example );
 					
+					Fs_kphz  kphz = null ;
+					if(billList !=null && billList.size() >0) {
+						kphz = billList.get(0);
+					}
+					//错误码 。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。如果金额也满足，code 可能为 空,需要解决
+					String code = "" ;
+					String msg = "" ;
+					
+					if(kphz ==null) {
+						code = ResponseCode.transaction01;
+						msg = ResponseCode.getCodeDesc(code);
+					}
+					
 					//判断金额是否足够, 对账金额 小于 库中金额，则不满足情况
 					BigDecimal total = new BigDecimal("0") ;
 					for (Fs_kphz hz: billList) {
@@ -781,9 +800,7 @@ public class BillHandleCenter {
 						 total = total.add(je);
 					}
 					BigDecimal actualAmount = new BigDecimal(pjdz.getAmount()) ;
-					//错误码 。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。如果金额也满足，code 可能为 空,需要解决
-					String code = "" ;
-					String msg = "" ;
+					
 					if(actualAmount.compareTo(total) < 0) {
 						code = ResponseCode.confirm01 ;
 						msg = ResponseCode.getCodeDesc(code);
@@ -817,6 +834,7 @@ public class BillHandleCenter {
 			System.out.println(response.toString());
 		}catch(Exception e) {
 			logger.debug("对账结果----{}"+e);
+			sqlSession.rollback();
 		}finally {
 			if(sqlSession !=null) {
 				sqlSession.close();

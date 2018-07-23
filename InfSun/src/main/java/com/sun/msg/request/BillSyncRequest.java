@@ -33,7 +33,6 @@ public class BillSyncRequest {
 	private String remark ="" ; //备注
 	private String paylistfmt = "01"; // 缴款书内容格式 固定为01
 	
-	
 	private List<Item> playlist; // 缴费书内容
 
 	public String getBillno() {

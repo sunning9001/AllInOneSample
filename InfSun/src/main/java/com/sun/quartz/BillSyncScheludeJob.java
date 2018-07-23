@@ -176,6 +176,7 @@ public class BillSyncScheludeJob implements Job {
 			}
 		}catch(Exception e) {
 			logger.debug("handleBillQueryMessageRequest  exception:{}",e);
+			sqlSession.rollback();
 		}finally {
 			if(sqlSession!=null) {
 				sqlSession.close();
