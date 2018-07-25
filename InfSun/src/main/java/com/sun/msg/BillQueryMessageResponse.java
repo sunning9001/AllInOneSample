@@ -52,6 +52,17 @@ public class BillQueryMessageResponse {
 	
 	private List<Item> playlist; //必填  缴费书内容
 
+	//新加字段
+	private String qrcode_url ; //公共支付返回给非税的二维码
+	
+	public String getQrcode_url() {
+		return qrcode_url;
+	}
+
+	public void setQrcode_url(String qrcode_url) {
+		this.qrcode_url = qrcode_url;
+	}
+
 	public String getCode() {
 		return code;
 	}
@@ -262,9 +273,10 @@ public class BillQueryMessageResponse {
 				+ payer_acct + ", payer_opbk=" + payer_opbk + ", rec_acctype=" + rec_acctype + ", rec_name=" + rec_name
 				+ ", rec_acct=" + rec_acct + ", rec_opbk=" + rec_opbk + ", rec_bkcode=" + rec_bkcode
 				+ ", rec_real_acct=" + rec_real_acct + ", interbank=" + interbank + ", remark=" + remark
-				+ ", paylistfmt=" + paylistfmt + ", playlist=" + playlist + "]";
+				+ ", paylistfmt=" + paylistfmt + ", playlist=" + playlist + ", qrcode_url=" + qrcode_url + "]";
 	}
 
+	
 	
 	
 	

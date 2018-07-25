@@ -23,6 +23,15 @@ public class BillPayRequest {
 	private String payer_opbkno ="" ; // 实际缴（付）款人开户行行号
 	private String rec_acctype ; //收款人账户类型 见附录3
 	private String rec_acct = "" ; //收款人账号
+	//新增字段
+	private String attach_info ;  //附加信息
+	
+	public String getAttach_info() {
+		return attach_info;
+	}
+	public void setAttach_info(String attach_info) {
+		this.attach_info = attach_info;
+	}
 	public String getBillno() {
 		return billno;
 	}
@@ -106,7 +115,8 @@ public class BillPayRequest {
 		return "BillPayRequest [billno=" + billno + ", pay_datetime=" + pay_datetime + ", pay_amount=" + pay_amount
 				+ ", bk_outlet=" + bk_outlet + ", operator=" + operator + ", paymode=" + paymode + ", trade_no="
 				+ trade_no + ", payer_name=" + payer_name + ", payer_acct=" + payer_acct + ", payer_opbk=" + payer_opbk
-				+ ", payer_opbkno=" + payer_opbkno + ", rec_acctype=" + rec_acctype + ", rec_acct=" + rec_acct + "]";
+				+ ", payer_opbkno=" + payer_opbkno + ", rec_acctype=" + rec_acctype + ", rec_acct=" + rec_acct
+				+ ", attach_info=" + attach_info + "]";
 	}
 	
 	

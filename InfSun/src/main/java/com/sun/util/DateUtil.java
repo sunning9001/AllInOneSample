@@ -18,9 +18,13 @@ public class DateUtil {
 	private static final Logger logger =LoggerFactory.getLogger(BillHandleCenter.class);
 	
 	public static String dateToStirng(Date date) {
+		if(date != null ) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd") ;
+			return sdf.format(date);
+		}
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd") ;
-		return sdf.format(date);
+		return null;
+		
 	}
 	
 	public static String dateToStirngTime(Date date) {

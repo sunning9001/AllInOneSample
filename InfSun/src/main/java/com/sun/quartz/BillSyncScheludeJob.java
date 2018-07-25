@@ -84,14 +84,17 @@ public class BillSyncScheludeJob implements Job {
 					
 					if (kphz != null) {
 						//票据日期
+						
 						String billdate = DateUtil.dateToStirng(kphz.getPjrq());
 						biz_content.setBilldate(billdate);
 					}
 					
 					BigDecimal total = new BigDecimal("0") ;
 					for (Fs_kphz fs: billList) {
-						 BigDecimal je = fs.getJe().setScale(2,BigDecimal.ROUND_HALF_UP);
-						 total = total.add(je);
+						 if(fs.getJe() != null ) {
+							 BigDecimal je = fs.getJe().setScale(2,BigDecimal.ROUND_HALF_UP);
+							 total = total.add(je);
+						 }
 					}
 					//缴款金额
 					biz_content.setPay_amount(total.toString());
@@ -104,15 +107,17 @@ public class BillSyncScheludeJob implements Job {
 					biz_content.setChg_code(kphz.getDwdm());
 					
 					//根据单位代码获取单位名称
-					Fs_dwzbMapper fs_dwzbMapper = sqlSession.getMapper(Fs_dwzbMapper.class);
-					Fs_dwzbExample fs_dwzbExample = new Fs_dwzbExample();
-					fs_dwzbExample.createCriteria().andDwdmEqualTo(kphz.getDwdm());
-					List<Fs_dwzb> dwzbList = fs_dwzbMapper.selectByExample(fs_dwzbExample);
-					Fs_dwzb fs_dwzb = null ;
-					if(dwzbList!=null && dwzbList.size()>0) {
-						fs_dwzb =dwzbList.get(0);
+					if(kphz.getDwdm() !=null && kphz.getDwdm() !="") {
+						Fs_dwzbMapper fs_dwzbMapper = sqlSession.getMapper(Fs_dwzbMapper.class);
+						Fs_dwzbExample fs_dwzbExample = new Fs_dwzbExample();
+						fs_dwzbExample.createCriteria().andDwdmEqualTo(kphz.getDwdm());
+						List<Fs_dwzb> dwzbList = fs_dwzbMapper.selectByExample(fs_dwzbExample);
+						Fs_dwzb fs_dwzb = null ;
+						if(dwzbList!=null && dwzbList.size()>0) {
+							fs_dwzb =dwzbList.get(0);
+						}
+						biz_content.setChg_name(fs_dwzb.getDwmc());
 					}
-					biz_content.setChg_name(fs_dwzb.getDwmc());
 					
 					 //交款人名称
 					biz_content.setPayer_name(kphz.getWldwkh());
@@ -129,23 +134,26 @@ public class BillSyncScheludeJob implements Job {
 					
 					for(Fs_kphz hz  :billList) {
 						String xmdm = hz.getXmdm();
-						Fs_sfxmExample fs_sfxmExample = new Fs_sfxmExample();
-						fs_sfxmExample.createCriteria().andDmEqualTo(xmdm);
-						List<Fs_sfxm> sfxmList = fs_sfxmMapper.selectByExample(fs_sfxmExample);
-						Fs_sfxm  sfxm =null;
-						
-						if(sfxmList!=null &&sfxmList.size()>0) {
-							sfxm =sfxmList.get(0);
+						if(xmdm != null && xmdm !="" ) {
+							Fs_sfxmExample fs_sfxmExample = new Fs_sfxmExample();
+							fs_sfxmExample.createCriteria().andDmEqualTo(xmdm);
+							List<Fs_sfxm> sfxmList = fs_sfxmMapper.selectByExample(fs_sfxmExample);
+							Fs_sfxm  sfxm =null;
+							
+							if(sfxmList!=null &&sfxmList.size()>0) {
+								sfxm =sfxmList.get(0);
+							}
+							Item item =new Item();
+							item.setItem_code(sfxm.getDm());
+							item.setItem_name(sfxm.getMc());
+							item.setItem_amount(hz.getJe().toString());
+							item.setUnit(ConfigUtil.unit);                          // 个
+							item.setNum(hz.getSl().toString());
+							item.setStdtype(ConfigUtil.stdtype);                    //无限制
+							item.setStandard(ConfigUtil.standard);          //
+							itemList.add(item );
 						}
-						Item item =new Item();
-						item.setItem_code(sfxm.getDm());
-						item.setItem_name(sfxm.getMc());
-						item.setItem_amount(hz.getJe().toString());
-						item.setUnit(ConfigUtil.unit);                          // 个
-						item.setNum(hz.getSl().toString());
-						item.setStdtype(ConfigUtil.stdtype);                    //无限制
-						item.setStandard(ConfigUtil.standard);          //
-						itemList.add(item );
+						
 					}
 					
 					biz_content.setPlaylist(itemList);

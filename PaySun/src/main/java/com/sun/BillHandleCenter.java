@@ -97,6 +97,7 @@ public class BillHandleCenter {
 		
 		BillSyncMessageResponse reponse =new BillSyncMessageResponse();
 		reponse.setCode("00000");
+		System.out.println("支付平台收到票据同步请求-------------------------");
 //		kvObject.put("wp_out_bill_pay_query_reponse_xxxxxxxxxxxxxxxxxxxxxxxxxx", reponse);
 //		
 //		String s = "\"wp_out_bill_pay_query_reponse\":";
@@ -116,6 +117,8 @@ public class BillHandleCenter {
 		BillfundResultsMessageResponse response =new BillfundResultsMessageResponse();
 		response.setCode(ResponseCode.Success);
 		response.setMsg(ResponseCode.getCodeDesc(ResponseCode.Success));
+		
+		System.out.println("支付平台收到 资金对账结果------返回");
 		return response;
 	}
 

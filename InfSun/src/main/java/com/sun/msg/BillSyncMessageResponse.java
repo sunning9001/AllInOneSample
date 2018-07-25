@@ -21,6 +21,17 @@ public class BillSyncMessageResponse {
 	 */
 	
 	private String trade_id; //支付平台流水号
+	//新加字段
+	private String qrcode_url ; //公共支付返回给非税的二维码
+	
+
+	public String getQrcode_url() {
+		return qrcode_url;
+	}
+
+	public void setQrcode_url(String qrcode_url) {
+		this.qrcode_url = qrcode_url;
+	}
 
 	public String getCode() {
 		return code;
@@ -67,8 +78,10 @@ public class BillSyncMessageResponse {
 	@Override
 	public String toString() {
 		return "BillSyncMessageResponse [code=" + code + ", msg=" + msg + ", svr_code=" + svr_code + ", svr_msg="
-				+ svr_msg + ", trade_id=" + trade_id + "]";
+				+ svr_msg + ", trade_id=" + trade_id + ", qrcode_url=" + qrcode_url + "]";
 	}
+
+	
 
 	
 	

@@ -39,10 +39,14 @@ public final class HttpServer {
 			Channel ch = b.bind(port).sync().channel();
 
 			logger.debug("HttpServer start success ,bind port:<{}>",port);
-			ch.closeFuture().sync();
 			
+			//定时任务 票据同步 --
 			QuartzTest quart = new QuartzTest();
 			quart.excuteSync();
+			
+			ch.closeFuture().sync();
+			
+			
 		} finally {
 			bossGroup.shutdownGracefully();
 			workerGroup.shutdownGracefully();

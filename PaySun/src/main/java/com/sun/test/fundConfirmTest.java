@@ -48,6 +48,6 @@ public class fundConfirmTest {
 		FundConfirmMessageResponse response = (FundConfirmMessageResponse) HttpUtil.getInstance().httpExecute(postBody,
 				ConfigUtil.getUrl(), FundConfirmMessageResponse.class);
 
-		System.out.println(response.toString());
+		System.out.println("资金对账-----"+response.toString());
 	}
 }

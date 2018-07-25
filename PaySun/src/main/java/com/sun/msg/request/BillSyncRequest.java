@@ -1,6 +1,5 @@
 package com.sun.msg.request;
 
-import java.util.Currency;
 import java.util.List;
 
 /**
@@ -33,7 +32,8 @@ public class BillSyncRequest {
 	private String remark ="" ; //备注
 	private String paylistfmt = "01"; // 缴款书内容格式 固定为01
 	
-	
+	//新增字段
+	private String attach_info ;  //附加信息
 	private List<Item> playlist; // 缴费书内容
 
 	public String getBillno() {
@@ -214,6 +214,15 @@ public class BillSyncRequest {
 		this.remark = remark;
 	}
 
+	
+	public String getAttach_info() {
+		return attach_info;
+	}
+
+	public void setAttach_info(String attach_info) {
+		this.attach_info = attach_info;
+	}
+
 	@Override
 	public String toString() {
 		return "BillSyncRequest [billno=" + billno + ", crccode=" + crccode + ", billdate=" + billdate + ", pay_amount="
@@ -222,9 +231,11 @@ public class BillSyncRequest {
 				+ ", payer_acct=" + payer_acct + ", payer_opbk=" + payer_opbk + ", rec_acctype=" + rec_acctype
 				+ ", rec_name=" + rec_name + ", rec_acct=" + rec_acct + ", rec_opbk=" + rec_opbk + ", rec_bkcode="
 				+ rec_bkcode + ", rec_real_acct=" + rec_real_acct + ", interbank=" + interbank + ", remark=" + remark
-				+ ", paylistfmt=" + paylistfmt + ", playlist=" + playlist + "]";
+				+ ", paylistfmt=" + paylistfmt + ", attach_info=" + attach_info + ", playlist=" + playlist + "]";
 	}
 
+	
+	
 	
 
 	

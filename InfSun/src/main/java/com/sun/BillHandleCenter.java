@@ -39,16 +39,13 @@ import com.sun.msg.BillPayMessageRequest;
 import com.sun.msg.BillPayMessageResponse;
 import com.sun.msg.BillQueryMessageRequest;
 import com.sun.msg.BillQueryMessageResponse;
-import com.sun.msg.BillSyncMessageRequest;
-import com.sun.msg.BillSyncMessageResponse;
 import com.sun.msg.BillfundResultsMessageRequest;
 import com.sun.msg.BillfundResultsMessageResponse;
 import com.sun.msg.FundConfirmMessageRequest;
 import com.sun.msg.FundConfirmMessageResponse;
 import com.sun.msg.request.BillDetails;
-import com.sun.msg.request.BillQueryRequest;
 import com.sun.msg.request.BillPayRequest;
-import com.sun.msg.request.BillSyncRequest;
+import com.sun.msg.request.BillQueryRequest;
 import com.sun.msg.request.FailDetails;
 import com.sun.msg.request.FundConfirmRequest;
 import com.sun.msg.request.FundResultsRequest;
@@ -148,6 +145,7 @@ public class BillHandleCenter {
 	   
 	   FundConfirmRequest biz_content = resuest.getBiz_content();
 	   
+	   String bankindex = resuest.getBankindex();
 	   //业务日期
 	   String date = biz_content.getDate();
 	   //对账流水号
@@ -281,6 +279,8 @@ public class BillHandleCenter {
 				   }
 				   
 			   }
+			   
+			   
 		   }
 	   }catch(Exception e) {
 		   logger.debug("票据对账------{}",e);
@@ -293,6 +293,9 @@ public class BillHandleCenter {
 	   response.setCode(ResponseCode.Success) ;
 	   response.setMsg(ResponseCode.Success_default_msg);
 	   
+	   //对账完之后--调用对账结果
+	   excuteFundConfirmResult(date,accountfirm_no, bankindex);
+	    
 	   return response ;
 	   
    }
@@ -565,155 +568,21 @@ public class BillHandleCenter {
 	
 	/**
 	 *   执行票据同步    非税系统 --->支付平台
-	 *         感觉不准确???????????????????????????????????????????????????????
+	 *         写在了定时任务 里
 	 * @param pj  
 	 */
 	public  void  excuteBillSync(List<Fs_kphz> billList) {
 		
-		//创建票据同步请求
-		BillSyncMessageRequest request =new BillSyncMessageRequest();
-		//行政划分
-		request.setZone_code(ConfigUtil.getZoneCode());
-		//方法名称
-		request.setMethod(InfConstants.BillSync);
-		
-		String timestamp = DateUtil.dateToStirngTime(new Date());
-		request.setTimestamp(timestamp);
-		request.setVersion(ConfigUtil.version);
-		
-		BillSyncRequest biz_content =new BillSyncRequest();
-		
-		
-		Fs_kphz kphz = null ;
-		if (billList != null && billList.size() >0 ) {
-			kphz = billList.get(0);
-		}
-		
-		//票据号
-		biz_content.setBillno(kphz.getPjh());
-		
-		//票据日期
-		String billdate = DateUtil.dateToStirng(kphz.getPjrq());
-		biz_content.setBilldate(billdate);
-		
-		BigDecimal total = new BigDecimal("0") ;
-		for (Fs_kphz fs: billList) {
-			 BigDecimal je = fs.getJe().setScale(2,BigDecimal.ROUND_HALF_UP);
-			 total = total.add(je);
-		}
-		//缴款金额
-		biz_content.setPay_amount(total.toString());
-		//缴款书金额
-		biz_content.setTotal_amount(total.toString());
-		biz_content.setDelay_amount(ConfigUtil.delay_amount);
-		biz_content.setBillstats(kphz.getPjzt());
-		biz_content.setChg_code(kphz.getDwdm());
-		
-		//根据单位代码查询名称
-		SqlSession session = SqlUtil.getInstance().getSqlSession();
-		Fs_dwzbMapper fs_dwzbMapper = session.getMapper(Fs_dwzbMapper.class);
-		Fs_dwzbExample fs_dwzbExample = new Fs_dwzbExample();
-		fs_dwzbExample.createCriteria().andDwdmEqualTo(kphz.getDwdm());
-		List<Fs_dwzb> dwzbList = fs_dwzbMapper.selectByExample(fs_dwzbExample);
-		
-		Fs_dwzb fs_dwzb = null ;
-		if(dwzbList!=null && dwzbList.size()>0) {
-			fs_dwzb =dwzbList.get(0);
-		}
-		biz_content.setChg_name(fs_dwzb.getDwmc());
-		
-		 //交款人名称
-		biz_content.setPayer_name(kphz.getWldwkh());
-		//收款人账户类型
-		biz_content.setRec_acctype(kphz.getDefStr5());  //需商量
-		
-		//收款人联行号
-		biz_content.setRec_bkcode(kphz.getWldwzh());
-		biz_content.setPaylistfmt(ConfigUtil.paylistfmt); 
-		
-		//缴款书内容
-		List<Item> itemList =new ArrayList<Item>();
-		Fs_sfxmMapper fs_sfxmMapper = session.getMapper(Fs_sfxmMapper.class);
-		
-		for(Fs_kphz hz  :billList) {
-			String xmdm = hz.getXmdm();
-			Fs_sfxmExample fs_sfxmExample = new Fs_sfxmExample();
-			fs_sfxmExample.createCriteria().andDmEqualTo(xmdm);
-			List<Fs_sfxm> sfxmList = fs_sfxmMapper.selectByExample(fs_sfxmExample);
-			Fs_sfxm  sfxm =null;
-			
-			if(sfxmList!=null &&sfxmList.size()>0) {
-				sfxm =sfxmList.get(0);
-			}
-			Item item =new Item();
-			item.setItem_code(sfxm.getDm());
-			item.setItem_name(sfxm.getMc());
-			item.setItem_amount(hz.getJe().toString());
-			item.setUnit(ConfigUtil.unit);                          // 个
-			item.setNum(hz.getSl().toString());
-			item.setStdtype(ConfigUtil.stdtype);                    //无限制
-			item.setStandard(ConfigUtil.standard);          //
-			itemList.add(item );
-		}
-		
-		biz_content.setPlaylist(itemList);
-		
-		//添加请求参数集合
-		request.setBiz_content(biz_content); 
-		
-		//向公共支付平台请求消息
-		//转换成JSON String
-		String postBody =JSONObject.toJSONString(request);
-		BillSyncMessageResponse response = (BillSyncMessageResponse) HttpUtil.getInstance().httpExecute(postBody , ConfigUtil.getUrl(), BillSyncMessageResponse.class);
-		
-		if(response!=null) {
-			//判断响应码
-			String code = response.getCode();
-			if(code!=null && code.equals(ResponseCode.Success)) {
-				//同步成功，更新数据库
-				SqlSession sqlSession =null;
-				try {
-					 sqlSession = SqlUtil.getInstance().getSqlSession();
-					 
-					 UtilMapper utilMapper = sqlSession.getMapper(UtilMapper.class);
-					 String yuefen = utilMapper.selectMonth(kphz.getPjh());
-					 
-					 logger.debug("=================================yuefen======={}",yuefen);
-					 String table_name = "fs_kp"+yuefen ;
-					 logger.debug("=================================表名======={}",table_name);
-					
-					 UpdateBean bean = new UpdateBean();
-					 bean.setTable_name(table_name);
-					 bean.setJkrq(new Date());
-					 bean.setPjh(kphz.getPjh());
-					 bean.setPjzt(ConfigUtil.paid);
-					 
-					 utilMapper.updateJkztAndJkrq(bean);
-					 sqlSession.commit();
-					 
-				} catch (Exception e) {
-					// TODO: handle exception
-					logger.debug("excuteBillSync  exception:{}",e);
-					sqlSession.rollback();
-				}
-				finally {
-				   if(sqlSession!=null ) {
-					   sqlSession.close();
-				   }
-				}
-				
-			}
-		}
 	}
 	
 	/**
 	 * 	    资金对账结果    非税系统 --->支付平台
 	 *        
 	 * @param tradeDay  业务日期
-	 * @param tradeNo   对账请求中的流水号    
+	 * @param accountfirm_no   对账请求中的流水号    
 	 */
 	
-	public  void  excuteFundConfirmResult(String tradeDay,String accountfirm_no,String bankindex) {
+	public static  void  excuteFundConfirmResult(String tradeDay,String accountfirm_no,String bankindex) {
 		
 		//创建对账结果  请求对象
 		BillfundResultsMessageRequest request = new BillfundResultsMessageRequest();
@@ -828,10 +697,9 @@ public class BillHandleCenter {
 			String postBody =JSONObject.toJSONString(request);
 			//要不要添加 request :
 	//		String postBody = "request:"+JSONObject.toJSONString(request);
-			logger.debug("=====================资金对账 结果请求============postbody======={}",postBody);
+			logger.debug("=非税系统==资金对账 结果请求===postbody==={}",postBody);
 			BillfundResultsMessageResponse response = (BillfundResultsMessageResponse) HttpUtil.getInstance().httpExecute(postBody , ConfigUtil.getUrl(), BillfundResultsMessageResponse.class);
-			
-			System.out.println(response.toString());
+			logger.debug("=非税系统=资金对账 结果 业务收到的返回结果="+response.toString());
 		}catch(Exception e) {
 			logger.debug("对账结果----{}"+e);
 			sqlSession.rollback();
