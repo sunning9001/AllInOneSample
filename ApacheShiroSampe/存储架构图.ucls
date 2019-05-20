@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.2" icons="false" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="org.apache.shiro.mgt.CachingSecurityManager" project="ApacheShiroSampe" 
+    file="D:/repo/org/apache/shiro/shiro-core/1.3.2/shiro-core-1.3.2.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="561" y="178"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="org.apache.shiro.cache.MemoryConstrainedCacheManager" project="ApacheShiroSampe" 
+    file="D:/repo/org/apache/shiro/shiro-core/1.3.2/shiro-core-1.3.2.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="683" y="410"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="org.apache.shiro.cache.MapCache" project="ApacheShiroSampe" 
+    file="D:/repo/org/apache/shiro/shiro-core/1.3.2/shiro-core-1.3.2.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="124" y="679"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <interface id="4" language="java" name="org.apache.shiro.cache.CacheManagerAware" project="ApacheShiroSampe" 
+    file="D:/repo/org/apache/shiro/shiro-core/1.3.2/shiro-core-1.3.2.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="842" y="157"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </interface>  
+  <interface id="5" language="java" name="org.apache.shiro.cache.CacheManager" project="ApacheShiroSampe" 
+    file="D:/repo/org/apache/shiro/shiro-core/1.3.2/shiro-core-1.3.2.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="343" y="184"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </interface>  
+  <interface id="6" language="java" name="org.apache.shiro.cache.Cache" project="ApacheShiroSampe" 
+    file="D:/repo/org/apache/shiro/shiro-core/1.3.2/shiro-core-1.3.2.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="126" y="422"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </interface>  
+  <class id="7" language="java" name="org.apache.shiro.cache.AbstractCacheManager" project="ApacheShiroSampe" 
+    file="D:/repo/org/apache/shiro/shiro-core/1.3.2/shiro-core-1.3.2.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="343" y="410"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <realization id="8">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="6"/>  
+  </realization>  
+  <association id="9">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="10" name="caches"/>      
+      <multiplicity id="11" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="12">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <association id="13">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="14" name="cacheManager"/>      
+      <multiplicity id="15" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="16">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <realization id="17">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <classifier-display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+    sort-features="false" accessors="true" visibility="false">    
+    <attributes public="false" package="false" protected="false" private="false" static="false"/>    
+    <operations public="true" package="false" protected="false" private="false" static="false"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

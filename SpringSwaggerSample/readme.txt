@@ -1,0 +1,1 @@
+http://www.javainuse.com/spring/boot_swagger
