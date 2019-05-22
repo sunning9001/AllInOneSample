@@ -11,32 +11,18 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.metadata.Sheet;
 import com.bjbank.listen.AccountExcelListener;
 import com.bjbank.listen.TransactionExcelListener;
-
+//https://blog.csdn.net/hao65103940/article/details/78331092
 public class BJBankStart {
 
-
-	public static void xxx() throws IOException {
-/*		JSONArray jsonArray =new JSONArray();
-		
-		JSONObject obj1=new JSONObject();
-		obj1.put("companyCode", "xxxxxx111");
-		obj1.put("companyName", "名字1");
-		
-		jsonArray.add(obj1);
-		
-		
-		JSONObject obj2=new JSONObject();
-		obj2.put("companyCode", "xxxxxx2222");
-		obj2.put("companyName", "名字2222");
-		
-		jsonArray.add(obj2);
-		writeCompanyToExcel(jsonArray) ;*/
-	}
+    private static final Logger  logger =LoggerFactory.getLogger(BJBankStart.class);
 	public static void main(String[] args) throws IOException {
 
 		System.out.println("===============工具开始启动======================");
@@ -62,21 +48,32 @@ public class BJBankStart {
 		String password = pro.getProperty("password");
 		System.out.println("读取password =" + password);
 		Const.password =password;
+		Integer loop = Integer.parseInt(pro.getProperty("loop"));
+		System.out.println("读取批量loop配置 =" + loop);
+		Const.LOOP =loop;
+		
+		String companyPath = pro.getProperty("companyPath");
+		System.out.println("读取companyPath文件存放位置 =" + companyPath);
+		Const.companyPath =companyPath;
+		
 		System.out.println("===============工具启动成功======================");
 
 		while (true) {
+			System.out.println("#####################################################################");
 			System.out.println("请选择要操作业务:  a-获取平台单位列表  b-更新平台银行账户 c-更新银行交易流水");
 			Scanner scan = new Scanner(System.in);
 			String read = scan.nextLine();
 
-			if (read != null
-					&& (read.equalsIgnoreCase("a") || read.equalsIgnoreCase("b") || read.equalsIgnoreCase("c"))) {
-
-				       if(read.equalsIgnoreCase("a")) {
-				    	   String token =BJBankUitl.getToken();
-				    	  if(token!=null) {
-				    		  //  导出excel到指定文件夹目录
-				    		  try {
+			try {
+				
+				if (read != null
+						&& (read.equalsIgnoreCase("a") || read.equalsIgnoreCase("b") || read.equalsIgnoreCase("c"))) {
+					
+					if(read.equalsIgnoreCase("a")) {
+						String token =BJBankUitl.getToken();
+						if(token!=null) {
+							//  导出excel到指定文件夹目录
+							try {
 								List<Company> companys = BJBankUitl.getCompanyList(token);
 								writeCompanyToExcel(companys);
 								System.out.println("下载平台单位列表完成!");
@@ -84,29 +81,32 @@ public class BJBankStart {
 							} catch (IOException e) {
 								System.out.println("请求数据错误,原因:"+e.getMessage());
 							}
-				    	  }
-				       }
-				       if(read.equalsIgnoreCase("b")) {
-			    	     String token =BJBankUitl.getToken();
-				    	  if(token!=null) {
-				    		  //导入指定文件
-			    		    System.out.println("请输入导入excel文件路径  例如:D:/文件夹/文件名称.xlsx");
-			    			String filePath = scan.nextLine();
-			    			readCompanyAccountFile(filePath);
-				    	  }
-				       }
-				       if(read.equalsIgnoreCase("c")) {
-				    	   String token =BJBankUitl.getToken();
-				    	   if(token!=null) {
-				    		   //导入指定文件
-				    		   System.out.println("请输入导入excel文件路径  例如:D:/文件夹/文件名称.xlsx");
-				    		   String filePath = scan.nextLine();
-				    		   readCompanyTransaction(filePath);
-				    	   }
-				       }
-				       
-			} else {
-				System.out.println("输入错误,选择 a 或者b  或者 c");
+						}
+					}
+					if(read.equalsIgnoreCase("b")) {
+						//导入指定文件
+						System.out.println("更新平台银行账户,请输入导入excel文件路径  例如:D:/文件夹/文件名称.xlsx");
+						String filePath = scan.nextLine();
+						String token =BJBankUitl.getToken();
+						if(token!=null) {
+							readCompanyAccountFile(filePath);
+						}
+					}
+					if(read.equalsIgnoreCase("c")) {
+						//导入指定文件
+						System.out.println("更新银行交易流水,请输入导入excel文件路径  例如:D:/文件夹/文件名称.xlsx");
+						String filePath = scan.nextLine();
+						String token =BJBankUitl.getToken();
+						if(token!=null) {
+							readCompanyTransaction(filePath);
+						}
+					}
+					
+				} else {
+					System.out.println("输入错误,选择 a 或者b  或者 c");
+				}
+			} catch (Exception e) {
+				System.out.println("异常,原因:"+e.getMessage());
 			}
 		}
 	}
@@ -152,9 +152,10 @@ public class BJBankStart {
 	 * @throws IOException
 	 */
 	public static void writeCompanyToExcel(List<Company> companys) throws IOException {
-		OutputStream out = new FileOutputStream(System.getProperty("user.dir") + File.separator +"平台单位列表-"+ BJBankUitl.getTimeStr()+".xlsx");
+		String fileName = System.getProperty("user.dir") + File.separator +"平台单位列表-"+ BJBankUitl.getTimeStr()+".xlsx";
+		OutputStream out = new FileOutputStream(fileName);
 		ExcelWriter writer = EasyExcelFactory.getWriter(out);
-
+        logger.info("writeCompanyToExcel  文件名称:{} 平台数量:{}",fileName,companys.size());
 		//设置表头
 		List<List<String>> head =new ArrayList<>();
 		List<String> h1 =new ArrayList<>();

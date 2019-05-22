@@ -13,6 +13,7 @@ public class Const {
 	public  static String  username ="bjwxyh_admin";
 	public  static String  password ="bjwxyh292804";
 	public  static int LOOP = 2; //多少条数据作为一批
+	public  static String companyPath="";//文件生成路径
 	
 	
 	public static final String  status="status";
