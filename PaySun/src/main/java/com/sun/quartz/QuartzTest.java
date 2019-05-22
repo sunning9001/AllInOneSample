@@ -14,8 +14,9 @@ import org.quartz.impl.StdSchedulerFactory;
 
 //https://blog.csdn.net/u010648555/article/details/54863394
 public class QuartzTest {
-	public static void main(String[] args) throws SchedulerException, InterruptedException {
-
+	
+//	public static void main(String[] args) throws SchedulerException, InterruptedException {
+	public static void excuteSync() throws SchedulerException, InterruptedException {
 		// 1.创建Scheduler的工厂
 		SchedulerFactory sf = new StdSchedulerFactory();
 		// 2.从工厂中获取调度器实例
@@ -35,7 +36,7 @@ public class QuartzTest {
 		Trigger t = TriggerBuilder.newTrigger().withDescription("").withIdentity("ramTrigger", "ramTriggerGroup")
 				// .withSchedule(SimpleScheduleBuilder.simpleSchedule())
 				.startAt(statTime) // 默认当前时间启动
-				.withSchedule(CronScheduleBuilder.cronSchedule("0/2 * * * * ?")) // 两秒执行一次
+				.withSchedule(CronScheduleBuilder.cronSchedule("0 0/2 * * * ?")) // 两秒执行一次
 				.build();
 
 		// 5.注册任务和定时器

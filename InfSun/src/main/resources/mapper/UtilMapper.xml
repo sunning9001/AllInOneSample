@@ -12,4 +12,56 @@
 	    update ${table_name} set pjzt = #{pjzt,jdbcType=VARCHAR} , jkrq = #{jkrq,jdbcType=TIMESTAMP}  where pjh = ${pjh}
    
   </update>
+  
+   <select id="selectPjh" resultType="String">
+   		select distinct pjh from fs_xzpj ;
+   </select>
+   
+   	<delete id="deleteByPjh" parameterType="String">
+   		delete from fs_xzpj where pjh =#{pjh}
+   	</delete>
+   	
+   	
+	 <insert id="insertSync" parameterType="com.sun.entity.automodel.Fs_kphz">
+		    insert into fs_sync (id1, id2, dwdm, 
+		      yhdm, wddm, pjrq, 
+		      pjlx, zgbm, pjh, jksh, 
+		      jkrq, jkr, xmdm, 
+		      zy, je, dw, sl, 
+		      sfbz, kpr, jsr, shr, 
+		      hxr, jsfs, jspjh, jsyh, 
+		      wldwdm, wldwmc, wldwkh, 
+		      wldwzh, pjzt, tg_pzlx, 
+		      tg_pzh, tg_pzrq, st_pzlx, 
+		      st_pzh, st_pzrq, bz, 
+		      iszh, isprint, isdwkp, 
+		      isyhkp, isdwjk, def_str1, 
+		      def_str2, def_str3, def_str4, 
+		      def_str5, def_int1, def_int2, 
+		      def_int3, def_int4, def_int5, 
+		      def_num1, def_num2, def_num3, 
+		      def_num4, def_num5, def_dt1, 
+		      def_dt2, ishz, cpdw, 
+		      fyhdm, fyhzh, istf)
+		    values (#{id1,jdbcType=VARCHAR}, #{id2,jdbcType=INTEGER}, #{dwdm,jdbcType=VARCHAR}, 
+		      #{yhdm,jdbcType=VARCHAR}, #{wddm,jdbcType=VARCHAR}, #{pjrq,jdbcType=TIMESTAMP}, 
+		      #{pjlx,jdbcType=VARCHAR}, #{zgbm,jdbcType=VARCHAR}, #{pjh,jdbcType=VARCHAR}, #{jksh,jdbcType=VARCHAR}, 
+		      #{jkrq,jdbcType=TIMESTAMP}, #{jkr,jdbcType=VARCHAR}, #{xmdm,jdbcType=VARCHAR}, 
+		      #{zy,jdbcType=VARCHAR}, #{je,jdbcType=DECIMAL}, #{dw,jdbcType=VARCHAR}, #{sl,jdbcType=DECIMAL}, 
+		      #{sfbz,jdbcType=DECIMAL}, #{kpr,jdbcType=VARCHAR}, #{jsr,jdbcType=VARCHAR}, #{shr,jdbcType=VARCHAR}, 
+		      #{hxr,jdbcType=VARCHAR}, #{jsfs,jdbcType=INTEGER}, #{jspjh,jdbcType=VARCHAR}, #{jsyh,jdbcType=VARCHAR}, 
+		      #{wldwdm,jdbcType=VARCHAR}, #{wldwmc,jdbcType=VARCHAR}, #{wldwkh,jdbcType=VARCHAR}, 
+		      #{wldwzh,jdbcType=VARCHAR}, #{pjzt,jdbcType=VARCHAR}, #{tgPzlx,jdbcType=VARCHAR}, 
+		      #{tgPzh,jdbcType=VARCHAR}, #{tgPzrq,jdbcType=TIMESTAMP}, #{stPzlx,jdbcType=VARCHAR}, 
+		      #{stPzh,jdbcType=VARCHAR}, #{stPzrq,jdbcType=TIMESTAMP}, #{bz,jdbcType=VARCHAR}, 
+		      #{iszh,jdbcType=VARCHAR}, #{isprint,jdbcType=VARCHAR}, #{isdwkp,jdbcType=VARCHAR}, 
+		      #{isyhkp,jdbcType=VARCHAR}, #{isdwjk,jdbcType=VARCHAR}, #{defStr1,jdbcType=VARCHAR}, 
+		      #{defStr2,jdbcType=VARCHAR}, #{defStr3,jdbcType=VARCHAR}, #{defStr4,jdbcType=VARCHAR}, 
+		      #{defStr5,jdbcType=VARCHAR}, #{defInt1,jdbcType=INTEGER}, #{defInt2,jdbcType=INTEGER}, 
+		      #{defInt3,jdbcType=INTEGER}, #{defInt4,jdbcType=INTEGER}, #{defInt5,jdbcType=INTEGER}, 
+		      #{defNum1,jdbcType=DECIMAL}, #{defNum2,jdbcType=DECIMAL}, #{defNum3,jdbcType=DECIMAL}, 
+		      #{defNum4,jdbcType=DECIMAL}, #{defNum5,jdbcType=DECIMAL}, #{defDt1,jdbcType=TIMESTAMP}, 
+		      #{defDt2,jdbcType=TIMESTAMP}, #{ishz,jdbcType=VARCHAR}, #{cpdw,jdbcType=VARCHAR}, 
+		      #{fyhdm,jdbcType=VARCHAR}, #{fyhzh,jdbcType=VARCHAR}, #{istf,jdbcType=VARCHAR})
+	   </insert>
 </mapper>

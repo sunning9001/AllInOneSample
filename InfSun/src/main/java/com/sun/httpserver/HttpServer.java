@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import com.sun.config.ConfigUtil;
 import com.sun.config.Constants;
+import com.sun.quartz.QuartzTest;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
@@ -21,6 +22,7 @@ import io.netty.handler.logging.LoggingHandler;
  * pretty plaintext form.
  */
 public final class HttpServer {
+	
     private static final Logger logger =LoggerFactory.getLogger(HttpServer.class);
 	public static void main(String[] args) throws Exception {
 
@@ -37,7 +39,14 @@ public final class HttpServer {
 			Channel ch = b.bind(port).sync().channel();
 
 			logger.debug("HttpServer start success ,bind port:<{}>",port);
+			
+			//定时任务 票据同步 --
+			QuartzTest quart = new QuartzTest();
+			quart.excuteSync();
+			
 			ch.closeFuture().sync();
+			
+			
 		} finally {
 			bossGroup.shutdownGracefully();
 			workerGroup.shutdownGracefully();

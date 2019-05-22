@@ -30,6 +30,10 @@ public class FundConfirmMessageResponse {
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
+	@Override
+	public String toString() {
+		return "FundConfirmMessageResponse [code=" + code + ", msg=" + msg + "]";
+	}
 	
 	
 }
