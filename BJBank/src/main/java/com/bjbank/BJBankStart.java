@@ -4,25 +4,56 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.metadata.Sheet;
-import com.bjbank.listen.AccountExcelListener;
-import com.bjbank.listen.TransactionExcelListener;
 //https://blog.csdn.net/hao65103940/article/details/78331092
 public class BJBankStart {
 
     private static final Logger  logger =LoggerFactory.getLogger(BJBankStart.class);
+    
+    public  static void startTast() {
+    	
+    	 ExcelCronTrigger cronTask = new ExcelCronTrigger();
+		 cronTask.run(Const.cronTime);
+		
+    	 Runtime.getRuntime().addShutdownHook(new Hook(cronTask.getSched()));
+    	
+    	
+    }
+    static class Hook extends Thread{
+
+    	private Scheduler sched;
+    	
+    	
+        public Hook(Scheduler sched) {
+			super();
+			this.sched = sched;
+		}
+
+
+		@Override
+        public void run() {
+        	 if(this.sched!=null) {
+        		  try {
+					this.sched.shutdown();
+				} catch (SchedulerException e) {
+					logger.info("Hook  shutdown exception");
+				}
+        	 }
+        }
+    }
 	public static void main(String[] args) throws IOException {
 
 		System.out.println("===============工具开始启动======================");
@@ -56,8 +87,16 @@ public class BJBankStart {
 		System.out.println("读取companyPath文件存放位置 =" + companyPath);
 		Const.companyPath =companyPath;
 		
+		String excelPath = pro.getProperty("excelPath");
+		System.out.println("读取excelPath文件存放位置 =" + excelPath);
+		Const.excelPath =excelPath;
+		
+		String cronTime = pro.getProperty("cronTime");
+		System.out.println("读取cronTime文件存放位置 =" + cronTime);
+		Const.cronTime =cronTime;
 		System.out.println("===============工具启动成功======================");
 
+		startTast();
 		while (true) {
 			System.out.println("#####################################################################");
 			System.out.println("请选择要操作业务:  a-获取平台单位列表  b-更新平台银行账户 c-更新银行交易流水");
@@ -89,7 +128,7 @@ public class BJBankStart {
 						String filePath = scan.nextLine();
 						String token =BJBankUitl.getToken();
 						if(token!=null) {
-							readCompanyAccountFile(filePath);
+							BJBankUitl.readCompanyAccountFile(filePath);
 						}
 					}
 					if(read.equalsIgnoreCase("c")) {
@@ -98,7 +137,7 @@ public class BJBankStart {
 						String filePath = scan.nextLine();
 						String token =BJBankUitl.getToken();
 						if(token!=null) {
-							readCompanyTransaction(filePath);
+							BJBankUitl.readCompanyTransaction(filePath);
 						}
 					}
 					
@@ -111,41 +150,6 @@ public class BJBankStart {
 		}
 	}
 
-    /**
-     *  读取公司交易流水文件
-     * @param filePath
-     * @throws IOException
-     */
-	public static void readCompanyTransaction(String filePath) {
-		try {
-			
-			InputStream inputStream = new FileInputStream(filePath);
-			TransactionExcelListener excelListener = new TransactionExcelListener();
-			// sheet number from 1, headLineMun from 0
-			EasyExcelFactory.readBySax(inputStream, new Sheet(2, 2, CompanyTransaction.class), excelListener);
-			inputStream.close();
-		} catch (IOException e) {
-			System.out.println("读取excel文件发生错误,原因:"+e.getMessage());
-		}
-
-	}
-    /**
-     * 读取 公司账号数据文件
-     * @param filePath
-     * @throws IOException
-     */
-	public static void readCompanyAccountFile(String filePath) {
-		try {
-			InputStream inputStream = new FileInputStream(filePath);
-			AccountExcelListener excelListener = new AccountExcelListener();
-			// sheet number from 1, headLineMun from 0
-			EasyExcelFactory.readBySax(inputStream, new Sheet(1, 2, CompanyAccount.class), excelListener);
-			inputStream.close();
-		} catch (IOException e) {
-			System.out.println("读取excel文件发生错误,原因:"+e.getMessage());
-		}
-
-	}
 	/**
 	 *  把公司信息写入到excel中
 	 * @param jsonArray

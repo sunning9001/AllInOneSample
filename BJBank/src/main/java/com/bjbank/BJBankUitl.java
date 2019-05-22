@@ -1,6 +1,8 @@
 package com.bjbank;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,8 +10,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.excel.EasyExcelFactory;
+import com.alibaba.excel.metadata.Sheet;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.bjbank.listen.AccountExcelListener;
+import com.bjbank.listen.TransactionExcelListener;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -187,4 +193,40 @@ public class BJBankUitl {
 		return token.toString();
 	}
 
+
+    /**
+      *  读取公司交易流水文件
+     * @param filePath
+     * @throws IOException
+     */
+	public static void readCompanyTransaction(String filePath) {
+		try {
+			
+			InputStream inputStream = new FileInputStream(filePath);
+			TransactionExcelListener excelListener = new TransactionExcelListener();
+			// sheet number from 1, headLineMun from 0
+			EasyExcelFactory.readBySax(inputStream, new Sheet(2, 2, CompanyTransaction.class), excelListener);
+			inputStream.close();
+		} catch (IOException e) {
+			System.out.println("读取excel文件发生错误,原因:"+e.getMessage());
+		}
+
+	}
+    /**
+      * 读取 公司账号数据文件
+     * @param filePath
+     * @throws IOException
+     */
+	public static void readCompanyAccountFile(String filePath) {
+		try {
+			InputStream inputStream = new FileInputStream(filePath);
+			AccountExcelListener excelListener = new AccountExcelListener();
+			// sheet number from 1, headLineMun from 0
+			EasyExcelFactory.readBySax(inputStream, new Sheet(1, 2, CompanyAccount.class), excelListener);
+			inputStream.close();
+		} catch (IOException e) {
+			System.out.println("读取excel文件发生错误,原因:"+e.getMessage());
+		}
+
+	}
 }
