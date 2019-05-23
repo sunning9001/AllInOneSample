@@ -209,6 +209,7 @@ public class BJBankUitl {
 			inputStream.close();
 		} catch (IOException e) {
 			System.out.println("读取excel文件发生错误,原因:"+e.getMessage());
+			logger.info("readCompanyTransaction  exception:{}",e.getMessage());
 		}
 
 	}
@@ -226,6 +227,7 @@ public class BJBankUitl {
 			inputStream.close();
 		} catch (IOException e) {
 			System.out.println("读取excel文件发生错误,原因:"+e.getMessage());
+			logger.info("readCompanyAccountFile  exception:{}",e.getMessage());
 		}
 
 	}

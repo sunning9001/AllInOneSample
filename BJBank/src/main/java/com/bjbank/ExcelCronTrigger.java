@@ -38,7 +38,7 @@ public class ExcelCronTrigger {
 
 
 		try {
-			cronTime ="0 15 10 * * ? *";
+	
 			logger.info("ExcelCronTrigger  config  cronTime:{}",cronTime);
 			SchedulerFactory sf = new StdSchedulerFactory();
 			Scheduler sched = sf.getScheduler();
@@ -50,6 +50,8 @@ public class ExcelCronTrigger {
 					.withSchedule(cronSchedule(cronTime)).build();
 			
 			Date ft = sched.scheduleJob(job, trigger);
+			
+			sched.start();
 			
 			logger.info(job.getKey() + " has been scheduled to run at: " + ft + " and repeat based on expression: "
 					+ trigger.getCronExpression());

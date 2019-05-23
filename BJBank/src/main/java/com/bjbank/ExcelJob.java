@@ -22,7 +22,7 @@ public class ExcelJob implements Job {
 		logger.info("ExcelJob says: " + jobKey + " executing at " + new Date());
 		
 		try {
-			String  filePath =Const.excelPath+"上传模板"+BJBankUitl.getTimeStr()+".xlsx";
+			String  filePath =Const.excelPath+"数据源-"+BJBankUitl.getTimeStr()+".xlsx";
 			// 获取获取上传文件
 			logger.info("获取文件准备上传");
 			BJBankUitl.readCompanyAccountFile(filePath);

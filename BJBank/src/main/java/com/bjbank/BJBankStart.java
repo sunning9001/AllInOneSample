@@ -24,7 +24,8 @@ public class BJBankStart {
     private static final Logger  logger =LoggerFactory.getLogger(BJBankStart.class);
     
     public  static void startTast() {
-    	
+    	 logger.info("==========开启定时任务startTast============");
+    	 System.out.println("开启定时任务:"+Const.cronTime);
     	 ExcelCronTrigger cronTask = new ExcelCronTrigger();
 		 cronTask.run(Const.cronTime);
 		
@@ -47,7 +48,9 @@ public class BJBankStart {
         public void run() {
         	 if(this.sched!=null) {
         		  try {
+        			  
 					this.sched.shutdown();
+					logger.info("--------定时任务关闭------");
 				} catch (SchedulerException e) {
 					logger.info("Hook  shutdown exception");
 				}
