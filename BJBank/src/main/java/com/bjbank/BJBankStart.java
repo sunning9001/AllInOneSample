@@ -2,6 +2,7 @@ package com.bjbank;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -115,14 +116,9 @@ public class BJBankStart {
 						String token =BJBankUitl.getToken();
 						if(token!=null) {
 							//  导出excel到指定文件夹目录
-							try {
-								List<Company> companys = BJBankUitl.getCompanyList(token);
-								writeCompanyToExcel(companys);
-								System.out.println("下载平台单位列表完成!");
-								
-							} catch (IOException e) {
-								System.out.println("请求数据错误,原因:"+e.getMessage());
-							}
+							List<Company> companys = BJBankUitl.getCompanyList(token);
+							writeCompanyToExcel(companys);
+							System.out.println("下载平台单位列表完成!");
 						}
 					}
 					if(read.equalsIgnoreCase("b")) {
@@ -158,36 +154,45 @@ public class BJBankStart {
 	 * @param jsonArray
 	 * @throws IOException
 	 */
-	public static void writeCompanyToExcel(List<Company> companys) throws IOException {
-		String fileName = System.getProperty("user.dir") + File.separator +"平台单位列表-"+ BJBankUitl.getTimeStr()+".xlsx";
-		OutputStream out = new FileOutputStream(fileName);
-		ExcelWriter writer = EasyExcelFactory.getWriter(out);
-        logger.info("writeCompanyToExcel  文件名称:{} 平台数量:{}",fileName,companys.size());
-		//设置表头
-		List<List<String>> head =new ArrayList<>();
-		List<String> h1 =new ArrayList<>();
-		h1.add("平台公司统一信用代码");
-		head.add(h1);
-		List<String> h2 =new ArrayList<>();
-		h2.add("平台公司名称");
-		head.add(h2);
-		//设置sheet
-		Sheet sheet1 = new Sheet(1, 0);
-		sheet1.setSheetName("平台单位列表");
-		sheet1.setAutoWidth(true);
-		sheet1.setHead(head);
-		
-		//循环写入数据
-		List<List<String>> dataList =new ArrayList();
-		for (Company company : companys) {
-			//循环写入到excel中
-			List<String> row =new ArrayList<>();
-			row.add(company.getCompanyCode());
-			row.add(company.getCompanyName());
-			dataList.add(row);
+	public static void writeCompanyToExcel(List<Company> companys)  {
+		String fileName = Const.companyPath+ File.separator +"平台单位列表-"+ BJBankUitl.getTimeStr()+".xlsx";
+		OutputStream out=null;
+		try {
+			out = new FileOutputStream(fileName);
+			ExcelWriter writer = EasyExcelFactory.getWriter(out);
+			logger.info("writeCompanyToExcel  文件名称:{} 平台数量:{}",fileName,companys.size());
+			//设置表头
+			List<List<String>> head =new ArrayList<>();
+			List<String> h1 =new ArrayList<>();
+			h1.add("平台公司统一信用代码");
+			head.add(h1);
+			List<String> h2 =new ArrayList<>();
+			h2.add("平台公司名称");
+			head.add(h2);
+			//设置sheet
+			Sheet sheet1 = new Sheet(1, 0);
+			sheet1.setSheetName("平台单位列表");
+			sheet1.setAutoWidth(true);
+			sheet1.setHead(head);
+			
+			//循环写入数据
+			List<List<String>> dataList =new ArrayList();
+			for (Company company : companys) {
+				//循环写入到excel中
+				List<String> row =new ArrayList<>();
+				row.add(company.getCompanyCode());
+				row.add(company.getCompanyName());
+				dataList.add(row);
+			}
+			writer.write0(dataList ,sheet1);
+			writer.finish();
+			out.close();
+		} catch (FileNotFoundException e) {
+			logger.info("writeCompanyToExcel FileNotFoundException:{}",e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.info("writeCompanyToExcel IOException:{}",e.getMessage());
+			e.printStackTrace();
 		}
-		writer.write0(dataList ,sheet1);
-		writer.finish();
-		out.close();
 	}
 }
