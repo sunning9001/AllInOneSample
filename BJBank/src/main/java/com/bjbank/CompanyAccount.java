@@ -1,6 +1,7 @@
 package com.bjbank;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import org.apache.poi.xssf.model.StylesTable;
 import org.apache.poi.xssf.model.ThemesTable;
@@ -29,8 +30,9 @@ public class CompanyAccount extends BaseRowModel{
 	private Integer accountType;// 是 int 账户类型 1基本、2一般、3临时、4专用、5 其他
     @ExcelProperty(index =4)
 	private String accountStatus;// 是 int 账户状态 1正常、2冻结、3已注销、4 止付
-    @ExcelProperty(index = 5,format = "yyyy-MM-dd hh:mm:ss")
-	private String accountOpenTime;// 是 timestamp 开户时间
+    @ExcelProperty(index = 5)
+	private String accountOpenTimeTemp;
+    private Date accountOpenTime;// 是 timestamp 开户时间
     @ExcelProperty(index =6)
 	private String bank;// 是 string 开户行
     @ExcelProperty(index =7)
@@ -69,10 +71,16 @@ public class CompanyAccount extends BaseRowModel{
 	public void setAccountStatus(String accountStatus) {
 		this.accountStatus = accountStatus;
 	}
-	public String getAccountOpenTime() {
+	public String getAccountOpenTimeTemp() {
+		return accountOpenTimeTemp;
+	}
+	public void setAccountOpenTimeTemp(String accountOpenTimeTemp) {
+		this.accountOpenTimeTemp = accountOpenTimeTemp;
+	}
+	public Date getAccountOpenTime() {
 		return accountOpenTime;
 	}
-	public void setAccountOpenTime(String accountOpenTime) {
+	public void setAccountOpenTime(Date accountOpenTime) {
 		this.accountOpenTime = accountOpenTime;
 	}
 	public String getBank() {
@@ -101,14 +109,13 @@ public class CompanyAccount extends BaseRowModel{
 	}
 	@Override
 	public String toString() {
-		return "CompanyAccountExcel [companyCode=" + companyCode + ", companyName=" + companyName + ", accountName="
+		return "CompanyAccount [companyCode=" + companyCode + ", companyName=" + companyName + ", accountName="
 				+ accountName + ", accountType=" + accountType + ", accountStatus=" + accountStatus
-				+ ", accountOpenTime=" + accountOpenTime + ", bank=" + bank + ", account=" + account
-				+ ", accountBalance=" + accountBalance + ", availableBalance=" + availableBalance + "]";
+				+ ", accountOpenTimeTemp=" + accountOpenTimeTemp + ", accountOpenTime=" + accountOpenTime + ", bank="
+				+ bank + ", account=" + account + ", accountBalance=" + accountBalance + ", availableBalance="
+				+ availableBalance + "]";
 	}
-    
-    
-    
-    
+
+
 	
 }

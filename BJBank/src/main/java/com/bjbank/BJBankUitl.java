@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.metadata.Sheet;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.bjbank.listen.AccountExcelListener;
@@ -54,10 +55,11 @@ public class BJBankUitl {
 		JSONObject postBody = new JSONObject();
 		postBody.put("data", list);
 
-		System.out.println("json:" + postBody.toJSONString());
+		System.out.println("json:" + postBody.toJSONStringWithDateFormat(postBody,JSON.DEFFAULT_DATE_FORMAT));
+		logger.info("updateCompanyAccount json:{}",postBody.toJSONStringWithDateFormat(postBody,JSON.DEFFAULT_DATE_FORMAT));
 		Request request = new Request.Builder().addHeader("Authorization", token)
 				.url(Const.IP + "api/bank/updateTransaction")
-				.post(RequestBody.create(MEDIA_TYPE_MARKDOWN, postBody.toJSONString())).build();
+				.post(RequestBody.create(MEDIA_TYPE_MARKDOWN, postBody.toJSONStringWithDateFormat(postBody,JSON.DEFFAULT_DATE_FORMAT))).build();
 
 		try {
 			Response response = client.newCall(request).execute();
@@ -87,9 +89,10 @@ public class BJBankUitl {
 		JSONObject postBody = new JSONObject();
 		postBody.put("data", list);
 
+		logger.info("updateCompanyAccount json:{}",postBody.toJSONStringWithDateFormat(postBody,JSON.DEFFAULT_DATE_FORMAT));
 		Request request = new Request.Builder().addHeader("Authorization", token)
 				.url(Const.IP + "api/bank/updateCompanyAccount")
-				.post(RequestBody.create(MEDIA_TYPE_MARKDOWN, postBody.toJSONString())).build();
+				.post(RequestBody.create(MEDIA_TYPE_MARKDOWN,postBody.toJSONStringWithDateFormat(postBody,JSON.DEFFAULT_DATE_FORMAT))).build();
 
 		try {
 			 Response response = client.newCall(request).execute();

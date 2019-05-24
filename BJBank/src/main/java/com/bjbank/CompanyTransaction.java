@@ -1,6 +1,7 @@
 package com.bjbank;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.metadata.BaseRowModel;
@@ -21,8 +22,11 @@ public class CompanyTransaction extends BaseRowModel {
 	private String bank;// 是 string 开户行名称
 	@ExcelProperty(index = 3)
 	private String account;// 是 int 银行账号
-	@ExcelProperty(index = 4, format = "yyyy-MM-dd hh:mm:ss")
-	private String dealTime;// 是 timestamp 交易时间
+	@ExcelProperty(index = 4)
+	private String dealTimeTemp;// 是 timestamp 交易时间
+
+	private Date dealTime;// 是 timestamp 交易时间
+
 	@ExcelProperty(index = 5)
 	private Integer transactionCurrency;// 是 int 交易币种(1.人民币，2.美元，3.欧元，4.日元，5.英镑，6.港币，7.韩元，8.其他)
 	@ExcelProperty(index = 6)
@@ -39,118 +43,99 @@ public class CompanyTransaction extends BaseRowModel {
 	private BigDecimal accountBalance;// 是 double 账户余额（交易卡余额）
 	@ExcelProperty(index = 12)
 	private String exchangeType;// 是 varchar 交易方式（字符串格式）
-
 	public String getCompanyName() {
 		return companyName;
 	}
-
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
-
 	public String getCompanyCode() {
 		return companyCode;
 	}
-
 	public void setCompanyCode(String companyCode) {
 		this.companyCode = companyCode;
 	}
-
 	public String getBank() {
 		return bank;
 	}
-
 	public void setBank(String bank) {
 		this.bank = bank;
 	}
-
 	public String getAccount() {
 		return account;
 	}
-
 	public void setAccount(String account) {
 		this.account = account;
 	}
-
-	public String getDealTime() {
+	public String getDealTimeTemp() {
+		return dealTimeTemp;
+	}
+	public void setDealTimeTemp(String dealTimeTemp) {
+		this.dealTimeTemp = dealTimeTemp;
+	}
+	public Date getDealTime() {
 		return dealTime;
 	}
-
-	public void setDealTime(String dealTime) {
+	public void setDealTime(Date dealTime) {
 		this.dealTime = dealTime;
 	}
-
 	public Integer getTransactionCurrency() {
 		return transactionCurrency;
 	}
-
 	public void setTransactionCurrency(Integer transactionCurrency) {
 		this.transactionCurrency = transactionCurrency;
 	}
-
 	public String getReciprocalAccount() {
 		return reciprocalAccount;
 	}
-
 	public void setReciprocalAccount(String reciprocalAccount) {
 		this.reciprocalAccount = reciprocalAccount;
 	}
-
 	public String getReciprocalName() {
 		return reciprocalName;
 	}
-
 	public void setReciprocalName(String reciprocalName) {
 		this.reciprocalName = reciprocalName;
 	}
-
 	public String getContent() {
 		return content;
 	}
-
 	public void setContent(String content) {
 		this.content = content;
 	}
-
 	public String getFundFlow() {
 		return fundFlow;
 	}
-
 	public void setFundFlow(String fundFlow) {
 		this.fundFlow = fundFlow;
 	}
-
 	public BigDecimal getTransactionAmount() {
 		return transactionAmount;
 	}
-
 	public void setTransactionAmount(BigDecimal transactionAmount) {
 		this.transactionAmount = transactionAmount;
 	}
-
 	public BigDecimal getAccountBalance() {
 		return accountBalance;
 	}
-
 	public void setAccountBalance(BigDecimal accountBalance) {
 		this.accountBalance = accountBalance;
 	}
-
 	public String getExchangeType() {
 		return exchangeType;
 	}
-
 	public void setExchangeType(String exchangeType) {
 		this.exchangeType = exchangeType;
 	}
-
 	@Override
 	public String toString() {
-		return "CompanyTransactionExcel [companyName=" + companyName + ", companyCode=" + companyCode + ", bank=" + bank
-				+ ", account=" + account + ", dealTime=" + dealTime + ", transactionCurrency=" + transactionCurrency
-				+ ", reciprocalAccount=" + reciprocalAccount + ", reciprocalName=" + reciprocalName + ", content="
-				+ content + ", fundFlow=" + fundFlow + ", transactionAmount=" + transactionAmount + ", accountBalance="
-				+ accountBalance + ", exchangeType=" + exchangeType + "]";
+		return "CompanyTransaction [companyName=" + companyName + ", companyCode=" + companyCode + ", bank=" + bank
+				+ ", account=" + account + ", dealTimeTemp=" + dealTimeTemp + ", dealTime=" + dealTime
+				+ ", transactionCurrency=" + transactionCurrency + ", reciprocalAccount=" + reciprocalAccount
+				+ ", reciprocalName=" + reciprocalName + ", content=" + content + ", fundFlow=" + fundFlow
+				+ ", transactionAmount=" + transactionAmount + ", accountBalance=" + accountBalance + ", exchangeType="
+				+ exchangeType + "]";
 	}
+
 
 }
