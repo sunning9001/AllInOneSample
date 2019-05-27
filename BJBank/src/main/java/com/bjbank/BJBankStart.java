@@ -72,6 +72,7 @@ public class BJBankStart {
 			in.close();
 		} catch (Exception e) {
 			System.out.println("读取application.conf 文件失败!");
+			logger.info("读取application.conf 文件失败!");
 		}
 		System.out.println("开始读取application.conf 文件内容!");
 		String ip = pro.getProperty("ip");
@@ -142,9 +143,11 @@ public class BJBankStart {
 					
 				} else {
 					System.out.println("输入错误,选择 a 或者b  或者 c");
+			
 				}
 			} catch (Exception e) {
 				System.out.println("异常,原因:"+e.getMessage());
+				logger.info("main  exception:{}",e.getMessage());
 			}
 		}
 	}
