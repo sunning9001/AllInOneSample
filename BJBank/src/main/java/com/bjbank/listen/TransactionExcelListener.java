@@ -14,7 +14,6 @@ import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.fastjson.JSONObject;
 import com.bjbank.BJBankUitl;
-import com.bjbank.CompanyAccount;
 import com.bjbank.CompanyTransaction;
 import com.bjbank.Const;
 

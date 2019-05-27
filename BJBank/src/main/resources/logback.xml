@@ -26,15 +26,14 @@
 
 		</rollingPolicy>
 
-		<encoder>
-			<pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n
-			</pattern>
-		</encoder>
+		<!--定义输出格式-->
+        <encoder>
+            <pattern>%d [%thread] %-5level %logger{36} [%file : %line] - %msg%n</pattern>
+        </encoder>
 	</appender>
 
 
 	<root level="INFO">
-	<!-- 	<appender-ref ref="STDOUT" /> -->
 		<appender-ref ref="FILE" />
 	</root>
 </configuration>

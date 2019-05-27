@@ -68,8 +68,8 @@ public class BJBankUitl {
 				logger.info("updateTransaction result:{}",result);
 			 JSONObject rJsonObj = JSONObject.parseObject(result);
 			 String msg = (String)rJsonObj.get(Const.msg);
-			 System.out.println("更新平台银行账户 结果: " + msg);
-			 if(msg==null || msg.equalsIgnoreCase(Const.success_msg)) {
+			 System.out.println("更新【银行交易流水 】结果: " + msg);
+			 if(msg==null || (!msg.equalsIgnoreCase(Const.success_msg))) {
 				 System.out.println("更新平台银行账户 结果: " + rJsonObj.getString("data"));
 			 }
 		}catch (Exception e) {
@@ -100,8 +100,8 @@ public class BJBankUitl {
 			 logger.info("updateCompanyAccount result:{}",result);
 			 JSONObject rJsonObj = JSONObject.parseObject(result);
 			 String msg = (String)rJsonObj.get(Const.msg);
-			 System.out.println("更新平台银行账户 结果: " + msg);
-			 if(msg==null || msg.equalsIgnoreCase(Const.success_msg)) {
+			 System.out.println("更新【平台银行账户】 结果: " + msg);
+			 if(msg==null || (!msg.equalsIgnoreCase(Const.success_msg))) {
 				 System.out.println("更新平台银行账户 结果: " + rJsonObj.getString("data"));
 			 }
 			 
