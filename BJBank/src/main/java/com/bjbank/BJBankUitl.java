@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -42,6 +43,19 @@ public class BJBankUitl {
 		java.text.SimpleDateFormat s = new java.text.SimpleDateFormat("yyyy-MM-dd");
 
 		String dateStr = s.format(new Date());
+		return dateStr;
+	}
+
+	public static String getYesterdayTimeStr() 
+	{
+		java.text.SimpleDateFormat s = new java.text.SimpleDateFormat("yyyy-MM-dd");
+
+		Calendar cal = Calendar.getInstance();
+		
+		cal.add(Calendar.DAY_OF_YEAR, -1);
+		Date yestrerday = cal.getTime();
+		String dateStr = s.format(yestrerday);
+		
 		return dateStr;
 	}
 
