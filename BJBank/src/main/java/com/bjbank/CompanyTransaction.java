@@ -23,10 +23,7 @@ public class CompanyTransaction extends BaseRowModel {
 	@ExcelProperty(index = 3)
 	private String account;// 是 int 银行账号
 	@ExcelProperty(index = 4)
-	private String dealTimeTemp;// 是 timestamp 交易时间
-
-	private Date dealTime;// 是 timestamp 交易时间
-
+	private String dealTime;// 是 timestamp 交易时间
 	@ExcelProperty(index = 5)
 	private Integer transactionCurrency;// 是 int 交易币种(1.人民币，2.美元，3.欧元，4.日元，5.英镑，6.港币，7.韩元，8.其他)
 	@ExcelProperty(index = 6)
@@ -67,16 +64,11 @@ public class CompanyTransaction extends BaseRowModel {
 	public void setAccount(String account) {
 		this.account = account;
 	}
-	public String getDealTimeTemp() {
-		return dealTimeTemp;
-	}
-	public void setDealTimeTemp(String dealTimeTemp) {
-		this.dealTimeTemp = dealTimeTemp;
-	}
-	public Date getDealTime() {
+
+	public String getDealTime() {
 		return dealTime;
 	}
-	public void setDealTime(Date dealTime) {
+	public void setDealTime(String dealTime) {
 		this.dealTime = dealTime;
 	}
 	public Integer getTransactionCurrency() {
@@ -130,12 +122,13 @@ public class CompanyTransaction extends BaseRowModel {
 	@Override
 	public String toString() {
 		return "CompanyTransaction [companyName=" + companyName + ", companyCode=" + companyCode + ", bank=" + bank
-				+ ", account=" + account + ", dealTimeTemp=" + dealTimeTemp + ", dealTime=" + dealTime
-				+ ", transactionCurrency=" + transactionCurrency + ", reciprocalAccount=" + reciprocalAccount
-				+ ", reciprocalName=" + reciprocalName + ", content=" + content + ", fundFlow=" + fundFlow
-				+ ", transactionAmount=" + transactionAmount + ", accountBalance=" + accountBalance + ", exchangeType="
-				+ exchangeType + "]";
+				+ ", account=" + account + ", dealTime=" + dealTime + ", transactionCurrency=" + transactionCurrency
+				+ ", reciprocalAccount=" + reciprocalAccount + ", reciprocalName=" + reciprocalName + ", content="
+				+ content + ", fundFlow=" + fundFlow + ", transactionAmount=" + transactionAmount + ", accountBalance="
+				+ accountBalance + ", exchangeType=" + exchangeType + "]";
 	}
+
+
 
 
 }

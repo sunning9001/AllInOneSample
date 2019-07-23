@@ -29,14 +29,9 @@ public class AccountExcelListener extends AnalysisEventListener {
 			CompanyAccount ca = (CompanyAccount) object;
 			if (ca.getAccount() != null) {
 
-				String tempTime = ca.getAccountOpenTimeTemp();
-
-				SimpleDateFormat s = new SimpleDateFormat("yyyyMMdd");
-
+			
 				try {
-					Date accountOpenTime = s.parse(tempTime);
-
-					ca.setAccountOpenTime(accountOpenTime);
+	
 
 					data.add(ca);
 
@@ -44,8 +39,8 @@ public class AccountExcelListener extends AnalysisEventListener {
 						flushData(data);
 						data.clear();
 					}
-				} catch (ParseException e) {
-					logger.info(" 时间转换错误:{}", JSONObject.toJSONString(object));
+				} catch (Exception e) {
+					logger.info(" 时间转换错误 :{}", JSONObject.toJSONString(object));
 					e.printStackTrace();
 				}
 			}

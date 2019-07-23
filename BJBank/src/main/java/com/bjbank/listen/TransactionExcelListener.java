@@ -30,14 +30,10 @@ public class TransactionExcelListener extends AnalysisEventListener {
         	CompanyTransaction ca =(CompanyTransaction)object;
         	if(ca.getAccount()!=null) {
         	
-        	String tempTime = ca.getDealTimeTemp();
-        	
-        	SimpleDateFormat s = new SimpleDateFormat("yyyyMMdd");
+      
         	
         	 try {
-				Date dealTime = s.parse(tempTime);
-				
-				ca.setDealTime(dealTime);
+			
 
 				data.add(ca);
 
@@ -45,7 +41,7 @@ public class TransactionExcelListener extends AnalysisEventListener {
 					flushData(data);
 					data.clear();
 				}
-			} catch (ParseException e) {
+			} catch (Exception e) {
 				logger.info(" 时间转换错误:{}",JSONObject.toJSONString(object));
 				e.printStackTrace();
 			}

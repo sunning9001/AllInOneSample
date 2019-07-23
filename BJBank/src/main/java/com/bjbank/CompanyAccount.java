@@ -26,8 +26,7 @@ public class CompanyAccount extends BaseRowModel{
     @ExcelProperty(index =4)
 	private String accountStatus;// 是 int 账户状态 1正常、2冻结、3已注销、4 止付
     @ExcelProperty(index = 5)
-	private String accountOpenTimeTemp;
-    private Date accountOpenTime;// 是 timestamp 开户时间
+	private String accountOpenTime;// 是 timestamp 开户时间
     @ExcelProperty(index =6)
 	private String bank;// 是 string 开户行
     @ExcelProperty(index =7)
@@ -66,18 +65,8 @@ public class CompanyAccount extends BaseRowModel{
 	public void setAccountStatus(String accountStatus) {
 		this.accountStatus = accountStatus;
 	}
-	public String getAccountOpenTimeTemp() {
-		return accountOpenTimeTemp;
-	}
-	public void setAccountOpenTimeTemp(String accountOpenTimeTemp) {
-		this.accountOpenTimeTemp = accountOpenTimeTemp;
-	}
-	public Date getAccountOpenTime() {
-		return accountOpenTime;
-	}
-	public void setAccountOpenTime(Date accountOpenTime) {
-		this.accountOpenTime = accountOpenTime;
-	}
+
+
 	public String getBank() {
 		return bank;
 	}
@@ -102,13 +91,18 @@ public class CompanyAccount extends BaseRowModel{
 	public void setAvailableBalance(BigDecimal availableBalance) {
 		this.availableBalance = availableBalance;
 	}
+	public String getAccountOpenTime() {
+		return accountOpenTime;
+	}
+	public void setAccountOpenTime(String accountOpenTime) {
+		this.accountOpenTime = accountOpenTime;
+	}
 	@Override
 	public String toString() {
 		return "CompanyAccount [companyCode=" + companyCode + ", companyName=" + companyName + ", accountName="
 				+ accountName + ", accountType=" + accountType + ", accountStatus=" + accountStatus
-				+ ", accountOpenTimeTemp=" + accountOpenTimeTemp + ", accountOpenTime=" + accountOpenTime + ", bank="
-				+ bank + ", account=" + account + ", accountBalance=" + accountBalance + ", availableBalance="
-				+ availableBalance + "]";
+				+ ", accountOpenTime=" + accountOpenTime + ", bank=" + bank + ", account=" + account
+				+ ", accountBalance=" + accountBalance + ", availableBalance=" + availableBalance + "]";
 	}
 
 
