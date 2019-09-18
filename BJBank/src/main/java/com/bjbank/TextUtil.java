@@ -373,6 +373,10 @@ public class TextUtil {
 			while ((str = bufferedReader.readLine()) != null) {
 				// 使用\001 来分割字符串
 				String[] strArr = StringUtils.splitByWholeSeparator(str, "\001");
+				System.out.println("==========================");
+				for (int i = 0; i < strArr.length; i++) {
+					System.out.println("索引："+i +"内容: "+strArr[i]);
+				}
 				if(strArr.length >0)
 				  list.add(strArr);
 			}
@@ -403,11 +407,11 @@ public class TextUtil {
 
 	public static void main(String[] args) throws ParseException {
 
-	  String fileName = "F:\\MyGitHub\\AllInOneSample\\BJBank\\src\\main\\java\\WX_EDW_WX_CM_CORP_CUST_DPSIT_ACCT_SUM_M_20190823_test.txt";
+	  String fileName = "F:\\MyGitHub\\AllInOneSample\\BJBank\\src\\main\\java\\WX_EDW_WX_CORP_CUST_ACCT_DTL_EVENT_20190823_test.txt";
 
 		List<String[]> arr = parseTextToLineArr(fileName);
 
-		List<Object> list = parseToTextObject(arr, TextCustAcct.class);
+		List<Object> list = parseToTextObject(arr, TextAcctDtlEvent.class);
 
 		for (Object obj : list) {
 			System.out.println(obj);
