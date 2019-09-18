@@ -31,16 +31,17 @@ public class TextUtil {
 	 */
 	public static Map<String, Company> nameMap = new HashMap<String, Company>();
 
+
 	// ORG_ORG_CD companyCode -AgtNum
 	public static Map<String, String> acctAgtNumMap = new HashMap<String, String>();
 
 	/**
 	 * 初始化并缓存
-	 * 
+	 *  
 	 * @param list
 	 */
-	public void initCompanyMap(List<Company> list) {
-
+	public static void initCompanyMap(List<Company> list) {
+		logger.info("initCompanyMap  num={}",list.size());
 		codeMap.clear();
 		nameMap.clear();
 		for (Company company : list) {
@@ -74,6 +75,14 @@ public class TextUtil {
      */
 	public static void updateTransactionByText(String file) {
 
+		if(codeMap.size()==0) {
+			logger.info(" fisrt  download  company list file  ,company list total={}",codeMap.size());
+			return;
+		}
+		if(acctAgtNumMap.size()==0) {
+			logger.info(" fisrt  read  company account  file  ,ompany account  file total={}",acctAgtNumMap.size());
+			return;
+		}
 		// 1、读取指定文件,转换成行数组
 		List<String[]> list = parseTextToLineArr(file);
 
@@ -139,6 +148,8 @@ public class TextUtil {
 					transaction.setExchangeType("网银");//默认网易
 					// 转换完成
 					sendList.add(transaction);
+					
+			
 				}
 
 			} else {
@@ -188,6 +199,11 @@ public class TextUtil {
 	 */
 	public static void updateCompanyAccountByText(String file) {
 
+		if(codeMap.size()==0) {
+			logger.info(" fisrt  download  company list file  ,company list total={}",codeMap.size());
+			return;
+		}
+		logger.info("updateCompanyAccountByText red file name:{}",file);
 		// 1、读取指定文件
 		List<String[]> strArr = parseTextToLineArr(file);
 		
@@ -200,7 +216,6 @@ public class TextUtil {
 			TextCustAcct textCustAcct =(TextCustAcct)obj;
 			orgMap.putIfAbsent(textCustAcct.getORG_ORG_CD(), textCustAcct);
 		}
-		
 		
 		List<Object> sendList = new ArrayList<Object>();
 		// 迭代所有财务局需要的账号
@@ -227,22 +242,27 @@ public class TextUtil {
 				// 是 int 账户状态 1正常、2冻结、3已注销、4 止付
 				// account.setAccountStatus("");
 				// 是 timestamp 开户时间
-				account.setAccountOpenTime(textAcc.getOPEN_DT());
+				String accountOpenTime =parseToFormatDate(textAcc.getOPEN_DT(),"000000");
+				account.setAccountOpenTime(accountOpenTime);
 				// 是 string 开户行
-				account.setBank("");
+				account.setBank("北京银行股份有限公司无锡梁溪支行");//默认
 				// 是 int 银行账号
 				account.setAccount(textAcc.getAGT_NUM());
 				// 是 double 账户余额（万元）
-				// account.setAccountBalance(textAcc.getCURR_BAL());
+				 account.setAccountBalance(new BigDecimal(textAcc.getCURR_BAL()));
 				// 是 double 可用余额（万元）
-				// account.setAvailableBalance(textAcc.getCURR_BAL());
-				sendList.add(account);
+				 account.setAvailableBalance(new BigDecimal(textAcc.getCURR_BAL()));
+				 sendList.add(account);
+				 
+				 
+				//缓存银行账号 companyCode -bankNum
+				acctAgtNumMap.put(companyCode, textAcc.getAGT_NUM());
 			} else {
 				logger.info(" can not  find  company  account org key ={}  companycode ={}", searchKey, companyCode);
 			}
-
 		}
 		try {
+			logger.info(" updateCompanyAccountByText   company  account info  total=:{}",sendList.size());
 			BJBankUitl.updateCompanyAccount(sendList, BJBankUitl.getToken());
 		} catch (IOException e1) {
 			logger.error("updateCompanyAccountByText  IOException:{}",e1);
@@ -275,7 +295,7 @@ public class TextUtil {
 	 * @return
 	 */
 	public static String transactionForSearchKey(String companyCode) {
-		return null;
+		return companyCode;
 	}
 
 	/**
@@ -383,11 +403,11 @@ public class TextUtil {
 
 	public static void main(String[] args) throws ParseException {
 
-	String fileName = "F:\\MyGitHub\\AllInOneSample\\BJBank\\src\\main\\java\\WX_EDW_WX_CORP_CUST_ACCT_DTL_EVENT_20190823_test.txt";
+	  String fileName = "F:\\MyGitHub\\AllInOneSample\\BJBank\\src\\main\\java\\WX_EDW_WX_CM_CORP_CUST_DPSIT_ACCT_SUM_M_20190823_test.txt";
 
 		List<String[]> arr = parseTextToLineArr(fileName);
 
-		List<Object> list = parseToTextObject(arr, TextAcctDtlEvent.class);
+		List<Object> list = parseToTextObject(arr, TextCustAcct.class);
 
 		for (Object obj : list) {
 			System.out.println(obj);

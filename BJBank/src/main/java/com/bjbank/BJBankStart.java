@@ -24,6 +24,7 @@ public class BJBankStart {
 
     private static final Logger  logger =LoggerFactory.getLogger(BJBankStart.class);
     
+    
     public  static void startTast() {
     	 logger.info("==========开启定时任务startTast============");
     	 System.out.println("开启定时任务:"+Const.cronTime);
@@ -99,6 +100,12 @@ public class BJBankStart {
 		String cronTime = pro.getProperty("cronTime");
 		System.out.println("读取cronTime文件存放位置 =" + cronTime);
 		Const.cronTime =cronTime;
+		
+		
+		Integer fileChoose = Integer.parseInt(pro.getProperty("fileChoose"));
+		System.out.println("读取文件格式配置 =" + fileChoose);
+		Const.fileChoose =fileChoose;
+		
 		System.out.println("===============工具启动成功======================");
 
 		startTast();
@@ -124,7 +131,7 @@ public class BJBankStart {
 					}
 					if(read.equalsIgnoreCase("b")) {
 						//导入指定文件
-						System.out.println("更新平台银行账户,请输入导入excel文件路径  例如:D:/文件夹/文件名称.xlsx");
+						System.out.println("更新平台【银行账户】,请输入导入excel文件路径  例如:D:/文件夹/文件名称.xlsx");
 						String filePath = scan.nextLine();
 						String token =BJBankUitl.getToken();
 						if(token!=null) {
@@ -133,14 +140,41 @@ public class BJBankStart {
 					}
 					if(read.equalsIgnoreCase("c")) {
 						//导入指定文件
-						System.out.println("更新银行交易流水,请输入导入excel文件路径  例如:D:/文件夹/文件名称.xlsx");
+						System.out.println("更新银行【交易流水】,请输入导入excel文件路径  例如:D:/文件夹/文件名称.xlsx");
 						String filePath = scan.nextLine();
 						String token =BJBankUitl.getToken();
 						if(token!=null) {
 							BJBankUitl.readCompanyTransaction(filePath);
 						}
 					}
-					
+					if(read.equalsIgnoreCase("d")) {
+						//导入指定文件
+						System.out.println("更新平台【银行账户】,请输入导入txt文件路径  例如:D:/文件夹/WX_EDW_WX_CM_CORP_CUST_DPSIT_ACCT_SUM_M_.....txt");
+						String filePath = scan.nextLine();
+						String token =BJBankUitl.getToken();
+						if(token!=null) {
+							//check 根据银行账户前 必须下载平台文件
+							
+							if(TextUtil.codeMap.size()==0) {
+								System.out.println("更新平台【银行账户】前,必须下载平台列表文件,请先执行a命令");
+								continue;
+							}
+							TextUtil.updateCompanyAccountByText(filePath);
+						}
+					}
+					if(read.equalsIgnoreCase("e")) {
+						//导入指定文件
+						System.out.println("更新银行【交易流水】,请输入导入txt文件路径  例如:D:/文件夹/WX_EDW_WX_CORP_CUST_ACCT_DTL_EVENT......txt");
+						String filePath = scan.nextLine();
+						String token =BJBankUitl.getToken();
+						if(token!=null) {
+							if(TextUtil.codeMap.size()==0) {
+								System.out.println("更新平台【交易流水】前,必须下载平台列表文件和读取账户信息,请先按照顺序执行a命令、d命令");
+								continue;
+							}
+							TextUtil.updateTransactionByText(filePath);
+						}
+					}
 				} else {
 					System.out.println("输入错误,选择 a 或者b  或者 c");
 			

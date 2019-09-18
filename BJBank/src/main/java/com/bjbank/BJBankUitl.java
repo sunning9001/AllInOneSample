@@ -157,6 +157,8 @@ public class BJBankUitl {
 				company.setCompanyName(jsonObj.getString("companyName"));
 				companys.add(company);
 			}
+			//当获取到平台列表后,缓存数据
+			TextUtil.initCompanyMap(companys);
 			return companys;
 		}
 		catch (Exception e) {

@@ -22,12 +22,34 @@ public class ExcelJob implements Job {
 		logger.info("ExcelJob says: " + jobKey + " executing at " + new Date());
 		
 		try {
-			String  filePath =Const.excelPath+"数据源-"+BJBankUitl.getYesterdayTimeStr()+".xlsx";
-			// 获取获取上传文件
-			logger.info("获取文件准备上传");
-			BJBankUitl.readCompanyAccountFile(filePath);
+			//默认使用excel格式触发
+			if(Const.fileChoose==Const.fileChooseEnum.excel.fileChoose)
+			{				
+				String  filePath =Const.excelPath+"数据源-"+BJBankUitl.getYesterdayTimeStr()+".xlsx";
+				// 获取获取上传文件
+				logger.info("获取文件准备上传excel文件");
+				BJBankUitl.readCompanyAccountFile(filePath);
+				
+				BJBankUitl.readCompanyTransaction(filePath);	
+			}
+			if(Const.fileChoose==Const.fileChooseEnum.text.fileChoose)
+			{
+				String token =BJBankUitl.getToken();
+				if(token!=null) {
+					//首先获取所有平台文件
+					BJBankUitl.getCompanyList(token);
+					String  acctFileName =Const.excelPath+"WX_EDW_WX_CM_CORP_CUST_DPSIT_ACCT_SUM_M_"+BJBankUitl.getYesterdayTimeStr()+".txt";
+					// 获取获取上传文件
+					logger.info("获取文件准备上传txt文件:{}",acctFileName);
+					TextUtil.updateCompanyAccountByText(acctFileName);
+					
+					String  eventFileName =Const.excelPath+"WX_EDW_WX_CM_CORP_CUST_DPSIT_ACCT_SUM_M_"+BJBankUitl.getYesterdayTimeStr()+".txt";
+					// 获取获取上传文件
+					logger.info("获取文件准备上传txt文件:{}",eventFileName);
+					TextUtil.updateTransactionByText(eventFileName);
+				}
+			}
 			
-			BJBankUitl.readCompanyTransaction(filePath);	
 		} catch (Exception e) {
 			logger.debug("ExcelJob Exception: {}",e.getMessage());
 		}
