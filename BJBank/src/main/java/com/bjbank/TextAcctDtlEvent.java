@@ -103,6 +103,14 @@ public class TextAcctDtlEvent {
 	public void setACCT_BAL(String aCCT_BAL) {
 		ACCT_BAL = aCCT_BAL;
 	}
+	@Override
+	public String toString() {
+		return "TextAcctDtlEvent [EVENT_ID=" + EVENT_ID + ", ACCT_AGT_NUM=" + ACCT_AGT_NUM + ", BOOKENTRY_DT="
+				+ BOOKENTRY_DT + ", BOOK_ENTRY_TIME=" + BOOK_ENTRY_TIME + ", CNTPTY_ACCT=" + CNTPTY_ACCT
+				+ ", CNTPTY_USER_NAME=" + CNTPTY_USER_NAME + ", CORP_MEMO_CD=" + CORP_MEMO_CD + ", CORP_MEMO_DESC="
+				+ CORP_MEMO_DESC + ", DEBIT_CRDT_DIR_CD=" + DEBIT_CRDT_DIR_CD + ", DEBIT_CRDT_DIR_DESC="
+				+ DEBIT_CRDT_DIR_DESC + ", EVENT_AMT=" + EVENT_AMT + ", ACCT_BAL=" + ACCT_BAL + "]";
+	}
 	
 	
 
