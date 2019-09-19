@@ -168,6 +168,10 @@ public class BJBankUitl {
 		}
 	}
 
+	public static String getToken1() {
+		return "1111";
+	}
+	
 	/**
 	 * 获取getToken
 	 * 

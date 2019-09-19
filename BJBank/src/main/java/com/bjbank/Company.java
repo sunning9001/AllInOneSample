@@ -11,6 +11,17 @@ public class Company {
 	private String companyCode;// 是平台公司统一信用代码
 	private String companyName;// 是 string 平台公司名称
 
+	
+	
+	public Company() {
+
+	}
+	public Company(String companyCode, String companyName) {
+		super();
+		this.companyCode = companyCode;
+		this.companyName = companyName;
+	}
+
 	public String getCompanyCode() {
 		return companyCode;
 	}

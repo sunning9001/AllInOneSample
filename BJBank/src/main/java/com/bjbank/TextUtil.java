@@ -33,7 +33,7 @@ public class TextUtil {
 
 
 	// ORG_ORG_CD companyCode -AgtNum
-	public static Map<String, String> acctAgtNumMap = new HashMap<String, String>();
+	public static Map<String, CompanyAccount> acctAgtNumMap = new HashMap<String, CompanyAccount>();
 
 	/**
 	 * 初始化并缓存
@@ -43,22 +43,13 @@ public class TextUtil {
 	public static void initCompanyMap(List<Company> list) {
 		logger.info("initCompanyMap  num={}",list.size());
 		codeMap.clear();
-		nameMap.clear();
 		for (Company company : list) {
 			codeMap.putIfAbsent(company.getCompanyCode(), company);
-			nameMap.putIfAbsent(company.getCompanyName(), company);
 		}
+		testinitData();
 	}
 
-	/**
-	 * 根据公司名称获取公司
-	 * 
-	 * @param companyName
-	 * @return
-	 */
-	public Company getCompanyByName(String companyName) {
-		return nameMap.get(companyName);
-	}
+
 
 	/**
 	 * 根据信用代码获取
@@ -104,58 +95,69 @@ public class TextUtil {
 		// 发送所有流水
 
 		List<Object> sendList = new ArrayList<Object>();
-		// 迭代所有财务局需要的
-		for (Map.Entry<String, String> e : acctAgtNumMap.entrySet()) {
+		
+		try {
+			// 迭代所有财务局需要的
+			for (Map.Entry<String, CompanyAccount> e : acctAgtNumMap.entrySet()) {
 
-			String agtNum = e.getValue();
-			String companyCode = e.getKey();
-			List<TextAcctDtlEvent> agtEventList = agtMap.get(agtNum);
-			if (agtEventList != null) {
+				CompanyAccount ca =e.getValue();
+				String agtNum = e.getValue().getAccount();
+				String companyCode = e.getKey();
+				List<TextAcctDtlEvent> agtEventList = agtMap.get(agtNum);
+				if (agtEventList != null) {
 
-				// 做类型转换TextAcctDtlEvent ->CompanyTransaction
+					// 做类型转换TextAcctDtlEvent ->CompanyTransaction
 
-				for (TextAcctDtlEvent acctEvent : agtEventList) {
+					for (TextAcctDtlEvent acctEvent : agtEventList) {
 
-					CompanyTransaction transaction = new CompanyTransaction();
 
-					// 是 string 平台公司名称
-					transaction.setCompanyName(nameMap.get(companyCode).getCompanyName());
-					// 是 string 平台公司统一信用代码
-					transaction.setCompanyCode(companyCode);
-					// 是 string 开户行名称
-					 transaction.setBank("北京银行股份有限公司无锡梁溪支行");
-					// 是 int 银行账号
-					transaction.setAccount(agtNum);
-					// 是 timestamp 交易时间
-					String dealTime =parseToFormatDate(acctEvent.getBOOKENTRY_DT(), acctEvent.getBOOK_ENTRY_TIME());
-					transaction.setDealTime(dealTime);
-					// 是 int 交易币种(1.人民币，2.美元，3.欧元，4.日元，5.英镑，6.港币，7.韩元，8.其他)
-					transaction.setTransactionCurrency(1); //默认人民币
-					// 是 int 对方账户
-					transaction.setReciprocalAccount(acctEvent.getCNTPTY_ACCT());
-					// 是 string 对方户名
-					transaction.setReciprocalName(acctEvent.getCNTPTY_USER_NAME());
-					// 是 string 摘要
-					transaction.setContent(acctEvent.getCORP_MEMO_DESC());
-					// 是 int 资金流向1收入2支出
-					String fundFlow =parseTofundFlow(acctEvent.getDEBIT_CRDT_DIR_DESC());
-					transaction.setFundFlow(fundFlow);
-					// 是 double 交易金额
-					transaction.setTransactionAmount(new BigDecimal(acctEvent.getEVENT_AMT()));
-					// 是 double 账户余额（交易卡余额）
-					transaction.setAccountBalance(new BigDecimal(acctEvent.getACCT_BAL()));
-					// 是 varchar 交易方式（字符串格式）
-					transaction.setExchangeType("网银");//默认网易
-					// 转换完成
-					sendList.add(transaction);
-					
-			
+						CompanyTransaction transaction = new CompanyTransaction();
+						try {
+							
+							// 是 string 平台公司名称
+							transaction.setCompanyName(codeMap.get(companyCode).getCompanyName());
+							// 是 string 平台公司统一信用代码
+							transaction.setCompanyCode(companyCode);
+							// 是 string 开户行名称
+							transaction.setBank(ca.getBank());
+							// 是 int 银行账号
+							transaction.setAccount(agtNum);
+							// 是 timestamp 交易时间
+							String dealTime =parseToFormatDate(acctEvent.getBOOKENTRY_DT(), acctEvent.getBOOK_ENTRY_TIME());
+							transaction.setDealTime(dealTime);
+							// 是 int 交易币种(1.人民币，2.美元，3.欧元，4.日元，5.英镑，6.港币，7.韩元，8.其他)
+							transaction.setTransactionCurrency(1); //默认人民币
+							// 是 int 对方账户
+							transaction.setReciprocalAccount(acctEvent.getCNTPTY_ACCT());
+							// 是 string 对方户名
+							transaction.setReciprocalName(acctEvent.getCNTPTY_USER_NAME());
+							// 是 string 摘要
+							transaction.setContent(acctEvent.getCORP_MEMO_DESC());
+							// 是 int 资金流向1收入2支出
+							String fundFlow =parseTofundFlow(acctEvent.getDEBIT_CRDT_DIR_DESC());
+							transaction.setFundFlow(fundFlow);
+							// 是 double 交易金额
+							transaction.setTransactionAmount(new BigDecimal(acctEvent.getEVENT_AMT()));
+							// 是 double 账户余额（交易卡余额）
+							transaction.setAccountBalance(new BigDecimal(acctEvent.getACCT_BAL()));
+							// 是 varchar 交易方式（字符串格式）
+							transaction.setExchangeType("网银");//默认网易
+							
+						} catch (Exception e2) {
+							logger.error("TextAcctDtlEvent  map to CompanyTransaction error exception ={} TextAcctDtlEvent={}",e2,acctEvent);
+						}
+						// 转换完成
+						sendList.add(transaction);
+					}
+
+				} else {
+					logger.info("==========================");
 				}
-
-			} else {
-				logger.info("==========================");
 			}
+		} catch (Exception e) {
+			logger.error("updateTransactionByText  Exception {}",e);
 		}
+		
 		try {
 			BJBankUitl.updateCompanyAccount(sendList, BJBankUitl.getToken());
 		} catch (IOException e1) {
@@ -231,34 +233,39 @@ public class TextUtil {
 				// 转换 TextCompanyAccount ->CompanyAccount
 				CompanyAccount account = new CompanyAccount();
 
-				// 是平台公司统一信用代码
-				account.setCompanyCode(company.getCompanyCode());
-				// 是 string 平台公司名称
-				account.setCompanyName(company.getCompanyName());
-				// 是 string 账户名称
-				account.setAccountName(textAcc.getCUST_NAME());
-				// 是 int 账户类型 1基本、2一般、3临时、4专用、5 其他
-                 Integer accountType =parseToAccountType(textAcc.getACCT_CHAR_CD());
-				 account.setAccountType(accountType);
-				// 是 int 账户状态 1正常、2冻结、3已注销、4 止付
-				 account.setAccountStatus("1");//账户状态默认正常
-				// 是 timestamp 开户时间
-				String accountOpenTime =parseToFormatDate(textAcc.getOPEN_DT(),"000000");
-				account.setAccountOpenTime(accountOpenTime);
-				// 是 string 开户行
-				String bank =parseToBank(textAcc.getBELONG_ORG_NUM()) ;
-				account.setBank(bank);//默认
-				// 是 int 银行账号
-				account.setAccount(textAcc.getAGT_NUM());
-				// 是 double 账户余额（万元）
-				 account.setAccountBalance(new BigDecimal(textAcc.getCURR_BAL()));
-				// 是 double 可用余额（万元）
-				 account.setAvailableBalance(new BigDecimal(textAcc.getCURR_BAL()));
+				try {
+					
+					// 是平台公司统一信用代码
+					account.setCompanyCode(company.getCompanyCode());
+					// 是 string 平台公司名称
+					account.setCompanyName(company.getCompanyName());
+					// 是 string 账户名称
+					account.setAccountName(textAcc.getCUST_NAME());
+					// 是 int 账户类型 1基本、2一般、3临时、4专用、5 其他
+					Integer accountType =parseToAccountType(textAcc.getACCT_CHAR_CD());
+					account.setAccountType(accountType);
+					// 是 int 账户状态 1正常、2冻结、3已注销、4 止付
+					account.setAccountStatus("1");//账户状态默认正常
+					// 是 timestamp 开户时间
+					String accountOpenTime =parseToFormatDate(textAcc.getOPEN_DT(),"000000");
+					account.setAccountOpenTime(accountOpenTime);
+					// 是 string 开户行
+					String bank =parseToBank(textAcc.getBELONG_ORG_NUM()) ;
+					account.setBank(bank);//默认
+					// 是 int 银行账号
+					account.setAccount(textAcc.getAGT_NUM());
+					// 是 double 账户余额（万元）
+					account.setAccountBalance(new BigDecimal(textAcc.getCURR_BAL()));
+					// 是 double 可用余额（万元）
+					account.setAvailableBalance(new BigDecimal(textAcc.getCURR_BAL()));
+				} catch (Exception e2) {
+					logger.error("updateCompanyAccountByText TextCustAcct mapping to CompanyAccount error, exception={}  TextCustAcct={}");
+				}
 				 sendList.add(account);
 				 
 				 
 				//缓存银行账号 companyCode -bankNum
-				acctAgtNumMap.put(companyCode, textAcc.getAGT_NUM());
+				acctAgtNumMap.put(companyCode, account);
 			} else {
 				logger.info(" can not  find  company  account org key ={}  companycode ={}", searchKey, companyCode);
 			}
@@ -319,21 +326,6 @@ public class TextUtil {
 		return s;
 	}
 
-	public static void main(String[] args) throws ParseException {
-
-		/*String fileName = "F:\\MyGitHub\\AllInOneSample\\BJBank\\src\\main\\java\\WX_EDW_WX_CORP_CUST_ACCT_DTL_EVENT_20190823_test.txt";
-
-		List<String[]> arr = parseTextToLineArr(fileName);
-
-		List<Object> list = parseToTextObject(arr, TextAcctDtlEvent.class);
-
-		for (Object obj : list) {
-			System.out.println(obj);
-		}*/
-		
-		System.out.println(transactionForSearchKey("91320211794559948P"));
-
-	}
 
 	/**
 	 * 把每一行数据string[] 转换成对应的TextAcctDtlEvent 或者 TextCustAcct 转换方式通过 注解TextIndex
@@ -399,10 +391,6 @@ public class TextUtil {
 			while ((str = bufferedReader.readLine()) != null) {
 				// 使用\001 来分割字符串
 				String[] strArr = StringUtils.splitByWholeSeparator(str, "\001");
-				System.out.println("==========================");
-				for (int i = 0; i < strArr.length; i++) {
-					System.out.println("索引："+i +"内容: "+strArr[i]);
-				}
 				if(strArr.length >0)
 				  list.add(strArr);
 			}
@@ -431,5 +419,24 @@ public class TextUtil {
 		return list;
 	}
 
+	public static void main(String[] args) throws ParseException {
+
+		//String fileName = "F:\\MyGitHub\\AllInOneSample\\BJBank\\src\\main\\java\\WX_EDW_WX_CORP_CUST_ACCT_DTL_EVENT_20190823_test.txt";
+		String fileName = "F:\\MyGitHub\\AllInOneSample\\BJBank\\src\\main\\java\\WX_EDW_WX_CM_CORP_CUST_DPSIT_ACCT_SUM_M_20190823_test.txt";
+
+		List<String[]> arr = parseTextToLineArr(fileName);
+
+		List<Object> list = parseToTextObject(arr, TextCustAcct.class);//TextCustAcct  TextAcctDtlEvent
+
+		for (Object obj : list) {
+			System.out.println(obj);
+		}
+	}
+	
+	public static void testinitData() {
+		 codeMap.put("91320211MB04622133", new Company("91320211MB04622133","无锡市梁溪区财政局"));
+		 codeMap.put("9132021167201443XA", new Company("9132021167201443XA","无锡市城市环境科技有限公司"));
+		 codeMap.put("91320211MA1UX9RX21", new Company("91320211MA1UX9RX21","江苏中利宁电子商务有限公司"));
+	}
 
 }

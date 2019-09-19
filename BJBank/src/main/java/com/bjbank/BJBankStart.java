@@ -111,14 +111,14 @@ public class BJBankStart {
 		startTast();
 		while (true) {
 			System.out.println("#####################################################################");
-			System.out.println("请选择要操作业务:  a-获取平台单位列表  b-更新平台银行账户 c-更新银行交易流水");
+			System.out.println("请选择要操作业务:  a-获取平台单位列表  b-更新平台银行账户(excel版) c-更新银行交易流水(excel版) d-更新平台银行账户(text版) e-更新银行交易流水(text版)");
 			Scanner scan = new Scanner(System.in);
 			String read = scan.nextLine();
 
 			try {
 				
 				if (read != null
-						&& (read.equalsIgnoreCase("a") || read.equalsIgnoreCase("b") || read.equalsIgnoreCase("c"))) {
+						&& (read.equalsIgnoreCase("a") || read.equalsIgnoreCase("b") || read.equalsIgnoreCase("c")|| read.equalsIgnoreCase("d")|| read.equalsIgnoreCase("e"))) {
 					
 					if(read.equalsIgnoreCase("a")) {
 						String token =BJBankUitl.getToken();
@@ -176,11 +176,10 @@ public class BJBankStart {
 						}
 					}
 				} else {
-					System.out.println("输入错误,选择 a 或者b  或者 c");
-			
+					System.out.println("输入错误,选择 a 或者b  或者 c 或者 d  或者e ");
 				}
 			} catch (Exception e) {
-				System.out.println("异常,原因:"+e.getMessage());
+				System.out.println("异常, 原因:"+e.getMessage());
 				logger.info("main  exception:{}",e.getMessage());
 			}
 		}
