@@ -138,7 +138,7 @@ public class TextUtil {
 					// 是 string 摘要
 					transaction.setContent(acctEvent.getCORP_MEMO_DESC());
 					// 是 int 资金流向1收入2支出
-					String fundFlow =parseTofundFlow(acctEvent.getDEBIT_CRDT_DIR_CD());
+					String fundFlow =parseTofundFlow(acctEvent.getDEBIT_CRDT_DIR_DESC());
 					transaction.setFundFlow(fundFlow);
 					// 是 double 交易金额
 					transaction.setTransactionAmount(new BigDecimal(acctEvent.getEVENT_AMT()));
@@ -167,12 +167,12 @@ public class TextUtil {
 	 * DEBIT_CRDT_DIR_CD=D, DEBIT_CRDT_DIR_DESC=借
 	 * DEBIT_CRDT_DIR_CD=C, DEBIT_CRDT_DIR_DESC=贷
 	 * 根据  DEBIT_CRDT_DIR_CD 转换成  资金流向1收入2支出
-	 * @param s
-	 * @return
+	 * @param   借为支出，贷为收入
+	 * @return  资金流向1收入2支出
 	 */
-	public  static String parseTofundFlow(String s) {
-		if(s!=null && s.equalsIgnoreCase("C"))return "1";
-		if(s!=null && s.equalsIgnoreCase("D"))return "2";
+	public  static String parseTofundFlow(String DEBIT_CRDT_DIR_DESC) {
+		if(DEBIT_CRDT_DIR_DESC!=null && DEBIT_CRDT_DIR_DESC.equalsIgnoreCase("借"))return "2";
+		if(DEBIT_CRDT_DIR_DESC!=null && DEBIT_CRDT_DIR_DESC.equalsIgnoreCase("贷"))return "1";
 		return null;
 	}
     /**
@@ -238,14 +238,16 @@ public class TextUtil {
 				// 是 string 账户名称
 				account.setAccountName(textAcc.getCUST_NAME());
 				// 是 int 账户类型 1基本、2一般、3临时、4专用、5 其他
-				// account.setAccountType(textAcc.getACCT_CHAR_CD());
+                 Integer accountType =parseToAccountType(textAcc.getACCT_CHAR_CD());
+				 account.setAccountType(accountType);
 				// 是 int 账户状态 1正常、2冻结、3已注销、4 止付
-				// account.setAccountStatus("");
+				 account.setAccountStatus("1");//账户状态默认正常
 				// 是 timestamp 开户时间
 				String accountOpenTime =parseToFormatDate(textAcc.getOPEN_DT(),"000000");
 				account.setAccountOpenTime(accountOpenTime);
 				// 是 string 开户行
-				account.setBank("北京银行股份有限公司无锡梁溪支行");//默认
+				String bank =parseToBank(textAcc.getBELONG_ORG_NUM()) ;
+				account.setBank(bank);//默认
 				// 是 int 银行账号
 				account.setAccount(textAcc.getAGT_NUM());
 				// 是 double 账户余额（万元）
@@ -268,34 +270,69 @@ public class TextUtil {
 			logger.error("updateCompanyAccountByText  IOException:{}",e1);
 		}
 	}
-    /**
-     * 把文本原始对象转换成 待发送对象
-     * @param textObj
-     * @return
-     */
-	public CompanyTransaction  textToCompanyAccount(TextAcctDtlEvent textObj) {
-		CompanyTransaction transaction =new CompanyTransaction();
-		
-		
-		return transaction;
+	/**
+	 *  开户行名称对应WX_CM_CORP_CUST_DPSIT_ACCT_SUM_M的第5个字段（所属机构号）
+	 *  （IOODSZ6037350=北京银行股份有限公司无锡梁溪支行，IOODSZ6037278=北京银行股份有限公司无锡分行营业部）
+	 * @param BELONG_ORG_NUM
+	 * @return
+	 */
+	public static String parseToBank(String BELONG_ORG_NUM) {
+		if(BELONG_ORG_NUM ==null)return null;
+		if(BELONG_ORG_NUM.equalsIgnoreCase("IOODSZ6037350")) {
+			return "北京银行股份有限公司无锡梁溪支行";
+		}
+		if(BELONG_ORG_NUM.equalsIgnoreCase("IOODSZ6037278")) {
+			return "北京银行股份有限公司无锡分行营业部";
+		}
+		return null;
 	}
-    /**
-     * 把文本原始对象转换成 待发送对象
-     * @param textObj
-     * @return
-     */
-	public CompanyAccount  textToCompanyAccount(TextCustAcct textObj) {
-		CompanyAccount account =new CompanyAccount();
-		return account;
-	}
+
+	 /**
+	  * 账户类型对应WX_CM_CORP_CUST_DPSIT_ACCT_SUM_M的第13个字段（账户性质代码）
+	  *  1对应一般户，如果为空对应专用户
+	  * @param ACCT_CHAR_CD  
+	  * @return  账户类型 1基本、2一般、3临时、4专用、5 其他
+	  */
+	 public static Integer parseToAccountType(String ACCT_CHAR_CD) {
+		 if(ACCT_CHAR_CD ==null) {
+			 return new Integer(4);
+		 }
+
+		 if(ACCT_CHAR_CD.equals("1")) {
+			 return new Integer(2);
+		 }
+		 return null;
+		 
+	 }
+
 	/**
 	 * 根据companycode 换成成组织机构号
-	 * 
+	 * 91320211794559948P 无锡雪浪科教产业投资发展有限公司
+	 * 79455994-8
+	 * 其实只要对应91320211794559948P 倒数十位的前8位就行
 	 * @param companyCode
 	 * @return
 	 */
 	public static String transactionForSearchKey(String companyCode) {
-		return companyCode;
+		if(companyCode==null)return null;
+		String s =companyCode.substring(8, 16)+"-"+companyCode.substring(16,17);
+		return s;
+	}
+
+	public static void main(String[] args) throws ParseException {
+
+		/*String fileName = "F:\\MyGitHub\\AllInOneSample\\BJBank\\src\\main\\java\\WX_EDW_WX_CORP_CUST_ACCT_DTL_EVENT_20190823_test.txt";
+
+		List<String[]> arr = parseTextToLineArr(fileName);
+
+		List<Object> list = parseToTextObject(arr, TextAcctDtlEvent.class);
+
+		for (Object obj : list) {
+			System.out.println(obj);
+		}*/
+		
+		System.out.println(transactionForSearchKey("91320211794559948P"));
+
 	}
 
 	/**
@@ -340,17 +377,6 @@ public class TextUtil {
 		}
 		logger.info("parseToTextCompanyTransaction  success size :{}", list.size());
 		return list;
-	}
-    /**
-     * 时间格式处理   YYYY-MM-DD  HH:MM:SS
-     */
-	public void xxx() {
-		
-		
-		
-		
-	    
-		
 	}
 	/**
 	 * 解析text文本,按照每行来解析,并把每行数据依照SOH来分割成string[]
@@ -405,18 +431,5 @@ public class TextUtil {
 		return list;
 	}
 
-	public static void main(String[] args) throws ParseException {
 
-	  String fileName = "F:\\MyGitHub\\AllInOneSample\\BJBank\\src\\main\\java\\WX_EDW_WX_CORP_CUST_ACCT_DTL_EVENT_20190823_test.txt";
-
-		List<String[]> arr = parseTextToLineArr(fileName);
-
-		List<Object> list = parseToTextObject(arr, TextAcctDtlEvent.class);
-
-		for (Object obj : list) {
-			System.out.println(obj);
-		}
-		
-		
-	}
 }
