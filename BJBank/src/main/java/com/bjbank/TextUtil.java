@@ -46,7 +46,6 @@ public class TextUtil {
 		for (Company company : list) {
 			codeMap.putIfAbsent(company.getCompanyCode(), company);
 		}
-		testinitData();
 	}
 
 
@@ -137,9 +136,9 @@ public class TextUtil {
 							String fundFlow =parseTofundFlow(acctEvent.getDEBIT_CRDT_DIR_DESC());
 							transaction.setFundFlow(fundFlow);
 							// 是 double 交易金额
-							transaction.setTransactionAmount(new BigDecimal(acctEvent.getEVENT_AMT()));
+							transaction.setTransactionAmount(acctEvent.getEVENT_AMT());
 							// 是 double 账户余额（交易卡余额）
-							transaction.setAccountBalance(new BigDecimal(acctEvent.getACCT_BAL()));
+							transaction.setAccountBalance(acctEvent.getACCT_BAL());
 							// 是 varchar 交易方式（字符串格式）
 							transaction.setExchangeType("网银");//默认网易
 							
@@ -255,9 +254,9 @@ public class TextUtil {
 					// 是 int 银行账号
 					account.setAccount(textAcc.getAGT_NUM());
 					// 是 double 账户余额（万元）
-					account.setAccountBalance(new BigDecimal(textAcc.getCURR_BAL()));
+					account.setAccountBalance(textAcc.getCURR_BAL());
 					// 是 double 可用余额（万元）
-					account.setAvailableBalance(new BigDecimal(textAcc.getCURR_BAL()));
+					account.setAvailableBalance(textAcc.getCURR_BAL());
 				} catch (Exception e2) {
 					logger.error("updateCompanyAccountByText TextCustAcct mapping to CompanyAccount error, exception={}  TextCustAcct={}");
 				}

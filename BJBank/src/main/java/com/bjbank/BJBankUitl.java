@@ -46,6 +46,19 @@ public class BJBankUitl {
 		return dateStr;
 	}
 
+	public static String getYesterdayTimeTextVersionStr() 
+	{
+		java.text.SimpleDateFormat s = new java.text.SimpleDateFormat("yyyyMMdd");
+
+		Calendar cal = Calendar.getInstance();
+		
+		cal.add(Calendar.DAY_OF_YEAR, -1);
+		Date yestrerday = cal.getTime();
+		String dateStr = s.format(yestrerday);
+		
+		return dateStr;
+	}
+	
 	public static String getYesterdayTimeStr() 
 	{
 		java.text.SimpleDateFormat s = new java.text.SimpleDateFormat("yyyy-MM-dd");
@@ -168,9 +181,7 @@ public class BJBankUitl {
 		}
 	}
 
-	public static String getToken1() {
-		return "1111";
-	}
+
 	
 	/**
 	 * 获取getToken

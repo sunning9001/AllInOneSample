@@ -34,9 +34,9 @@ public class CompanyTransaction extends BaseRowModel {
 	@ExcelProperty(index = 9)
 	private String fundFlow;// 是 int 资金流向1收入2支出
 	@ExcelProperty(index = 10)
-	private BigDecimal transactionAmount;// 是 double 交易金额
+	private String transactionAmount;// 是 double 交易金额
 	@ExcelProperty(index = 11)
-	private BigDecimal accountBalance;// 是 double 账户余额（交易卡余额）
+	private String accountBalance;// 是 double 账户余额（交易卡余额）
 	@ExcelProperty(index = 12)
 	private String exchangeType;// 是 varchar 交易方式（字符串格式）
 	public String getCompanyName() {
@@ -63,7 +63,6 @@ public class CompanyTransaction extends BaseRowModel {
 	public void setAccount(String account) {
 		this.account = account;
 	}
-
 	public String getDealTime() {
 		return dealTime;
 	}
@@ -100,16 +99,16 @@ public class CompanyTransaction extends BaseRowModel {
 	public void setFundFlow(String fundFlow) {
 		this.fundFlow = fundFlow;
 	}
-	public BigDecimal getTransactionAmount() {
+	public String getTransactionAmount() {
 		return transactionAmount;
 	}
-	public void setTransactionAmount(BigDecimal transactionAmount) {
+	public void setTransactionAmount(String transactionAmount) {
 		this.transactionAmount = transactionAmount;
 	}
-	public BigDecimal getAccountBalance() {
+	public String getAccountBalance() {
 		return accountBalance;
 	}
-	public void setAccountBalance(BigDecimal accountBalance) {
+	public void setAccountBalance(String accountBalance) {
 		this.accountBalance = accountBalance;
 	}
 	public String getExchangeType() {
@@ -126,8 +125,7 @@ public class CompanyTransaction extends BaseRowModel {
 				+ content + ", fundFlow=" + fundFlow + ", transactionAmount=" + transactionAmount + ", accountBalance="
 				+ accountBalance + ", exchangeType=" + exchangeType + "]";
 	}
-
-
-
+	
+	
 
 }

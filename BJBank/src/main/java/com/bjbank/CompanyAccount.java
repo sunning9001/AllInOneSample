@@ -31,9 +31,9 @@ public class CompanyAccount extends BaseRowModel{
     @ExcelProperty(index =7)
 	private String account;// 是 int 银行账号
     @ExcelProperty(index =8)
-	private BigDecimal accountBalance;// 是 double 账户余额（万元）
+	private String accountBalance;// 是 double 账户余额（万元）
     @ExcelProperty(index =9)
-	private BigDecimal availableBalance;// 是 double 可用余额（万元）
+	private String availableBalance;// 是 double 可用余额（万元）
 	public String getCompanyCode() {
 		return companyCode;
 	}
@@ -64,8 +64,12 @@ public class CompanyAccount extends BaseRowModel{
 	public void setAccountStatus(String accountStatus) {
 		this.accountStatus = accountStatus;
 	}
-
-
+	public String getAccountOpenTime() {
+		return accountOpenTime;
+	}
+	public void setAccountOpenTime(String accountOpenTime) {
+		this.accountOpenTime = accountOpenTime;
+	}
 	public String getBank() {
 		return bank;
 	}
@@ -78,23 +82,17 @@ public class CompanyAccount extends BaseRowModel{
 	public void setAccount(String account) {
 		this.account = account;
 	}
-	public BigDecimal getAccountBalance() {
+	public String getAccountBalance() {
 		return accountBalance;
 	}
-	public void setAccountBalance(BigDecimal accountBalance) {
+	public void setAccountBalance(String accountBalance) {
 		this.accountBalance = accountBalance;
 	}
-	public BigDecimal getAvailableBalance() {
+	public String getAvailableBalance() {
 		return availableBalance;
 	}
-	public void setAvailableBalance(BigDecimal availableBalance) {
+	public void setAvailableBalance(String availableBalance) {
 		this.availableBalance = availableBalance;
-	}
-	public String getAccountOpenTime() {
-		return accountOpenTime;
-	}
-	public void setAccountOpenTime(String accountOpenTime) {
-		this.accountOpenTime = accountOpenTime;
 	}
 	@Override
 	public String toString() {
@@ -104,6 +102,7 @@ public class CompanyAccount extends BaseRowModel{
 				+ ", accountBalance=" + accountBalance + ", availableBalance=" + availableBalance + "]";
 	}
 
+    
 
 	
 }

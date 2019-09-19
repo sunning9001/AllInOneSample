@@ -1,5 +1,6 @@
 package com.bjbank;
 
+import java.io.File;
 import java.util.Date;
 
 import org.quartz.Job;
@@ -38,12 +39,12 @@ public class ExcelJob implements Job {
 				if(token!=null) {
 					//首先获取所有平台文件
 					BJBankUitl.getCompanyList(token);
-					String  acctFileName =Const.excelPath+"WX_EDW_WX_CM_CORP_CUST_DPSIT_ACCT_SUM_M_"+BJBankUitl.getYesterdayTimeStr()+".txt";
+					String  acctFileName =Const.excelPath+File.separator+"WX_EDW_WX_CM_CORP_CUST_DPSIT_ACCT_SUM_M_"+BJBankUitl.getYesterdayTimeTextVersionStr()+"_001.txt";
 					// 获取获取上传文件
 					logger.info("获取文件准备上传txt文件:{}",acctFileName);
 					TextUtil.updateCompanyAccountByText(acctFileName);
 					
-					String  eventFileName =Const.excelPath+"WX_EDW_WX_CM_CORP_CUST_DPSIT_ACCT_SUM_M_"+BJBankUitl.getYesterdayTimeStr()+".txt";
+					String  eventFileName =Const.excelPath+File.separator+"WX_EDW_WX_CM_CORP_CUST_DPSIT_ACCT_SUM_M_"+BJBankUitl.getYesterdayTimeTextVersionStr()+"_001.txt";
 					// 获取获取上传文件
 					logger.info("获取文件准备上传txt文件:{}",eventFileName);
 					TextUtil.updateTransactionByText(eventFileName);
