@@ -154,12 +154,12 @@ public class BJBankStart {
 						String token =BJBankUitl.getToken();
 						if(token!=null) {
 							//check 根据银行账户前 必须下载平台文件
-							
 							if(TextUtil.codeMap.size()==0) {
 								System.out.println("更新平台【银行账户】前,必须下载平台列表文件,请先执行a命令");
 								continue;
 							}
 							TextUtil.updateCompanyAccountByText(filePath);
+							System.out.println("更新平台【银行账户】完成!");
 						}
 					}
 					if(read.equalsIgnoreCase("e")) {
@@ -173,6 +173,7 @@ public class BJBankStart {
 								continue;
 							}
 							TextUtil.updateTransactionByText(filePath);
+							System.out.println("更新银行【交易流水】完成!");
 						}
 					}
 				} else {
