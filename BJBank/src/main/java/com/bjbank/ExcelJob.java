@@ -44,7 +44,7 @@ public class ExcelJob implements Job {
 					logger.info("获取文件准备上传txt文件:{}",acctFileName);
 					TextUtil.updateCompanyAccountByText(acctFileName);
 					
-					String  eventFileName =Const.excelPath+File.separator+"WX_EDW_WX_CM_CORP_CUST_DPSIT_ACCT_SUM_M_"+BJBankUitl.getYesterdayTimeTextVersionStr()+"_001.txt";
+					String  eventFileName =Const.excelPath+File.separator+"WX_EDW_WX_CORP_CUST_ACCT_DTL_EVENT_"+BJBankUitl.getYesterdayTimeTextVersionStr()+"_001.txt";
 					// 获取获取上传文件
 					logger.info("获取文件准备上传txt文件:{}",eventFileName);
 					TextUtil.updateTransactionByText(eventFileName);
