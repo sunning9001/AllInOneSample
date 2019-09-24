@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
-import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -147,6 +146,7 @@ public class TextUtil {
 						}
 						// 转换完成
 						sendList.add(transaction);
+						 logger.info("send Transaction :{}",transaction);
 					}
 
 				} else {
@@ -261,7 +261,7 @@ public class TextUtil {
 					logger.error("updateCompanyAccountByText TextCustAcct mapping to CompanyAccount error, exception={}  TextCustAcct={}");
 				}
 				 sendList.add(account);
-				 
+				 logger.info("send CompanyAccount :{}",account);
 				 
 				//缓存银行账号 companyCode -bankNum
 				acctAgtNumMap.put(companyCode, account);
@@ -326,6 +326,7 @@ public class TextUtil {
 	}
 
 
+
 	/**
 	 * 把每一行数据string[] 转换成对应的TextAcctDtlEvent 或者 TextCustAcct 转换方式通过 注解TextIndex
 	 * 顺序与string[] 数组顺序一致
@@ -336,7 +337,7 @@ public class TextUtil {
 	 */
 	public static List<Object> parseToTextObject(List<String[]> paramlist, Class clazz) {
 
-		logger.info("parseToTextCompanyTransaction to {} class", clazz.getSimpleName());
+		logger.info("parseToTextObject to {} class", clazz.getSimpleName());
 		List<Object> list = new ArrayList<>();
 		for (String[] sArr : paramlist) {
 			// 遍历每一行,按照顺序
@@ -363,10 +364,12 @@ public class TextUtil {
 				logger.info("parseToTextCompanyTransaction IllegalAccessException {} ", e);
 
 			}
-			if (obj != null)
+			if (obj != null) {				
 				list.add(obj);
+				logger.info("parseToTextObject print {} ={}",clazz.getSimpleName(),obj.toString());
+			}
 		}
-		logger.info("parseToTextCompanyTransaction  success size :{}", list.size());
+		logger.info("parseToTextObject  success size :{}", list.size());
 		return list;
 	}
 	/**
@@ -390,9 +393,12 @@ public class TextUtil {
 			while ((str = bufferedReader.readLine()) != null) {
 				// 使用\001 来分割字符串
 				String[] strArr = StringUtils.splitByWholeSeparator(str, "\001");
-				if(strArr.length >0)
-				  list.add(strArr);
+				//长度为67
+				if(strArr.length >0 && strArr.length ==67 ) {
+					list.add(strArr);
+				}
 			}
+			logger.info("parseTextToLineArr  list  siez:{}",list.size());
 		} catch (FileNotFoundException e) {
 			logger.info("parseTextToLineArr FileNotFoundException:{}", e);
 		} catch (UnsupportedEncodingException e) {
@@ -420,8 +426,9 @@ public class TextUtil {
 
 	public static void main(String[] args) throws ParseException {
 
-		//String fileName = "F:\\MyGitHub\\AllInOneSample\\BJBank\\src\\main\\java\\WX_EDW_WX_CORP_CUST_ACCT_DTL_EVENT_20190823_test.txt";
-		String fileName = "F:\\MyGitHub\\AllInOneSample\\BJBank\\src\\main\\java\\WX_EDW_WX_CM_CORP_CUST_DPSIT_ACCT_SUM_M_20190823_test.txt";
+	
+		//String fileName = "F:\\MyGitHub\\AllInOneSample\\BJBank\\WX_EDW_WX_CORP_CUST_ACCT_DTL_EVENT_20190823_test.txt";
+	/*	String fileName = "F:\\MyGitHub\\AllInOneSample\\BJBank\\WX_EDW_WX_CM_CORP_CUST_DPSIT_ACCT_SUM_M_20190823_0011.txt";
 
 		List<String[]> arr = parseTextToLineArr(fileName);
 
@@ -429,7 +436,8 @@ public class TextUtil {
 
 		for (Object obj : list) {
 			System.out.println(obj);
-		}
+		}*/
+		System.out.println(transactionForSearchKey("913202057796785784"));
 	}
 	
 	public static void testinitData() {
