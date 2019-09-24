@@ -150,7 +150,7 @@ public class TextUtil {
 					}
 
 				} else {
-					logger.info("==========================");
+					logger.info("can not find bank account={} company={}",agtNum,e);
 				}
 			}
 		} catch (Exception e) {
@@ -349,6 +349,14 @@ public class TextUtil {
 		logger.info("parseToTextObject to {} class", clazz.getSimpleName());
 		List<Object> list = new ArrayList<>();
 		for (String[] sArr : paramlist) {
+		
+			//特殊处理   && strArr.length ==67 
+			if(clazz!=null && clazz.equals(TextCustAcct.class)) {
+				if(sArr.length !=67) {
+                    //账号信息不是67分割则不处理
+					continue;
+				}
+			}
 			// 遍历每一行,按照顺序
 			Object obj =null;
 			try {
@@ -403,7 +411,7 @@ public class TextUtil {
 				// 使用\001 来分割字符串
 				String[] strArr = StringUtils.splitByWholeSeparator(str, "\001");
 				//长度为67
-				if(strArr.length >0 && strArr.length ==67 ) {
+				if(strArr.length >0) {
 					list.add(strArr);
 				}
 			}
