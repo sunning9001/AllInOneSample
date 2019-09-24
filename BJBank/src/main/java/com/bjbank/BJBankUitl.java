@@ -75,6 +75,8 @@ public class BJBankUitl {
 	public static void updateTransaction(List<Object> list, String token) throws IOException {
 		System.out.println("++++++++++updateTransaction+++++++++++++++");
 		logger.info("++++++++++updateTransaction+++++++++++++++");
+		System.out.println("更新交易流水数量:"+list.size());
+		logger.info("更新交易流水数量:{}",list.size());
 		OkHttpClient client = new OkHttpClient();
 
 		MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse("application/json; charset=utf-8");
@@ -109,6 +111,8 @@ public class BJBankUitl {
 
 		System.out.println("++++++++++updateCompanyAccount+++++++++++++++");
 		logger.info("++++++++++updateCompanyAccount+++++++++++++++");
+		System.out.println("更新账户信息数量:"+list.size());
+		logger.info("更新账户信息数量:{}",list.size());
 		OkHttpClient client = new OkHttpClient();
 
 		MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse("application/json; charset=utf-8");
