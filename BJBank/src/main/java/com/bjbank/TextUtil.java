@@ -233,7 +233,7 @@ public class TextUtil {
 				CompanyAccount account = new CompanyAccount();
 
 				try {
-					
+					logger.info("  key ={}  companycode ={}  TextCustAcct={}", searchKey, companyCode,textAcc);
 					// 是平台公司统一信用代码
 					account.setCompanyCode(company.getCompanyCode());
 					// 是 string 平台公司名称
@@ -321,7 +321,16 @@ public class TextUtil {
 	 */
 	public static String transactionForSearchKey(String companyCode) {
 		if(companyCode==null)return null;
-		String s =companyCode.substring(8, 16)+"-"+companyCode.substring(16,17);
+		String s =null;
+		try {
+			if(companyCode.length()>=17) {
+				 s= companyCode.substring(8, 16)+"-"+companyCode.substring(16,17);
+			}else {
+				logger.info(" special  account companyCode:{}",companyCode);
+			}
+		} catch (Exception e) {
+		    logger.error("transactionForSearchKey  error  companyCode={}",companyCode);
+		}
 		return s;
 	}
 
