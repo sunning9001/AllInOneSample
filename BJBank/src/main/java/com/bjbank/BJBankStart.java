@@ -156,10 +156,12 @@ public class BJBankStart {
 							//check 根据银行账户前 必须下载平台文件
 							if(TextUtil.codeMap.size()==0) {
 								System.out.println("更新平台【银行账户】前,必须下载平台列表文件,请先执行a命令");
+								logger.debug("更新平台【银行账户】前,必须下载平台列表文件,请先执行a命令");
 								continue;
 							}
 							TextUtil.updateCompanyAccountByText(filePath);
 							System.out.println("更新平台【银行账户】完成!");
+							logger.debug("更新平台【银行账户】完成!");
 						}
 					}
 					if(read.equalsIgnoreCase("e")) {
@@ -170,10 +172,12 @@ public class BJBankStart {
 						if(token!=null) {
 							if(TextUtil.codeMap.size()==0) {
 								System.out.println("更新平台【交易流水】前,必须下载平台列表文件和读取账户信息,请先按照顺序执行a命令、d命令");
+								logger.debug("更新平台【交易流水】前,必须下载平台列表文件和读取账户信息,请先按照顺序执行a命令、d命令!");
 								continue;
 							}
 							TextUtil.updateTransactionByText(filePath);
 							System.out.println("更新银行【交易流水】完成!");
+							logger.debug("更新银行【交易流水】完成!");
 						}
 					}
 				} else {

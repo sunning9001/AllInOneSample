@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -64,6 +66,7 @@ public class TextUtil {
      */
 	public static void updateTransactionByText(String file) {
 
+		logger.debug("updateTransactionByText file:{}",file);
 		if(codeMap.size()==0) {
 			logger.info(" fisrt  download  company list file  ,company list total={}",codeMap.size());
 			return;
@@ -135,11 +138,13 @@ public class TextUtil {
 							String fundFlow =parseTofundFlow(acctEvent.getDEBIT_CRDT_DIR_DESC());
 							transaction.setFundFlow(fundFlow);
 							// 是 double 交易金额
-							transaction.setTransactionAmount(acctEvent.getEVENT_AMT());
+							transaction.setTransactionAmount(Double.toString(new Double(acctEvent.getEVENT_AMT())));
 							// 是 double 账户余额（交易卡余额）
-							transaction.setAccountBalance(acctEvent.getACCT_BAL());
+							transaction.setAccountBalance(Double.toString(new Double(acctEvent.getACCT_BAL())));
 							// 是 varchar 交易方式（字符串格式）
 							transaction.setExchangeType("网银");//默认网易
+
+							
 							
 						} catch (Exception e2) {
 							logger.error("TextAcctDtlEvent  map to CompanyTransaction error exception ={} TextAcctDtlEvent={}",e2,acctEvent);
@@ -158,7 +163,7 @@ public class TextUtil {
 		}
 		
 		try {
-			BJBankUitl.updateCompanyAccount(sendList, BJBankUitl.getToken());
+			BJBankUitl.updateTransaction(sendList, BJBankUitl.getToken());
 		} catch (IOException e1) {
 			logger.info(" updateTransactionByText  IOException{}",e1);
 		}
@@ -199,6 +204,8 @@ public class TextUtil {
 	 * @param file  账户文件名称
 	 */
 	public static void updateCompanyAccountByText(String file) {
+		
+		logger.debug("updateCompanyAccountByText file:{}",file);
 
 		if(codeMap.size()==0) {
 			logger.info(" fisrt  download  company list file  ,company list total={}",codeMap.size());
@@ -254,9 +261,9 @@ public class TextUtil {
 					// 是 int 银行账号
 					account.setAccount(textAcc.getAGT_NUM());
 					// 是 double 账户余额（万元）
-					account.setAccountBalance(textAcc.getCURR_BAL());
+					account.setAccountBalance(Double.toString(new Double(textAcc.getCURR_BAL())));
 					// 是 double 可用余额（万元）
-					account.setAvailableBalance(textAcc.getCURR_BAL());
+					account.setAvailableBalance(Double.toString(new Double(textAcc.getCURR_BAL())));
 				} catch (Exception e2) {
 					logger.error("updateCompanyAccountByText TextCustAcct mapping to CompanyAccount error, exception={}  TextCustAcct={}");
 				}
@@ -445,15 +452,31 @@ public class TextUtil {
 
 	
 		//String fileName = "F:\\MyGitHub\\AllInOneSample\\BJBank\\WX_EDW_WX_CORP_CUST_ACCT_DTL_EVENT_20190823_test.txt";
-	/*	String fileName = "F:\\MyGitHub\\AllInOneSample\\BJBank\\WX_EDW_WX_CM_CORP_CUST_DPSIT_ACCT_SUM_M_20190823_0011.txt";
+		String fileName = "F:\\MyGitHub\\AllInOneSample\\BJBank\\WX_EDW_WX_CM_CORP_CUST_DPSIT_ACCT_SUM_M_20190823_0011.txt";
 
 		List<String[]> arr = parseTextToLineArr(fileName);
 
 		List<Object> list = parseToTextObject(arr, TextCustAcct.class);//TextCustAcct  TextAcctDtlEvent
 
+
 		for (Object obj : list) {
 			System.out.println(obj);
-		}*/
+			
+	
+		}
+		
+		
+		for (Object obj : list) {
+
+			
+			
+			TextCustAcct  cust =(TextCustAcct)obj;
+			
+         
+			 Double d =new Double(cust.getCURR_BAL());
+             System.out.println(d.toString());
+			
+		}
 		System.out.println(transactionForSearchKey("913202057796785784"));
 	}
 	
