@@ -108,10 +108,11 @@ public class TextUtil {
 				if (agtEventList != null) {
 
 					// 做类型转换TextAcctDtlEvent ->CompanyTransaction
+					logger.debug("updateTransactionByText find company transactioin account:{},companyCode:{}",ca.getAccount(),companyCode );
 
 					for (TextAcctDtlEvent acctEvent : agtEventList) {
 
-
+                       
 						CompanyTransaction transaction = new CompanyTransaction();
 						try {
 							
@@ -165,6 +166,7 @@ public class TextUtil {
 		}
 		
 		try {
+			logger.info(" updateTransaction   transaction  info  total=:{}",sendList.size());
 			BJBankUitl.updateTransaction(sendList, BJBankUitl.getToken());
 		} catch (IOException e1) {
 			logger.info(" updateTransactionByText  IOException{}",e1);
