@@ -63,6 +63,7 @@ public class BJBankStart {
 
 		System.out.println("===============工具开始启动======================");
 		System.out.println("===============开始读取配置文件application.conf======================");
+	   	 logger.info("===============开始读取配置文件application.conf======================");
 
 		Properties pro = new Properties();
 		try {
@@ -76,37 +77,47 @@ public class BJBankStart {
 			logger.info("读取application.conf 文件失败!");
 		}
 		System.out.println("开始读取application.conf 文件内容!");
+	   	 logger.info("开始读取application.conf 文件内容!");
 		String ip = pro.getProperty("ip");
 		System.out.println("读取IP = " + ip);
+	   	 logger.info("读取IP = " + ip);
 		Const.IP =ip;
 		String username = pro.getProperty("username");
 		System.out.println("读取username = " + username);
+	   	 logger.info("读取username = " + username);
 		Const.username =username;
 		String password = pro.getProperty("password");
 		System.out.println("读取password =" + password);
+	   	 logger.info("读取password =" + password);
 		Const.password =password;
 		Integer loop = Integer.parseInt(pro.getProperty("loop"));
 		System.out.println("读取批量loop配置 =" + loop);
+	   	 logger.info("读取批量loop配置 =" + loop);
 		Const.LOOP =loop;
 		
 		String companyPath = pro.getProperty("companyPath");
 		System.out.println("读取companyPath文件存放位置 =" + companyPath);
+	   	 logger.info("读取companyPath文件存放位置 =" + companyPath);
 		Const.companyPath =companyPath;
 		
 		String excelPath = pro.getProperty("excelPath");
 		System.out.println("读取excelPath文件存放位置 =" + excelPath);
+	   	 logger.info("读取excelPath文件存放位置 =" + excelPath);
 		Const.excelPath =excelPath;
 		
 		String cronTime = pro.getProperty("cronTime");
 		System.out.println("读取cronTime文件存放位置 =" + cronTime);
+	 	 logger.info("读取cronTime文件存放位置 =" + cronTime);
 		Const.cronTime =cronTime;
 		
 		
 		Integer fileChoose = Integer.parseInt(pro.getProperty("fileChoose"));
 		System.out.println("读取文件格式配置 =" + fileChoose);
+	 	 logger.info("读取文件格式配置 =" + fileChoose);
 		Const.fileChoose =fileChoose;
 		
 		System.out.println("===============工具启动成功======================");
+	 	 logger.info("===============工具启动成功======================");
 
 		startTast();
 		while (true) {
@@ -120,6 +131,10 @@ public class BJBankStart {
 				if (read != null
 						&& (read.equalsIgnoreCase("a") || read.equalsIgnoreCase("b") || read.equalsIgnoreCase("c")|| read.equalsIgnoreCase("d")|| read.equalsIgnoreCase("e"))) {
 					
+					
+				 	 logger.info("===============用户输入：{}======================",read);
+				 	 
+				 	 
 					if(read.equalsIgnoreCase("a")) {
 						String token =BJBankUitl.getToken();
 						if(token!=null) {
