@@ -138,9 +138,11 @@ public class TextUtil {
 							String fundFlow =parseTofundFlow(acctEvent.getDEBIT_CRDT_DIR_DESC());
 							transaction.setFundFlow(fundFlow);
 							// 是 double 交易金额
-							transaction.setTransactionAmount(Double.toString(new Double(acctEvent.getEVENT_AMT())));
+							
+			
+							transaction.setTransactionAmount(new BigDecimal(acctEvent.getEVENT_AMT()).stripTrailingZeros().toPlainString());
 							// 是 double 账户余额（交易卡余额）
-							transaction.setAccountBalance(Double.toString(new Double(acctEvent.getACCT_BAL())));
+							transaction.setAccountBalance(new BigDecimal(acctEvent.getACCT_BAL()).stripTrailingZeros().toPlainString());
 							// 是 varchar 交易方式（字符串格式）
 							transaction.setExchangeType("网银");//默认网易
 
@@ -261,9 +263,10 @@ public class TextUtil {
 					// 是 int 银行账号
 					account.setAccount(textAcc.getAGT_NUM());
 					// 是 double 账户余额（万元）
-					account.setAccountBalance(Double.toString(new Double(textAcc.getCURR_BAL())));
+					account.setAccountBalance(new BigDecimal(textAcc.getCURR_BAL()).stripTrailingZeros().toPlainString());
 					// 是 double 可用余额（万元）
-					account.setAvailableBalance(Double.toString(new Double(textAcc.getCURR_BAL())));
+					
+					account.setAvailableBalance(new BigDecimal(textAcc.getCURR_BAL()).stripTrailingZeros().toPlainString());
 				} catch (Exception e2) {
 					logger.error("updateCompanyAccountByText TextCustAcct mapping to CompanyAccount error, exception={}  TextCustAcct={}");
 				}
@@ -474,7 +477,10 @@ public class TextUtil {
 			
          
 			 Double d =new Double(cust.getCURR_BAL());
-             System.out.println(d.toString());
+        
+             
+             System.out.println(new BigDecimal(cust.getCURR_BAL()).toPlainString());
+             System.out.println(new BigDecimal(cust.getCURR_BAL()).stripTrailingZeros().toPlainString());
 			
 		}
 		System.out.println(transactionForSearchKey("913202057796785784"));
