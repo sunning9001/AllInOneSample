@@ -11,6 +11,8 @@ import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +21,10 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.alibaba.excel.util.CollectionUtils;
+import com.sun.org.apache.xml.internal.utils.res.StringArrayWrapper;
+import com.sun.xml.internal.fastinfoset.util.StringArray;
 
 public class TextUtil {
 
@@ -139,11 +145,9 @@ public class TextUtil {
 							String fundFlow =parseTofundFlow(acctEvent.getDEBIT_CRDT_DIR_DESC());
 							transaction.setFundFlow(fundFlow);
 							// 是 double 交易金额
-							
-			
-							transaction.setTransactionAmount(new BigDecimal(acctEvent.getEVENT_AMT()).stripTrailingZeros().toPlainString());
+							transaction.setTransactionAmount(new BigDecimal(new BigDecimal(acctEvent.getEVENT_AMT()).movePointRight(6).stripTrailingZeros().toPlainString()).movePointLeft(6).toPlainString());
 							// 是 double 账户余额（交易卡余额）
-							transaction.setAccountBalance(new BigDecimal(acctEvent.getACCT_BAL()).stripTrailingZeros().toPlainString());
+							transaction.setAccountBalance(new BigDecimal(new BigDecimal(acctEvent.getACCT_BAL()).movePointRight(6).stripTrailingZeros().toPlainString()).movePointLeft(6).toPlainString());
 							// 是 varchar 交易方式（字符串格式）
 							transaction.setExchangeType("网银");//默认网易
 
@@ -154,7 +158,7 @@ public class TextUtil {
 						}
 						// 转换完成
 						sendList.add(transaction);
-						 logger.info("send Transaction :{}",transaction);
+						logger.info("send Transaction :{}",transaction);
 					}
 
 				} else {
@@ -265,10 +269,10 @@ public class TextUtil {
 					// 是 int 银行账号
 					account.setAccount(textAcc.getAGT_NUM());
 					// 是 double 账户余额（万元）
-					account.setAccountBalance(new BigDecimal(textAcc.getCURR_BAL()).stripTrailingZeros().toPlainString());
+
+					account.setAccountBalance(					new BigDecimal(new BigDecimal(textAcc.getCURR_BAL()).movePointRight(6).stripTrailingZeros().toPlainString()).movePointLeft(6).toPlainString());
 					// 是 double 可用余额（万元）
-					
-					account.setAvailableBalance(new BigDecimal(textAcc.getCURR_BAL()).stripTrailingZeros().toPlainString());
+					account.setAvailableBalance(					new BigDecimal(new BigDecimal(textAcc.getCURR_BAL()).movePointRight(6).stripTrailingZeros().toPlainString()).movePointLeft(6).toPlainString());
 				} catch (Exception e2) {
 					logger.error("updateCompanyAccountByText TextCustAcct mapping to CompanyAccount error, exception={}  TextCustAcct={}");
 				}
@@ -361,12 +365,31 @@ public class TextUtil {
 		logger.info("parseToTextObject to {} class", clazz.getSimpleName());
 		List<Object> list = new ArrayList<>();
 		for (String[] sArr : paramlist) {
-		
+			logger.debug(" parseToTextObject line string={} ",sArr);
 			//特殊处理   && strArr.length ==67 
 			if(clazz!=null && clazz.equals(TextCustAcct.class)) {
 				if(sArr.length !=67) {
                     //账号信息不是67分割则不处理
 					continue;
+				}
+			}
+			//特殊处理   && strArr.length ==12 
+			if(clazz!=null && clazz.equals(TextAcctDtlEvent.class)) {
+				if(sArr.length ==10) {
+                    String[] newSArr=new String[12];
+                    for (int i = 0; i < newSArr.length; i++) {
+						if(i==4 || i==5) {
+						 	newSArr[i]=" ";
+						}
+						else {
+							if(i>5) {
+								newSArr[i]=sArr[i-2];
+							}else {
+								newSArr[i]=sArr[i];
+							}
+						}
+					}
+                    sArr =Arrays.copyOf(newSArr, 12);
 				}
 			}
 			// 遍历每一行,按照顺序
@@ -422,7 +445,6 @@ public class TextUtil {
 			while ((str = bufferedReader.readLine()) != null) {
 				// 使用\001 来分割字符串
 				String[] strArr = StringUtils.splitByWholeSeparator(str, "\001");
-				//长度为67
 				if(strArr.length >0) {
 					list.add(strArr);
 				}
@@ -456,36 +478,26 @@ public class TextUtil {
 	public static void main(String[] args) throws ParseException {
 
 	
-		//String fileName = "F:\\MyGitHub\\AllInOneSample\\BJBank\\WX_EDW_WX_CORP_CUST_ACCT_DTL_EVENT_20190823_test.txt";
-		String fileName = "F:\\MyGitHub\\AllInOneSample\\BJBank\\WX_EDW_WX_CM_CORP_CUST_DPSIT_ACCT_SUM_M_20190823_0011.txt";
+		String fileName = "F:\\MyGitHub\\AllInOneSample\\BJBank\\WX_EDW_WX_CORP_CUST_ACCT_DTL_EVENT_20190918_001.txt";
+		//String fileName = "F:\\MyGitHub\\AllInOneSample\\BJBank\\WX_EDW_WX_CM_CORP_CUST_DPSIT_ACCT_SUM_M_20190823_0011.txt";
 
 		List<String[]> arr = parseTextToLineArr(fileName);
 
-		List<Object> list = parseToTextObject(arr, TextCustAcct.class);//TextCustAcct  TextAcctDtlEvent
+		List<Object> list = parseToTextObject(arr, TextAcctDtlEvent.class);//TextCustAcct  TextAcctDtlEvent
 
 
 		for (Object obj : list) {
 			System.out.println(obj);
+			TextAcctDtlEvent e =(TextAcctDtlEvent)obj;
 			
-	
+	          
+			
+			System.out.println(new BigDecimal(new BigDecimal(e.getACCT_BAL()).movePointRight(6).stripTrailingZeros().toPlainString()).movePointLeft(6).toPlainString());
+	       
 		}
 		
 		
-		for (Object obj : list) {
 
-			
-			
-			TextCustAcct  cust =(TextCustAcct)obj;
-			
-         
-			 Double d =new Double(cust.getCURR_BAL());
-        
-             
-             System.out.println(new BigDecimal(cust.getCURR_BAL()).toPlainString());
-             System.out.println(new BigDecimal(cust.getCURR_BAL()).stripTrailingZeros().toPlainString());
-			
-		}
-		System.out.println(transactionForSearchKey("913202057796785784"));
 	}
 	
 	public static void testinitData() {
