@@ -143,7 +143,7 @@ public class TextUtil {
 							transaction.setTransactionAmount(new BigDecimal(new BigDecimal(acctEvent.getEVENT_AMT()).movePointRight(6).stripTrailingZeros().toPlainString()).movePointLeft(6).toPlainString());
 							// 是 double 账户余额（交易卡余额）
 
-							transaction.setAccountBalance(new  BigDecimal(acctEvent.getACCT_BAL()).movePointLeft(4).movePointRight(6).stripTrailingZeros().movePointLeft(6).toPlainString());
+							transaction.setAccountBalance(	new BigDecimal(new BigDecimal(acctEvent.getACCT_BAL()).movePointRight(6).stripTrailingZeros().toPlainString()).movePointLeft(6).toPlainString());
 							// 是 varchar 交易方式（字符串格式）
 							transaction.setExchangeType("网银");//默认网易
 
@@ -326,7 +326,10 @@ public class TextUtil {
 		 if(ACCT_CHAR_CD.equals("1")) {
 			 return new Integer(2);
 		 }
-		 return null;
+		 if(ACCT_CHAR_CD.equals("4")) {
+			 return new Integer(4);
+		 }
+		 return new Integer(4);
 		 
 	 }
 
