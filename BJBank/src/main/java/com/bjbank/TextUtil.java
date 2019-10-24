@@ -8,11 +8,9 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -21,10 +19,6 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.alibaba.excel.util.CollectionUtils;
-import com.sun.org.apache.xml.internal.utils.res.StringArrayWrapper;
-import com.sun.xml.internal.fastinfoset.util.StringArray;
 
 public class TextUtil {
 
@@ -145,9 +139,11 @@ public class TextUtil {
 							String fundFlow =parseTofundFlow(acctEvent.getDEBIT_CRDT_DIR_DESC());
 							transaction.setFundFlow(fundFlow);
 							// 是 double 交易金额
+							
 							transaction.setTransactionAmount(new BigDecimal(new BigDecimal(acctEvent.getEVENT_AMT()).movePointRight(6).stripTrailingZeros().toPlainString()).movePointLeft(6).toPlainString());
 							// 是 double 账户余额（交易卡余额）
-							transaction.setAccountBalance(new BigDecimal(new BigDecimal(acctEvent.getACCT_BAL()).movePointRight(6).stripTrailingZeros().toPlainString()).movePointLeft(6).toPlainString());
+
+							transaction.setAccountBalance(new  BigDecimal(acctEvent.getACCT_BAL()).movePointLeft(4).movePointRight(6).stripTrailingZeros().movePointLeft(6).toPlainString());
 							// 是 varchar 交易方式（字符串格式）
 							transaction.setExchangeType("网银");//默认网易
 
@@ -199,12 +195,19 @@ public class TextUtil {
 		
 		java.text.SimpleDateFormat s = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try {
-			Date d = s.parse(dt+" "+time.substring(0,2)+":"+time.substring(2, 4)+":"+time.substring(4, 6));
-			return d.toLocaleString();
+			if(time!=null && time.length()>=6) {
+				Date d = s.parse(dt+" "+time.substring(0,2)+":"+time.substring(2, 4)+":"+time.substring(4, 6));
+				return d.toLocaleString();
+			}else {
+			    String newtime=	StringUtils.leftPad(time, 6, "0");
+				Date d = s.parse(dt+" "+newtime.substring(0,2)+":"+newtime.substring(2, 4)+":"+newtime.substring(4, 6));
+				return d.toLocaleString();
+			}
+
 		} catch (ParseException e) {
-			logger.info(" parseToFormatDate ParseException ");
+			logger.info(" parseToFormatDate ParseException :{}  dt:{} time:{}",e,dt,time);
 		}
-		return null;
+		return "";
 	}
 	/**
 	 * 读取账户文本文件,并发送到财政局
@@ -269,10 +272,10 @@ public class TextUtil {
 					// 是 int 银行账号
 					account.setAccount(textAcc.getAGT_NUM());
 					// 是 double 账户余额（万元）
-
-					account.setAccountBalance(					new BigDecimal(new BigDecimal(textAcc.getCURR_BAL()).movePointRight(6).stripTrailingZeros().toPlainString()).movePointLeft(6).toPlainString());
+					
+					account.setAccountBalance(new  BigDecimal(textAcc.getCURR_BAL()).movePointLeft(4).movePointRight(6).stripTrailingZeros().movePointLeft(6).toPlainString());
 					// 是 double 可用余额（万元）
-					account.setAvailableBalance(					new BigDecimal(new BigDecimal(textAcc.getCURR_BAL()).movePointRight(6).stripTrailingZeros().toPlainString()).movePointLeft(6).toPlainString());
+					account.setAvailableBalance(new  BigDecimal(textAcc.getCURR_BAL()).movePointLeft(4).movePointRight(6).stripTrailingZeros().movePointLeft(6).toPlainString());
 				} catch (Exception e2) {
 					logger.error("updateCompanyAccountByText TextCustAcct mapping to CompanyAccount error, exception={}  TextCustAcct={}");
 				}
@@ -365,7 +368,6 @@ public class TextUtil {
 		logger.info("parseToTextObject to {} class", clazz.getSimpleName());
 		List<Object> list = new ArrayList<>();
 		for (String[] sArr : paramlist) {
-			logger.debug(" parseToTextObject line string={} ",sArr);
 			//特殊处理   && strArr.length ==67 
 			if(clazz!=null && clazz.equals(TextCustAcct.class)) {
 				if(sArr.length !=67) {
@@ -477,7 +479,7 @@ public class TextUtil {
 
 	public static void main(String[] args) throws ParseException {
 
-	
+/*	
 		String fileName = "F:\\MyGitHub\\AllInOneSample\\BJBank\\WX_EDW_WX_CORP_CUST_ACCT_DTL_EVENT_20190918_001.txt";
 		//String fileName = "F:\\MyGitHub\\AllInOneSample\\BJBank\\WX_EDW_WX_CM_CORP_CUST_DPSIT_ACCT_SUM_M_20190823_0011.txt";
 
@@ -496,7 +498,24 @@ public class TextUtil {
 	       
 		}
 		
+		*/
 		
+		//new BigDecimal(new BigDecimal(textAcc.getCURR_BAL()).movePointRight(6).stripTrailingZeros().toPlainString()).movePointLeft(6).toPlainString()
+		
+		
+		
+		
+		 String money ="0.83000000000000000000";
+		
+
+		
+		System.out.println(		new  BigDecimal(money).movePointLeft(4).toPlainString());
+		System.out.println(		new  BigDecimal(money).movePointLeft(4).movePointRight(6).stripTrailingZeros().toPlainString());
+		System.out.println(		new  BigDecimal(money).movePointLeft(4).movePointRight(6).stripTrailingZeros().movePointLeft(6).toPlainString());
+		
+		
+       System.out.println("---------");
+		System.out.println(		parseToFormatDate("2019-08-23","12021"));
 
 	}
 	

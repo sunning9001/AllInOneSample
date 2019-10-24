@@ -1,7 +1,5 @@
 package com.bjbank;
 
-import java.math.BigDecimal;
-
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.metadata.BaseRowModel;
 

@@ -85,7 +85,7 @@ public class BJBankUitl {
 		postBody.put("data", list);
 
 		System.out.println("json:" + postBody.toJSONStringWithDateFormat(postBody,JSON.DEFFAULT_DATE_FORMAT));
-		logger.info("updateCompanyAccount json:{}",postBody.toJSONStringWithDateFormat(postBody,JSON.DEFFAULT_DATE_FORMAT));
+		logger.info("updateTransaction json:{}",postBody.toJSONStringWithDateFormat(postBody,JSON.DEFFAULT_DATE_FORMAT));
 		Request request = new Request.Builder().addHeader("Authorization", token)
 				.url(Const.IP + "api/bank/updateTransaction")
 				.post(RequestBody.create(MEDIA_TYPE_MARKDOWN, postBody.toJSONStringWithDateFormat(postBody,JSON.DEFFAULT_DATE_FORMAT))).build();
