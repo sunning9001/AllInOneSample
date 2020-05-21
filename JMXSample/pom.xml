@@ -16,7 +16,7 @@
 		<!-- test dependency versions -->
 		<easymock-version>3.4</easymock-version>
 		<junit-version>4.8.1</junit-version>
-		<htmlunit-version>2.13</htmlunit-version>
+		<htmlunit-version>2.37.0</htmlunit-version>
 	</properties>
 	<dependencies>
 
