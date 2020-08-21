@@ -98,8 +98,15 @@ public class BJBankUitl {
 			 JSONObject rJsonObj = JSONObject.parseObject(result);
 			 String msg = (String)rJsonObj.get(Const.msg);
 			 System.out.println("更新【银行交易流水 】结果: " + msg);
-			 if(msg==null || (!msg.equalsIgnoreCase(Const.success_msg))) {
-				 System.out.println("更新平台银行账户 结果: " + rJsonObj.getString("data"));
+			 
+			 //处理返回结果
+			 String status = (String)rJsonObj.get(Const.status);
+			 //全部成功
+			 if(status!=null  && status.equals("200")) {
+				 ExcelUtil.writeResultToExcel(list, CompanyTransaction.class, null, "上报银行交易流水结果明细");
+			 }else {
+				 JSONArray jsonArray = rJsonObj.getJSONArray("data") ;
+				 ExcelUtil.writeResultToExcel(list, CompanyTransaction.class, jsonArray, "上报银行交易流水结果明细");
 			 }
 		}catch (Exception e) {
 			System.out.println( "updateTransaction 异常信息：" + e.getMessage());
@@ -107,7 +114,7 @@ public class BJBankUitl {
 		}
 	}
 
-	public static void updateCompanyAccount(List<Object> list, String token) throws IOException {
+	public static JSONObject updateCompanyAccount(List<Object> list, String token) throws IOException {
 
 		System.out.println("++++++++++updateCompanyAccount+++++++++++++++");
 		logger.info("++++++++++updateCompanyAccount+++++++++++++++");
@@ -132,14 +139,20 @@ public class BJBankUitl {
 			 JSONObject rJsonObj = JSONObject.parseObject(result);
 			 String msg = (String)rJsonObj.get(Const.msg);
 			 System.out.println("更新【平台银行账户】 结果: " + msg);
-			 if(msg==null || (!msg.equalsIgnoreCase(Const.success_msg))) {
-				 System.out.println("更新平台银行账户 结果: " + rJsonObj.getString("data"));
+			 String status = (String)rJsonObj.get(Const.status);
+			 //全部成功
+			 if(status!=null  && status.equals("200")) {
+				 ExcelUtil.writeResultToExcel(list, CompanyTransaction.class, null, "上报银行账户结果明细");
+			 }else {
+				 JSONArray jsonArray = rJsonObj.getJSONArray("data") ;
+				 ExcelUtil.writeResultToExcel(list, CompanyTransaction.class, jsonArray, "上报银行账户结果明细");
 			 }
 			 
 		} catch (Exception e) {
 			System.out.println( "updateCompanyAccount 异常信息：" + e.getMessage());
 			 logger.info("updateCompanyAccount exception:{}",e.getMessage());
 		}
+		return null;
 	}
 
 	/**

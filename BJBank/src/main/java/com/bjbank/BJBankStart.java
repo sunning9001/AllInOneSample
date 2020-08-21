@@ -116,6 +116,13 @@ public class BJBankStart {
 	 	 logger.info("读取文件格式配置 =" + fileChoose);
 		Const.fileChoose =fileChoose;
 		
+		
+		String glnum = pro.getProperty("glnum");
+		System.out.println("读取科目号 =" + glnum);
+	 	logger.info("读取科目号 =" + glnum);
+		Const.glnum =glnum;
+		
+		
 		System.out.println("===============工具启动成功======================");
 	 	 logger.info("===============工具启动成功======================");
 

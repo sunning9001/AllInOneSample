@@ -17,6 +17,13 @@ public class TextCustAcct {
 	private String CUST_NAME;// 25 客户名称
 	@TextIndex(index =29)
 	private String ORG_ORG_CD;// 31 组织机构代码
+	
+	
+	@TextIndex(index =4)
+	private String GL_NUM;// 6科目号
+
+	
+	
 	public String getAGT_NUM() {
 		return AGT_NUM;
 	}
@@ -65,12 +72,20 @@ public class TextCustAcct {
 	public void setORG_ORG_CD(String oRG_ORG_CD) {
 		ORG_ORG_CD = oRG_ORG_CD;
 	}
+	public String getGL_NUM() {
+		return GL_NUM;
+	}
+	public void setGL_NUM(String gL_NUM) {
+		GL_NUM = gL_NUM;
+	}
 	@Override
 	public String toString() {
 		return "TextCustAcct [AGT_NUM=" + AGT_NUM + ", BELONG_ORG_NUM=" + BELONG_ORG_NUM + ", CURR_CD=" + CURR_CD
 				+ ", ACCT_CHAR_CD=" + ACCT_CHAR_CD + ", OPEN_DT=" + OPEN_DT + ", CURR_BAL=" + CURR_BAL + ", CUST_NAME="
-				+ CUST_NAME + ", ORG_ORG_CD=" + ORG_ORG_CD + "]";
+				+ CUST_NAME + ", ORG_ORG_CD=" + ORG_ORG_CD + ", GL_NUM=" + GL_NUM + "]";
 	}
+	
+	
 	
 	
 	/*

@@ -24,7 +24,7 @@ public class TextUtil {
 
 	private static Logger logger = LoggerFactory.getLogger(TextUtil.class);
 	/*
-	 * code -name映射
+	 * code -name映射  平台所有账号
 	 */
 	public static Map<String, Company> codeMap = new HashMap<String, Company>();
 	/*
@@ -279,11 +279,17 @@ public class TextUtil {
 				} catch (Exception e2) {
 					logger.error("updateCompanyAccountByText TextCustAcct mapping to CompanyAccount error, exception={}  TextCustAcct={}");
 				}
-				 sendList.add(account);
-				 logger.info("send CompanyAccount :{}",account);
-				 
-				//缓存银行账号 companyCode -bankNum
-				acctAgtNumMap.put(companyCode, account);
+				 //V3.0 修改逻辑,匹配科目号和 账号库
+				 if(GLNumMatchUtil.isMatchGlNum(textAcc.getGL_NUM())) {
+					 if(AccountMatchUtil.isMatchAccount(account.getAccount())) {
+						 
+						 sendList.add(account);
+						 logger.info("send CompanyAccount :{}",account);
+						 
+						 //缓存银行账号 companyCode -bankNum
+						 acctAgtNumMap.put(companyCode, account);
+					 }
+				 }
 			} else {
 				logger.info(" can not  find  company  account org key ={}  companycode ={}", searchKey, companyCode);
 			}
