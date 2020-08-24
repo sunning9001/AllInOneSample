@@ -31,6 +31,7 @@ public class BJBankStart {
     	 ExcelCronTrigger cronTask = new ExcelCronTrigger();
 		 cronTask.run(Const.cronTime);
 		
+		 AccountMatchSchedule.scheduleStart();
     	 Runtime.getRuntime().addShutdownHook(new Hook(cronTask.getSched()));
     	
     	
@@ -122,6 +123,11 @@ public class BJBankStart {
 	 	logger.info("读取科目号 =" + glnum);
 		Const.glnum =glnum;
 		
+		
+		String matchPath = pro.getProperty("matchPath");
+		System.out.println("匹配库excel文件存放路径及名称 =" + matchPath);
+	 	logger.info("匹配库excel文件存放路径及名称 =" + matchPath);
+		Const.matchPath =glnum;
 		
 		System.out.println("===============工具启动成功======================");
 	 	 logger.info("===============工具启动成功======================");

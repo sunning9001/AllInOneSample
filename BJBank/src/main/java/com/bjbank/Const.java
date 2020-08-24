@@ -19,6 +19,7 @@ public class Const {
 	public static int fileChoose = 1;// 文件格式 1-excel 默认 2-text文件格式
 	
 	public static String glnum = "";// #科目号（GL_NUM）（五位数字）进行筛选，凡是匹配201-203开头的数据上传
+	public static String matchPath="";//匹配库excel文件存放路径及名称
 
 	public static enum fileChooseEnum {
 		excel(1),text(2);

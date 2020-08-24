@@ -7,6 +7,11 @@
 */
 package com.bjbank;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+
 /**
  *
  *   TODO: 描述这个类用来做什么事情TODO
@@ -18,16 +23,27 @@ package com.bjbank;
  */
 public class AccountMatchUtil {
 
+	public static Map<String, AccountMatch> map =new HashMap<String, AccountMatch>();
+	
+	public static void addAccountMatch(AccountMatch am) {
+		if(am!=null) {
+			map.put(am.getAccount(), am);
+		}
+	}
 	/**
 	 * 
 	 *
 	 * @TODO:     匹配一个账号库，匹配到的上传，匹配不到不上传。
 	 * @CreateTime:  2020年8月21日下午2:38:50 
 	 * @CreateAuthor: sunning
-	 * @param str
+	 * @param str     银行账号
 	 * @return
 	 */
 	public static boolean isMatchAccount(String str) {
+		if(str!=null) {
+			String account = StringUtils.trimToNull(str);
+		   return	map.containsKey(account);
+		}
 		return false;
 	}
 }
