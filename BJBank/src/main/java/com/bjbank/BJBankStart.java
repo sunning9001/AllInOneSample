@@ -122,6 +122,7 @@ public class BJBankStart {
 		System.out.println("读取科目号 =" + glnum);
 	 	logger.info("读取科目号 =" + glnum);
 		Const.glnum =glnum;
+		GLNumMatchUtil.setGlNum();
 		
 		
 		String matchPath = pro.getProperty("matchPath");

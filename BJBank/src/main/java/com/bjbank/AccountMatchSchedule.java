@@ -51,12 +51,11 @@ public class AccountMatchSchedule {
 
 		final Runnable beeper = new Runnable() {
 			public void run() {
-//                   readAccountMatchFile("F:\\MyGitHub\\AllInOneSample\\BJBanK\\匹配库.xlsx");
-                    readAccountMatchFile(Const.matchPath);
+                 readAccountMatchFile(Const.matchPath);
 				
 			}
 		};
-		final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 0, 10, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(beeper, 0, 10, TimeUnit.SECONDS);
 
 	}
 
@@ -82,6 +81,9 @@ public class AccountMatchSchedule {
 				// sheet number from 1, headLineMun from 0
 				EasyExcelFactory.readBySax(inputStream, new Sheet(1, 1, AccountMatch.class), excelListener);
 
+			}else {
+				System.out.println("读取匹配库文件"+filePath);
+				logger.debug("错误,未读取匹配库文件{}",filePath);
 			}
 		} catch (IOException e) {
 			System.out.println("读取excel文件发生错误,原因:" + e.getMessage());

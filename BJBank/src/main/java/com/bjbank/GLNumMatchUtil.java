@@ -30,9 +30,9 @@ public class GLNumMatchUtil {
 	private static Logger logger =LoggerFactory.getLogger(GLNumMatchUtil.class);
 	private static  Set<String> glNumSet =new HashSet<>(); 
 	
-	public static void setGlNumSet(String str) {
+	public static void setGlNum() {
 		if(Const.glnum!=null && Const.glnum!="") {
-			String[] array = StringUtils.split(StringUtils.trim(str), "|");
+			String[] array = StringUtils.split(StringUtils.trim(Const.glnum), "|");
 			
 			for (String string : array) {
 				 glNumSet.add(string);
@@ -63,13 +63,12 @@ public class GLNumMatchUtil {
 	}
 	
 	public static void main(String[] args) {
-		glNumSet.add("201asfdasfd");
-		glNumSet.add("202asfdas312331fd");
-		glNumSet.add("203asfdas312331fd");
-
+	
+		Const.glnum="201|202|203";
+		GLNumMatchUtil.setGlNum();
 		
-		System.out.println(isMatchGlNum("201"));
-		System.out.println(isMatchGlNum("202"));
-		System.out.println(isMatchGlNum("203"));
+		System.out.println(isMatchGlNum("201adsfafsd"));
+		System.out.println(isMatchGlNum("202sadfasfd"));
+		System.out.println(isMatchGlNum("203xczvasdf"));
 	}
 }

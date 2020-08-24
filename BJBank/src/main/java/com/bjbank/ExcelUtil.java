@@ -58,7 +58,17 @@ public class ExcelUtil {
 
 		JSONArray array = JSONArray.parseArray(JSONObject.toJSONString(result));
 
-		writeResultToExcel(list, CompanyAccount.class, array, "aaaa");
+		
+		
+//
+//		String json  ="{\"data\":[]}";
+//		JSONObject jsonObj = JSONObject.parseObject(json);
+//		
+//		 JSONArray array = jsonObj.getJSONArray("data");
+//		 
+//		 System.out.println(array.toJSONString());
+//		 System.out.println(array.size());
+        writeResultToExcel(list, CompanyAccount.class, array, "aaaa");
 	}
 
 	public static String getTimeDateStr() {
@@ -152,4 +162,6 @@ public class ExcelUtil {
 			// TODO: handle exception
 		}
 	}
+	
+	
 }
