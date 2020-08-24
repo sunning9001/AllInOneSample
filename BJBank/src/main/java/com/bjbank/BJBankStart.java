@@ -128,7 +128,7 @@ public class BJBankStart {
 		String matchPath = pro.getProperty("matchPath");
 		System.out.println("匹配库excel文件存放路径及名称 =" + matchPath);
 	 	logger.info("匹配库excel文件存放路径及名称 =" + matchPath);
-		Const.matchPath =glnum;
+		Const.matchPath =matchPath;
 		
 		System.out.println("===============工具启动成功======================");
 	 	 logger.info("===============工具启动成功======================");
