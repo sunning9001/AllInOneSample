@@ -284,15 +284,15 @@ public class TextUtil {
 					 if(AccountMatchUtil.isMatchAccount(account.getAccount())) {
 						 
 						 //判断销户时间
-						 
-						 if(!textAcc.isCloseDT()) {							 
-							 sendList.add(account);
-							 logger.info("send CompanyAccount :{}",account);
-							 
-							 //缓存银行账号 companyCode -bankNum
-							 acctAgtNumMap.put(companyCode, account);
+						 if(textAcc.isCloseDT()) {							 
+							 account.setAccountStatus("3");//3已注销
 						 }
 						 
+						 sendList.add(account);
+						 logger.info("send CompanyAccount :{}",account);
+						 
+						 //缓存银行账号 companyCode -bankNum
+						 acctAgtNumMap.put(companyCode, account);
 					 }
 				 }
 			} else {
