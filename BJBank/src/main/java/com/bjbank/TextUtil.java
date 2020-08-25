@@ -283,11 +283,16 @@ public class TextUtil {
 				 if(GLNumMatchUtil.isMatchGlNum(textAcc.getGL_NUM())) {
 					 if(AccountMatchUtil.isMatchAccount(account.getAccount())) {
 						 
-						 sendList.add(account);
-						 logger.info("send CompanyAccount :{}",account);
+						 //判断销户时间
 						 
-						 //缓存银行账号 companyCode -bankNum
-						 acctAgtNumMap.put(companyCode, account);
+						 if(!textAcc.isCloseDT()) {							 
+							 sendList.add(account);
+							 logger.info("send CompanyAccount :{}",account);
+							 
+							 //缓存银行账号 companyCode -bankNum
+							 acctAgtNumMap.put(companyCode, account);
+						 }
+						 
 					 }
 				 }
 			} else {
