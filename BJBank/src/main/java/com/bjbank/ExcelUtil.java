@@ -147,7 +147,12 @@ public class ExcelUtil {
 			// 这里 需要指定写用哪个class去写
 			ExcelWriter excelWriter = null;
 			try {
-				excelWriter = EasyExcel.write(writeFileName, CompanyAccount.class).build();
+				if(clazz.equals(CompanyAccount.class)) {
+					excelWriter = EasyExcel.write(writeFileName, CompanyAccount.class).build();
+				}else {
+					excelWriter = EasyExcel.write(writeFileName, CompanyTransaction.class).build();
+				}
+				
 				WriteSheet writeSheet = EasyExcel.writerSheet("结果明细").build();
 				excelWriter.write(list, writeSheet);
 			} catch (Exception e) {
@@ -159,7 +164,7 @@ public class ExcelUtil {
 				}
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			logger.debug("writeResultToExcel Exception:{}",e.getMessage());
 		}
 	}
 	

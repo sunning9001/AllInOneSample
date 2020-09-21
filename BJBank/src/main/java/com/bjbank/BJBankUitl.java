@@ -96,11 +96,11 @@ public class BJBankUitl {
 			  String result = response.body().string();
 				logger.info("updateTransaction result:{}",result);
 			 JSONObject rJsonObj = JSONObject.parseObject(result);
-			 String msg = (String)rJsonObj.get(Const.msg);
+			 String msg = rJsonObj.getString(Const.msg);
 			 System.out.println("更新【银行交易流水 】结果: " + msg);
 			 
 			 //处理返回结果
-			 String status = (String)rJsonObj.get(Const.status);
+			 String status =rJsonObj.getString(Const.status);
 			 //全部成功
 			 if(status!=null  && status.equals("200")) {
 				 ExcelUtil.writeResultToExcel(list, CompanyTransaction.class, null, "上报银行交易流水结果明细");
@@ -137,15 +137,15 @@ public class BJBankUitl {
 			 String result = response.body().string();
 			 logger.info("updateCompanyAccount result:{}",result);
 			 JSONObject rJsonObj = JSONObject.parseObject(result);
-			 String msg = (String)rJsonObj.get(Const.msg);
+			 String msg = rJsonObj.getString(Const.msg);
 			 System.out.println("更新【平台银行账户】 结果: " + msg);
-			 String status = (String)rJsonObj.get(Const.status);
+			 String status = rJsonObj.getString(Const.status);
 			 //全部成功
 			 if(status!=null  && status.equals("200")) {
-				 ExcelUtil.writeResultToExcel(list, CompanyTransaction.class, null, "上报银行账户结果明细");
+				 ExcelUtil.writeResultToExcel(list, CompanyAccount.class, null, "上报银行账户结果明细");
 			 }else {
 				 JSONArray jsonArray = rJsonObj.getJSONArray("data") ;
-				 ExcelUtil.writeResultToExcel(list, CompanyTransaction.class, jsonArray, "上报银行账户结果明细");
+				 ExcelUtil.writeResultToExcel(list, CompanyAccount.class, jsonArray, "上报银行账户结果明细");
 			 }
 			 
 		} catch (Exception e) {

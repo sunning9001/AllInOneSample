@@ -279,21 +279,31 @@ public class TextUtil {
 				} catch (Exception e2) {
 					logger.error("updateCompanyAccountByText TextCustAcct mapping to CompanyAccount error, exception={}  TextCustAcct={}");
 				}
+				 //判断销户时间
+				 if(textAcc.isCloseDT()) {							 
+					 account.setAccountStatus("3");//3已注销
+				 }
+				 
+				 
 				 //V3.0 修改逻辑,匹配科目号和 账号库
 				 if(GLNumMatchUtil.isMatchGlNum(textAcc.getGL_NUM())) {
+					 
+						
+						 sendList.add(account);
+						 logger.info("send CompanyAccount :{}",account);
+						 
+						 //缓存银行账号 companyCode -bankNum
+						 acctAgtNumMap.put(companyCode, account);
+					
+				 }else {
 					 if(AccountMatchUtil.isMatchAccount(account.getAccount())) {
-						 
-						 //判断销户时间
-						 if(textAcc.isCloseDT()) {							 
-							 account.setAccountStatus("3");//3已注销
-						 }
-						 
 						 sendList.add(account);
 						 logger.info("send CompanyAccount :{}",account);
 						 
 						 //缓存银行账号 companyCode -bankNum
 						 acctAgtNumMap.put(companyCode, account);
 					 }
+					 	 
 				 }
 			} else {
 				logger.info(" can not  find  company  account org key ={}  companycode ={}", searchKey, companyCode);
@@ -319,6 +329,9 @@ public class TextUtil {
 		}
 		if(BELONG_ORG_NUM.equalsIgnoreCase("IOODSZ6037278")) {
 			return "北京银行股份有限公司无锡分行营业部";
+		}
+		if(BELONG_ORG_NUM.equalsIgnoreCase("IOODSZ6037386")) {
+			return "北京银行股份有限公司江阴支行";
 		}
 		return null;
 	}
