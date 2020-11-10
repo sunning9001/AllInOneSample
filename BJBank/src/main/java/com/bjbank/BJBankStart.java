@@ -33,6 +33,10 @@ public class BJBankStart {
 		
 		 AccountMatchSchedule.scheduleStart();
     	 Runtime.getRuntime().addShutdownHook(new Hook(cronTask.getSched()));
+    	 
+    	 
+    	 ExcludeAccountSchedule.scheduleStart();
+    	 Runtime.getRuntime().addShutdownHook(new Hook(cronTask.getSched()));
     	
     	
     }
@@ -129,6 +133,11 @@ public class BJBankStart {
 		System.out.println("匹配库excel文件存放路径及名称 =" + matchPath);
 	 	logger.info("匹配库excel文件存放路径及名称 =" + matchPath);
 		Const.matchPath =matchPath;
+		
+		String excludePath = pro.getProperty("excludePath");
+		System.out.println("排除库excel文件存放路径及名称 =" + excludePath);
+	 	logger.info("排除库excel文件存放路径及名称 =" + excludePath);
+		Const.excludePath =excludePath;
 		
 		System.out.println("===============工具启动成功======================");
 	 	 logger.info("===============工具启动成功======================");

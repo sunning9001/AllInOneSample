@@ -284,17 +284,22 @@ public class TextUtil {
 					 account.setAccountStatus("3");//3已注销
 				 }
 				 
+				 //排除库都不上传  v4.0
+				 if(ExcludeAccountUtil.isMatchAccount(account.getAccount())) {
+					continue; 
+				 }
+
 				 
 				 //V3.0 修改逻辑,匹配科目号和 账号库
 				 if(GLNumMatchUtil.isMatchGlNum(textAcc.getGL_NUM())) {
 					 
-						
-						 sendList.add(account);
-						 logger.info("send CompanyAccount :{}",account);
-						 
-						 //缓存银行账号 companyCode -bankNum
-						 acctAgtNumMap.put(companyCode, account);
-					
+					 
+					 sendList.add(account);
+					 logger.info("send CompanyAccount :{}",account);
+					 
+					 //缓存银行账号 companyCode -bankNum
+					 acctAgtNumMap.put(companyCode, account);
+					 
 				 }else {
 					 if(AccountMatchUtil.isMatchAccount(account.getAccount())) {
 						 sendList.add(account);
@@ -303,8 +308,10 @@ public class TextUtil {
 						 //缓存银行账号 companyCode -bankNum
 						 acctAgtNumMap.put(companyCode, account);
 					 }
-					 	 
+					 
 				 }
+		 
+				 
 			} else {
 				logger.info(" can not  find  company  account org key ={}  companycode ={}", searchKey, companyCode);
 			}
